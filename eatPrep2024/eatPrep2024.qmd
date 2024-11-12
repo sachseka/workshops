@@ -1,0 +1,156 @@
+---
+title: "eatPrep"
+subtitle: "IQB-internes R-Paket zur Aufbereitung von \"Papier\"-Kompetenzdaten"
+author: "Karoline Sachse"
+date: "2024-11-19"
+title-slide-attributes:
+  data-background-image: eatPrep.png
+  data-background-size: 15%
+  data-background-repeat: no-repeat
+  data-background-position: 95% 5%
+bibliography: alle.bib
+csl: apa.csl
+format: 
+  revealjs:
+    logo: eatPrep.png
+    toc: false
+    theme: default
+    css: styles.css
+    slide-number: true
+    show-slide-number: all        
+editor: source
+execute:
+  echo: true
+---
+
+## Agenda {.smaller}
+
+1.  Das Paket eatPrep
+    a)  Fokus
+    b)  Features
+    c)  Installation
+2.  Daten-Strukturen von "Papier-Kompetenzdaten" am IQB
+3.  Praktisch angewendet
+    a)  Rater-Funktionen und der KA3-Datensatz
+    b)  Meta-Daten aus der Datenbank (IQB-ItemDB) holen
+    c)  Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung
+    d)  weitere Funktionen
+4.  Übung
+5.  Ausblick
+
+# 1. Fokus, Features und Installation
+
+## Was ist "Papier-Kompetenzdatenaufbereitung"? {.smaller}
+
+**Papier-Tests**
+
+Schülerinnen und Schüler...
+
+-   erhalten gedruckte Testbögen,
+-   füllen diese aus und
+-   werden dabei von speziell geschulten Testleiter:innen beaufsichtigt.
+
+Die Ergebnisse werden später zentral gesammelt.
+
+::: footer
+1a. eatPrep: Fokus
+:::
+
+## Was ist "Papier-Kompetenzdatenaufbereitung"? {.smaller}
+
+**Aufbereitung der Kompetenzdaten**
+
+Die ausgefüllten Bögen werden
+
+-   **eingescannt** (idR durch Datenpartner)
+-   bei Multiple-Choice-Fragen oder Ankreuzaufgaben wird häufig ein optisches Scannersystem verwendet, das die markierten **automatisch** Felder erkennt und direkt in eine digitale Datenbank überträgt (idR durch Datenpartner)
+-   (teil-) offene Antworten werden durch geschulte **Kodierer:innen** bewertet (teils am Haus, teils durch Datenpartner)
+
+Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs mit solchen Daten.
+
+::: footer
+1a. eatPrep: Fokus
+:::
+
+## Primäres Ziel von eatPrep
+
+-   Aufbereitung von Kompetenztestdaten für IRT-Analysen unter Verwendung von Meta-Informationen (z.B. aus der IQB-ItemDB)
+-   Optimiert für die Aufbereitung von IQB-Kompetenzdaten, aber nicht nur für diese verwendbar
+
+::: footer
+1a. eatPrep: Fokus
+:::
+
+## Features von eatPrep
+
+-   Automatisierung der Aufbereitungs-Arbeitsschritte
+-   Vielfältige Prüfungen, Plausibilitätschecks und Diagnostik
+-   Behandlung vieler verschiedener Missingtypen, wenn gewünscht Beibehaltung bis zum Schluss (inkl. Missing-not-reached-Berechnung)
+-   Weitere Tools (Kategorientrennschärfen, Raterfunktionen, teil-manuelles Datencleaning, …)
+
+::: footer
+1b. eatPrep: Features
+:::
+
+## Installation von eatPrep
+
+-   eatPrep liegt auf der Entwicklerplattform GitHub
+-   R-Pakete kann man von GitHub z.B. über das R-Paket "remotes" installieren. Sofern es nicht vorhanden ist, kann es mit...
+
+```{r remotes}
+# install.packages("remotes")
+
+```
+
+...installiert werden. eatPrep kann anschließend mit folgender Befehlszeile installiert werden:
+
+```{r eatprep}
+# remotes::install_github("sachseka/eatPrep")
+library(eatPrep)
+```
+
+::: footer
+1c. eatPrep: Installation
+:::
+
+# 2. Daten-Strukturen von Kompetenzdaten am IQB
+
+## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
+
+  ![](eatPrep2024_files/pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
+
+::: footer
+2.  Datenstrukturen
+:::
+
+## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
+
+  ![](eatPrep2024_files/pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
+
+::: footer
+2.  Datenstrukturen
+:::
+
+
+
+## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
+
+<div style="margin-top: -30px;">
+  ![](eatPrep2024_files/pics/structure.jpg){fig-width="60%" fig-align="center"}
+</div>
+
+::: footer
+2.  Datenstrukturen
+:::
+
+<!-- ## Vorstellungsrunde -->
+
+<!-- 30 Sekunden pro Person: -->
+
+<!-- -   Name -->
+
+<!-- -   Projekt -->
+
+<!-- -   Habt ihr schon mal selbst Kompetenzdaten (Papier) aufbereitet? -->
+
+<!-- -   Wenn ja, händisch oder mit eatPrep? -->
