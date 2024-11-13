@@ -8,7 +8,7 @@
 <link href="eatPrep2024_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.57">
+  <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Karoline Sachse">
   <meta name="dcterms.date" content="2024-11-19">
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.cf { color: #003b4f; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.kw { color: #003b4f; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -422,9 +422,9 @@ Karoline Sachse
 </ol></li>
 <li><p>Praktisch angewendet</p>
 <ol type="a">
-<li>Rater-Funktionen und der KA3-Datensatz</li>
-<li>Meta-Daten aus der Datenbank (IQB-ItemDB) holen</li>
 <li>Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung</li>
+<li>Meta-Daten aus der Datenbank (IQB-ItemDB) holen</li>
+<li>Rater-Funktionen und der KA3-Datensatz</li>
 <li>weitere Funktionen</li>
 </ol></li>
 <li><p>Übung</p></li>
@@ -459,7 +459,7 @@ Karoline Sachse
 <li>bei Multiple-Choice-Fragen oder Ankreuzaufgaben wird häufig ein optisches Scannersystem verwendet, das die markierten <strong>automatisch</strong> Felder erkennt und direkt in eine digitale Datenbank überträgt (idR durch Datenpartner)</li>
 <li>(teil-) offene Antworten werden durch geschulte <strong>Kodierer:innen</strong> bewertet (teils am Haus, teils durch Datenpartner)</li>
 </ul>
-<p>Ansatzpunkt für <strong>eatPrep</strong>: Standardisierung und Automatisierung des Umgangs mit solchen Daten.</p>
+<p>Ansatzpunkt für <strong>eatPrep</strong>: Standardisierung und Automatisierung des Umgangs mit solchen Daten, die vom Subkontraktor zumeist im SPSS- (.sav) Format übergeben werden.</p>
 <div class="footer">
 <p>1a. eatPrep: Fokus</p>
 </div>
@@ -523,6 +523,64 @@ Karoline Sachse
 <p>2a. Subitems in Items in Aufgaben</p>
 </div>
 </section>
+<section id="fehlende-werte" class="slide level2 smaller">
+<h2>Fehlende Werte</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 20%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Code</th>
+<th style="text-align: left;">Abbr</th>
+<th style="text-align: left;">Label</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">-98</td>
+<td style="text-align: left;">mir</td>
+<td style="text-align: left;">missing invalid response</td>
+<td style="text-align: left;">(1) Item was edited, and (2a) empty answer or (2b) invalid (joke) answer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-99</td>
+<td style="text-align: left;">mbo/mbi</td>
+<td style="text-align: left;">missing by omission/intention</td>
+<td style="text-align: left;">Item wasn’t edited but seen, or wasn’t seen, but there are seen or edited subsequent Items.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-96</td>
+<td style="text-align: left;">mnr</td>
+<td style="text-align: left;">missing not reached</td>
+<td style="text-align: left;">(1) Item wasn’t seen, and (2) all subsequent Items weren’t seen, either.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-97</td>
+<td style="text-align: left;">mci</td>
+<td style="text-align: left;">missing coding impossible</td>
+<td style="text-align: left;">(1) Item should/could have been edited, and (2) answer can’t be analysed due to technical problems.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-94</td>
+<td style="text-align: left;">mbd</td>
+<td style="text-align: left;">missing by design</td>
+<td style="text-align: left;">no answer, because Item wasn’t shown to the testperson by design.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="footer">
+<p>2a. Subitems in Items in Aufgaben</p>
+</div>
+</section>
 <section id="subitems-items-aufgaben-blöcke-und-testhefte" class="slide level2 smaller">
 <h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
 <div style="margin-top: -30px;">
@@ -546,11 +604,13 @@ Karoline Sachse
 <section id="subitems-items-aufgaben-blöcke-und-testhefte-1" class="slide level2 smaller">
 <h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
 <ul>
-<li><p>Subitems (subunits): werden zu Items aggregiert</p></li>
-<li><p>Items (units): (meist) die am Ende interessierende Analyseeinheit</p></li>
-<li><p>Aufgaben (tasks): beinhalten Items</p></li>
-<li><p>Blöcke (blocks/clusters): bestehen aus Aufgaben</p></li>
 <li><p>Testhefte (booklets): bestehen aus Blöcken</p></li>
+<li><p>Blöcke (blocks/cluster): bestehen aus Aufgaben</p></li>
+<li><p>Aufgaben (tasks): beinhalten Items (i.d.R. zu einem gemeinsamen Stimulus/Testlet)</p></li>
+<li><p><strong>Item</strong>s (units): (meist) die am Ende interessierende Analyseeinheit</p></li>
+<li><p>Subitems (subunits): werden zu Items aggregiert</p></li>
+<li><p>Werte (values): Ausprägungen, die eine Person auf einem (Sub-)Item annehmen kann</p></li>
+<li><p>Scores (valueRecodes): Eine Abbildung der ursprünglichen Werte (Values) auf eine kleinere Anzahl von Kategorien (i.d.R. mindestens Richtig/Falsch/Fehlend, also 1/0/NA), die besser für eine IRT-Skalierung geeignet sind</p></li>
 </ul>
 <div class="footer">
 <p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
@@ -566,23 +626,53 @@ Karoline Sachse
 <p>2b. Metadaten-Struktur in eatPrep</p>
 </div>
 </section>
-<section id="repräsentation-der-datenstrukturen-in-eatprep-1" class="slide level2 smaller">
-<h2>Repräsentation der Datenstrukturen in eatPrep</h2>
-<div style="margin-top: -45px;">
+<section id="repräsentation-der-datenstrukturen-in-eatprep-inputlisten-plätze-1-4" class="slide level2 smaller">
+<h2>Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 1-4</h2>
+<div style="margin-top: -10px; text-align: center;">
+<p><img data-src="pics/inputList3.jpg" data-fig-width="85%"></p>
+</div>
+</section>
+<section id="repräsentation-der-datenstrukturen-in-eatprep-inputlisten-plätze-5-7" class="slide level2 smaller">
+<h2>Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 5-7</h2>
+<div style="margin-top: 50px; text-align: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="pics/inputList3.jpg" class="quarto-figure quarto-figure-center" data-fig-width="59%"></p>
+<p><img data-src="pics/il567.jpg" class="quarto-figure quarto-figure-center" width="500"></p>
 </figure>
+</div>
 </div>
 <div class="footer">
 <p>2b. Metadaten-Struktur in eatPrep</p>
 </div>
-<!-- ## Vorstellungsrunde -->
-<!-- 30 Sekunden pro Person: -->
-<!-- -   Name -->
-<!-- -   Projekt -->
-<!-- -   Habt ihr schon mal selbst Kompetenzdaten (Papier) aufbereitet? -->
-<!-- -   Wenn ja, händisch oder mit eatPrep? -->
+</section>
+<section id="repräsentation-der-datenstrukturen-in-eatprep-inputlisten-plätze-8-10" class="slide level2 smaller">
+<h2>Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 8-10</h2>
+<div style="margin-top: 20px; text-align: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="pics/il8910.jpg" class="quarto-figure quarto-figure-center" width="800"></p>
+</figure>
+</div>
+</div>
+<div class="footer">
+<p>2b. Metadaten-Struktur in eatPrep</p>
+</div>
+</section></section>
+<section>
+<section id="funktionen-in-eatprep" class="title-slide slide level1 center">
+<h1>Funktionen in eatPrep</h1>
+
+</section>
+<section id="meta-daten-einlesen" class="slide level2">
+<h2>(Meta-)Daten einlesen</h2>
+<p><a href="https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html"><code>readDaemonXlsx()</code></a> - Einlesen der inputListe, die mithilfe des EDV-Tools “ZKDaemon” erzeugt wurde.</p>
+<p><span style="font-size: 0.3em; line-height: 1.2;">(Dieses liegt unter “i:\EDV\IQB-Apps\ZKDaemon\ZKDaemon.application”. Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier: i:\Methoden\02_IQB-interne_eat_Workshops\eatPrep_2021\eatPrep_2021-06-18.pdf)</span></p>
+<div class="small-text-compact">
+<p>This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.</p>
+</div>
+<p>readDaemonXlsx readMerkmalXlsx readSpss</p>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
 </div>
 <div class="quarto-auto-generated-content">
 <p><img src="eatPrep.png" class="slide-logo"></p>
@@ -909,7 +999,18 @@ Karoline Sachse
         }
         return false;
       }
-      const onCopySuccess = function(e) {
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -941,29 +1042,7 @@ Karoline Sachse
         }, 1000);
         // clear code selection
         e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
       });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -971,7 +1050,7 @@ Karoline Sachse
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

@@ -23,6 +23,14 @@ execute:
   echo: true
 ---
 
+```{r, include = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 ## Agenda {.smaller}
 
 1.  Das Paket eatPrep
@@ -39,9 +47,9 @@ execute:
 
 3.  Praktisch angewendet
 
-    a)  Rater-Funktionen und der KA3-Datensatz
+    a)  Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung
     b)  Meta-Daten aus der Datenbank (IQB-ItemDB) holen
-    c)  Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung
+    c)  Rater-Funktionen und der KA3-Datensatz
     d)  weitere Funktionen
 
 4.  Übung
@@ -76,7 +84,7 @@ Die ausgefüllten Bögen werden
 -   bei Multiple-Choice-Fragen oder Ankreuzaufgaben wird häufig ein optisches Scannersystem verwendet, das die markierten **automatisch** Felder erkennt und direkt in eine digitale Datenbank überträgt (idR durch Datenpartner)
 -   (teil-) offene Antworten werden durch geschulte **Kodierer:innen** bewertet (teils am Haus, teils durch Datenpartner)
 
-Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs mit solchen Daten.
+Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs mit solchen Daten, die vom Subkontraktor zumeist im SPSS- (.sav) Format übergeben werden.
 
 ::: footer
 1a. eatPrep: Fokus
@@ -141,6 +149,29 @@ library(eatPrep)
 2a. Subitems in Items in Aufgaben
 :::
 
+## Fehlende Werte {.smaller}
+
+```{r missing types, echo=FALSE}
+mir98 <- c(-98, "mir", "missing invalid response",
+           "(1) Item was edited, and (2a) empty answer or (2b) invalid (joke) answer.")
+mbo99 <- c(-99, "mbo/mbi", "missing by omission/intention",
+           "Item wasn't edited but seen, or wasn't seen, but there are seen or edited subsequent Items.")
+mnr96 <- c(-96, "mnr", "missing not reached",
+           "(1) Item wasn't seen, and (2) all subsequent Items weren't seen, either.")
+mci97 <- c(-97, "mci", "missing coding impossible",
+           "(1) Item should/could have been edited, and (2) answer can't be analysed due to technical problems.")
+mbd94 <- c(-94, "mbd", "missing by design",
+           "no answer, because Item wasn't shown to the testperson by design.")
+Mtypes <- rbind.data.frame(mir98, mbo99, mnr96, mci97, mbd94)
+names(Mtypes) <- c("Code", "Abbr", "Label", "Explanation")
+
+kable(Mtypes)
+```
+
+::: footer
+2a. Subitems in Items in Aufgaben
+:::
+
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
 ::: {style="margin-top: -30px;"}
@@ -161,15 +192,19 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
+-   Testhefte (booklets): bestehen aus Blöcken
+
+-   Blöcke (blocks/cluster): bestehen aus Aufgaben
+
+-   Aufgaben (tasks): beinhalten Items (i.d.R. zu einem gemeinsamen Stimulus/Testlet)
+
+-   **Item**s (units): (meist) die am Ende interessierende Analyseeinheit
+
 -   Subitems (subunits): werden zu Items aggregiert
 
--   Items (units): (meist) die am Ende interessierende Analyseeinheit
+-   Werte (values): Ausprägungen, die eine Person auf einem (Sub-)Item annehmen kann
 
--   Aufgaben (tasks): beinhalten Items
-
--   Blöcke (blocks/clusters): bestehen aus Aufgaben
-
--   Testhefte (booklets): bestehen aus Blöcken
+-   Scores (valueRecodes): Eine Abbildung der ursprünglichen Werte (Values) auf eine kleinere Anzahl von Kategorien (i.d.R. mindestens Richtig/Falsch/Fehlend, also 1/0/NA), die besser für eine IRT-Skalierung geeignet sind
 
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
@@ -185,24 +220,46 @@ library(eatPrep)
 2b. Metadaten-Struktur in eatPrep
 :::
 
-## Repräsentation der Datenstrukturen in eatPrep {.smaller}
+## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 1-4 {.smaller}
 
-:::: {style="margin-top: -45px;"}
-![](pics/inputList3.jpg){fig-width="59%" fig-align="center"}
+::: {style="margin-top: -10px; text-align: center;"}
+![](pics/inputList3.jpg){fig-width="85%"}
+:::
+
+## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 5-7 {.smaller}
+
+::: {style="margin-top: 50px; text-align: center;"}
+![](pics/il567.jpg){fig-align="center" width="500"}
+:::
 
 ::: footer
 2b. Metadaten-Struktur in eatPrep
 :::
 
-<!-- ## Vorstellungsrunde -->
+## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 8-10 {.smaller}
 
-<!-- 30 Sekunden pro Person: -->
+::: {style="margin-top: 20px; text-align: center;"}
+![](pics/il8910.jpg){fig-align="center" width="800"}
+:::
 
-<!-- -   Name -->
+::: footer
+2b. Metadaten-Struktur in eatPrep
+:::
 
-<!-- -   Projekt -->
+# Funktionen in eatPrep
 
-<!-- -   Habt ihr schon mal selbst Kompetenzdaten (Papier) aufbereitet? -->
+## (Meta-)Daten einlesen
 
-<!-- -   Wenn ja, händisch oder mit eatPrep? -->
-::::
+[`readDaemonXlsx()`](https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html) - Einlesen der inputListe, die mithilfe des EDV-Tools "ZKDaemon" erzeugt wurde.
+::: {.small-text-compact}
+(Dieses liegt unter "i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application". Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier: i:\\Methoden\\02_IQB-interne_eat_Workshops\\eatPrep_2021\\eatPrep_2021-06-18.pdf)
+:::
+
+
+
+
+readDaemonXlsx readMerkmalXlsx readSpss
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::

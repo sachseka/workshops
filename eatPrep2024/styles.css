@@ -43,3 +43,7 @@ h2 {
 img + img {
   margin-left: 200px !important;
 }
+.small-text-compact {
+  font-size: 0.8em;
+  line-height: 1.2;
+}
