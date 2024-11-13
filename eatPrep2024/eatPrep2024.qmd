@@ -133,12 +133,12 @@ library(eatPrep)
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
 
-## Subitems, Items, Aufgaben und Werte und Codes {.smaller}
+## Subitems, Items, Aufgaben und Values und Scores {.smaller}
 
 ![](pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
-2a. Subitems in Items in Aufgaben {.smaller}
+2a. Subitems in Items in Aufgaben
 :::
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
@@ -161,21 +161,38 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
--   Subitems: werden zu Items aggregiert
+-   Subitems (subunits): werden zu Items aggregiert
 
--   Items: (meist) die am Ende interessierende Analyseeinheit
+-   Items (units): (meist) die am Ende interessierende Analyseeinheit
 
--   Aufgaben: beinhalten Items
+-   Aufgaben (tasks): beinhalten Items
 
--   Blöcke: bestehen aus Aufgaben
+-   Blöcke (blocks/clusters): bestehen aus Aufgaben
 
--   Testhefte: bestehen aus Blöcken
+-   Testhefte (booklets): bestehen aus Blöcken
 
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
 
+## Repräsentation der Datenstrukturen in eatPrep {.smaller}
 
+-   eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen
+
+-   analog einfacher relationaler Meta-Daten-Datenbank
+
+::: footer
+2b. Metadaten-Struktur in eatPrep
+:::
+
+## Repräsentation der Datenstrukturen in eatPrep {.smaller}
+
+:::: {style="margin-top: -45px;"}
+![](pics/inputList3.jpg){fig-width="59%" fig-align="center"}
+
+::: footer
+2b. Metadaten-Struktur in eatPrep
+:::
 
 <!-- ## Vorstellungsrunde -->
 
@@ -188,3 +205,4 @@ library(eatPrep)
 <!-- -   Habt ihr schon mal selbst Kompetenzdaten (Papier) aufbereitet? -->
 
 <!-- -   Wenn ja, händisch oder mit eatPrep? -->
+::::
