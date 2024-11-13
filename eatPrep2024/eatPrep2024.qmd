@@ -26,16 +26,26 @@ execute:
 ## Agenda {.smaller}
 
 1.  Das Paket eatPrep
+
     a)  Fokus
     b)  Features
     c)  Installation
-2.  Daten-Strukturen von "Papier-Kompetenzdaten" am IQB
+
+2.  Datenstrukturen
+
+    a.  ...von "Papier-Kompetenzdaten" am IQB
+
+    b.  Repräsentation dieser Strukturen in eatPrep
+
 3.  Praktisch angewendet
+
     a)  Rater-Funktionen und der KA3-Datensatz
     b)  Meta-Daten aus der Datenbank (IQB-ItemDB) holen
     c)  Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung
     d)  weitere Funktionen
+
 4.  Übung
+
 5.  Ausblick
 
 # 1. Fokus, Features und Installation
@@ -72,7 +82,7 @@ Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs m
 1a. eatPrep: Fokus
 :::
 
-## Primäres Ziel von eatPrep
+## Primäres Ziel von eatPrep {.smaller}
 
 -   Aufbereitung von Kompetenztestdaten für IRT-Analysen unter Verwendung von Meta-Informationen (z.B. aus der IQB-ItemDB)
 -   Optimiert für die Aufbereitung von IQB-Kompetenzdaten, aber nicht nur für diese verwendbar
@@ -81,18 +91,18 @@ Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs m
 1a. eatPrep: Fokus
 :::
 
-## Features von eatPrep
+## Features
 
--   Automatisierung der Aufbereitungs-Arbeitsschritte
--   Vielfältige Prüfungen, Plausibilitätschecks und Diagnostik
--   Behandlung vieler verschiedener Missingtypen, wenn gewünscht Beibehaltung bis zum Schluss (inkl. Missing-not-reached-Berechnung)
--   Weitere Tools (Kategorientrennschärfen, Raterfunktionen, teil-manuelles Datencleaning, …)
+-   **Automatisierung** der Aufbereitungs-Arbeitsschritte
+-   Vielfältige **Prüfungen**, Plausibilitätschecks und Diagnostik
+-   Behandlung vieler verschiedener **Missingtypen**, wenn gewünscht Beibehaltung bis zum Schluss (inkl. Missing-not-reached-Berechnung)
+-   Weitere **Tools** (Kategorientrennschärfen, Raterfunktionen, teil-manuelles Datencleaning, Exportfunktionen…)
 
 ::: footer
 1b. eatPrep: Features
 :::
 
-## Installation von eatPrep
+## Installation
 
 -   eatPrep liegt auf der Entwicklerplattform GitHub
 -   R-Pakete kann man von GitHub z.B. über das R-Paket "remotes" installieren. Sofern es nicht vorhanden ist, kann es mit...
@@ -115,33 +125,57 @@ library(eatPrep)
 
 # 2. Daten-Strukturen von Kompetenzdaten am IQB
 
-## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
+## Subitems, Items, Aufgaben {.smaller}
 
-  ![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
+![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
-2.  Datenstrukturen
+2a. Strukturen von Papier-Kompetenzdaten am IQB
+:::
+
+## Subitems, Items, Aufgaben und Werte und Codes {.smaller}
+
+![](pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
+
+::: footer
+2a. Subitems in Items in Aufgaben {.smaller}
 :::
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
-  ![](pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
-
-::: footer
-2.  Datenstrukturen
+::: {style="margin-top: -30px;"}
+![](pics/structure.jpg){fig-width="60%" fig-align="center"}
 :::
 
+::: footer
+2a. Strukturen von Papier-Kompetenzdaten am IQB
+:::
 
+## Aufgaben in Blöcken und Blöcke in Testheften {.smaller}
+
+<img src="pics/ainb.jpg"/> <img src="pics/bint.jpg"/>
+
+::: footer
+2a. Strukturen von Papier-Kompetenzdaten am IQB
+:::
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
-<div style="margin-top: -30px;">
-  ![](pics/structure.jpg){fig-width="60%" fig-align="center"}
-</div>
+-   Subitems: werden zu Items aggregiert
+
+-   Items: (meist) die am Ende interessierende Analyseeinheit
+
+-   Aufgaben: beinhalten Items
+
+-   Blöcke: bestehen aus Aufgaben
+
+-   Testhefte: bestehen aus Blöcken
 
 ::: footer
-2.  Datenstrukturen
+2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
+
+
 
 <!-- ## Vorstellungsrunde -->
 

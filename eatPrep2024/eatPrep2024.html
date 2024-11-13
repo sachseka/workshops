@@ -409,22 +409,26 @@ Karoline Sachse
 <section id="agenda" class="slide level2 smaller">
 <h2>Agenda</h2>
 <ol type="1">
-<li>Das Paket eatPrep
+<li><p>Das Paket eatPrep</p>
 <ol type="a">
 <li>Fokus</li>
 <li>Features</li>
 <li>Installation</li>
 </ol></li>
-<li>Daten-Strukturen von “Papier-Kompetenzdaten” am IQB</li>
-<li>Praktisch angewendet
+<li><p>Datenstrukturen</p>
+<ol type="a">
+<li><p>…von “Papier-Kompetenzdaten” am IQB</p></li>
+<li><p>Repräsentation dieser Strukturen in eatPrep</p></li>
+</ol></li>
+<li><p>Praktisch angewendet</p>
 <ol type="a">
 <li>Rater-Funktionen und der KA3-Datensatz</li>
 <li>Meta-Daten aus der Datenbank (IQB-ItemDB) holen</li>
 <li>Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung</li>
 <li>weitere Funktionen</li>
 </ol></li>
-<li>Übung</li>
-<li>Ausblick</li>
+<li><p>Übung</p></li>
+<li><p>Ausblick</p></li>
 </ol>
 </section>
 <section>
@@ -460,7 +464,7 @@ Karoline Sachse
 <p>1a. eatPrep: Fokus</p>
 </div>
 </section>
-<section id="primäres-ziel-von-eatprep" class="slide level2">
+<section id="primäres-ziel-von-eatprep" class="slide level2 smaller">
 <h2>Primäres Ziel von eatPrep</h2>
 <ul>
 <li>Aufbereitung von Kompetenztestdaten für IRT-Analysen unter Verwendung von Meta-Informationen (z.B. aus der IQB-ItemDB)</li>
@@ -470,20 +474,20 @@ Karoline Sachse
 <p>1a. eatPrep: Fokus</p>
 </div>
 </section>
-<section id="features-von-eatprep" class="slide level2">
-<h2>Features von eatPrep</h2>
+<section id="features" class="slide level2">
+<h2>Features</h2>
 <ul>
-<li>Automatisierung der Aufbereitungs-Arbeitsschritte</li>
-<li>Vielfältige Prüfungen, Plausibilitätschecks und Diagnostik</li>
-<li>Behandlung vieler verschiedener Missingtypen, wenn gewünscht Beibehaltung bis zum Schluss (inkl. Missing-not-reached-Berechnung)</li>
-<li>Weitere Tools (Kategorientrennschärfen, Raterfunktionen, teil-manuelles Datencleaning, …)</li>
+<li><strong>Automatisierung</strong> der Aufbereitungs-Arbeitsschritte</li>
+<li>Vielfältige <strong>Prüfungen</strong>, Plausibilitätschecks und Diagnostik</li>
+<li>Behandlung vieler verschiedener <strong>Missingtypen</strong>, wenn gewünscht Beibehaltung bis zum Schluss (inkl. Missing-not-reached-Berechnung)</li>
+<li>Weitere <strong>Tools</strong> (Kategorientrennschärfen, Raterfunktionen, teil-manuelles Datencleaning, Exportfunktionen…)</li>
 </ul>
 <div class="footer">
 <p>1b. eatPrep: Features</p>
 </div>
 </section>
-<section id="installation-von-eatprep" class="slide level2">
-<h2>Installation von eatPrep</h2>
+<section id="installation" class="slide level2">
+<h2>Installation</h2>
 <ul>
 <li>eatPrep liegt auf der Entwicklerplattform GitHub</li>
 <li>R-Pakete kann man von GitHub z.B. über das R-Paket “remotes” installieren. Sofern es nicht vorhanden ist, kann es mit…</li>
@@ -505,25 +509,21 @@ Karoline Sachse
 <h1>2. Daten-Strukturen von Kompetenzdaten am IQB</h1>
 
 </section>
-<section id="subitems-items-aufgaben-blöcke-und-testhefte" class="slide level2 smaller">
-<h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
+<section id="subitems-items-aufgaben" class="slide level2 smaller">
+<h2>Subitems, Items, Aufgaben</h2>
 
 <img data-src="pics/cyclehire4.jpg" class="quarto-figure quarto-figure-center r-stretch" data-fig-width="60%"><div class="footer">
-<ol start="2" type="1">
-<li>Datenstrukturen</li>
-</ol>
+<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
 </div>
 </section>
-<section id="subitems-items-aufgaben-blöcke-und-testhefte-1" class="slide level2 smaller">
-<h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
+<section id="subitems-items-aufgaben-und-werte-und-codes" class="slide level2 smaller">
+<h2>Subitems, Items, Aufgaben und Werte und Codes</h2>
 
 <img data-src="pics/cyclehire1.jpg" class="quarto-figure quarto-figure-center r-stretch" data-fig-width="60%"><div class="footer">
-<ol start="2" type="1">
-<li>Datenstrukturen</li>
-</ol>
+<p>2a. Subitems in Items in Aufgaben {.smaller}</p>
 </div>
 </section>
-<section id="subitems-items-aufgaben-blöcke-und-testhefte-2" class="slide level2 smaller">
+<section id="subitems-items-aufgaben-blöcke-und-testhefte" class="slide level2 smaller">
 <h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
 <div style="margin-top: -30px;">
 <div class="quarto-figure quarto-figure-center">
@@ -533,9 +533,27 @@ Karoline Sachse
 </div>
 </div>
 <div class="footer">
-<ol start="2" type="1">
-<li>Datenstrukturen</li>
-</ol>
+<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
+</div>
+</section>
+<section id="aufgaben-in-blöcken-und-blöcke-in-testheften" class="slide level2 smaller">
+<h2>Aufgaben in Blöcken und Blöcke in Testheften</h2>
+<p><img src="pics/ainb.jpg"> <img src="pics/bint.jpg"></p>
+<div class="footer">
+<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
+</div>
+</section>
+<section id="subitems-items-aufgaben-blöcke-und-testhefte-1" class="slide level2 smaller">
+<h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
+<ul>
+<li><p>Subitems: werden zu Items aggregiert</p></li>
+<li><p>Items: (meist) die am Ende interessierende Analyseeinheit</p></li>
+<li><p>Aufgaben: beinhalten Items</p></li>
+<li><p>Blöcke: bestehen aus Aufgaben</p></li>
+<li><p>Testhefte: bestehen aus Blöcken</p></li>
+</ul>
+<div class="footer">
+<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
 </div>
 <!-- ## Vorstellungsrunde -->
 <!-- 30 Sekunden pro Person: -->

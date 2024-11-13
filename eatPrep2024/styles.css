@@ -39,3 +39,7 @@ h2 {
 .reveal .slides > section:title-slide .slide-logo {
   display: none;
 }
+
+img + img {
+  margin-left: 200px !important;
+}
