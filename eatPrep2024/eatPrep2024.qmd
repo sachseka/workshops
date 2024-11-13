@@ -117,7 +117,7 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
-  ![](eatPrep2024_files/pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
+  ![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
 2.  Datenstrukturen
@@ -125,7 +125,7 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
-  ![](eatPrep2024_files/pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
+  ![](pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
 2.  Datenstrukturen
@@ -136,7 +136,7 @@ library(eatPrep)
 ## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
 
 <div style="margin-top: -30px;">
-  ![](eatPrep2024_files/pics/structure.jpg){fig-width="60%" fig-align="center"}
+  ![](pics/structure.jpg){fig-width="60%" fig-align="center"}
 </div>
 
 ::: footer
