@@ -763,7 +763,7 @@ Karoline Sachse
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb4-2"><a href=""></a>booklet1 <span class="ot">&lt;-</span> <span class="fu">readSpss</span>(filename)</span>
 <span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="r-output"><code>&gt;       idstud Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14
+<pre class="r-output"><code>&gt;           ID Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14
 &gt; 1 person_002    57      1      3       2       3        4       2       6
 &gt; 2 person_003    32      1      2       2       1        4       2       6
 &gt; 3 person_004    59      1      4       4       3        4       2       6
@@ -851,15 +851,6 @@ Karoline Sachse
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
 </div>
 </section>
-<section id="mergen-rekodieren-aggregieren-scoren" class="slide level2">
-<h2>Mergen, Rekodieren, Aggregieren, Scoren</h2>
-<p><a href="https://sachseka.github.io/eatPrep/reference/mergeData.html"><code>mergeData()</code></a> - Zusammenführen der Datensätze und Diagnostik zu Passung</p>
-<p><a href="https://sachseka.github.io/eatPrep/reference/recodeData.html"><code>recodeData()</code></a> - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe</p>
-<p><a href="https://sachseka.github.io/eatPrep/reference/checkDesign.html"><code>checkDesign()</code></a> - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen</p>
-<div class="footer">
-<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
-</div>
-</section>
 <section id="checken-rekodieren-aggregieren-scoren" class="slide level2">
 <h2>Checken, Rekodieren, Aggregieren, Scoren</h2>
 <p>inputListe checken:</p>
@@ -915,6 +906,33 @@ Karoline Sachse
 </code></pre>
 <pre class="r-output"><code>&gt; [1] FALSE
 </code></pre>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="mergen-rekodieren-aggregieren-scoren" class="slide level2">
+<h2>Mergen, Rekodieren, Aggregieren, Scoren</h2>
+<p><a href="https://sachseka.github.io/eatPrep/reference/mergeData.html"><code>mergeData()</code></a> - Zusammenführen der Datensätze und Diagnostik zu Passung</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/recodeData.html"><code>recodeData()</code></a> - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/aggregateData.html"><code>aggregateData()</code></a> - Subitems zu Items aggregieren</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/scoreData.html"><code>scoreData()</code></a> - ehemals aus Subitems bestehende Items rekodieren</p>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="wrapper-automatedatapreparation" class="slide level2">
+<h2>Wrapper <a href="https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html"><code>automateDataPreparation()</code></a></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Vorbereitung falls die Pfade für die SPSS-Dateien nicht in der InputListe eingetragen sind</span></span>
+<span id="cb7-2"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb7-3"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet2.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb7-4"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet3.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb7-5"><a href=""></a></span>
+<span id="cb7-6"><a href=""></a>preparedData <span class="ot">&lt;-</span> <span class="fu">automateDataPreparation</span>(<span class="at">inputList =</span> inputList,</span>
+<span id="cb7-7"><a href=""></a>    <span class="at">readSpss =</span> <span class="cn">TRUE</span>, <span class="at">checkData =</span> <span class="cn">TRUE</span>,  <span class="at">mergeData =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-8"><a href=""></a>    <span class="at">recodeData =</span> <span class="cn">TRUE</span>, <span class="at">aggregateData =</span> <span class="cn">FALSE</span>, <span class="at">scoreData =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-9"><a href=""></a>    <span class="at">writeSpss =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>

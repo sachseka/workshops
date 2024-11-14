@@ -360,22 +360,6 @@ head(merkmale)
 :::
 
 
-## Mergen, Rekodieren, Aggregieren, Scoren
-
-[`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - Zusammenführen der Datensätze und Diagnostik zu Passung
-
-[`recodeData()`](https://sachseka.github.io/eatPrep/reference/recodeData.html) - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe
-
-[`checkDesign()`](https://sachseka.github.io/eatPrep/reference/checkDesign.html) - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen
-
-
-::: footer
-3a. Praxis: Haupt-Funktionen in eatPrep
-:::
-
-
-
-
 
 ## Checken, Rekodieren, Aggregieren, Scoren
 
@@ -388,6 +372,48 @@ checkInputList(inputList)
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
+
+
+## Mergen, Rekodieren, Aggregieren, Scoren
+
+[`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - Zusammenführen der Datensätze und Diagnostik zu Passung
+
+[`recodeData()`](https://sachseka.github.io/eatPrep/reference/recodeData.html) - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe
+
+[`aggregateData()`](https://sachseka.github.io/eatPrep/reference/aggregateData.html) - Subitems zu Items aggregieren
+
+[`scoreData()`](https://sachseka.github.io/eatPrep/reference/scoreData.html) - ehemals aus Subitems bestehende Items rekodieren
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+
+
+## Wrapper [`automateDataPreparation()`](https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html)
+
+```{r prepDat}
+# Vorbereitung falls die Pfade für die SPSS-Dateien nicht in der InputListe eingetragen sind
+inputList$savFiles$fullname[1] <- system.file("extdata", "booklet1.sav", package = "eatPrep")
+inputList$savFiles$fullname[2] <- system.file("extdata", "booklet2.sav", package = "eatPrep")
+inputList$savFiles$fullname[3] <- system.file("extdata", "booklet3.sav", package = "eatPrep")
+
+preparedData <- automateDataPreparation(inputList = inputList,
+    readSpss = TRUE, checkData = TRUE,  mergeData = TRUE,
+    recodeData = TRUE, aggregateData = FALSE, scoreData = FALSE,
+    writeSpss = FALSE, verbose = TRUE)
+```
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+
+
+
+
 
 
 
