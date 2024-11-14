@@ -8,7 +8,7 @@
 <link href="eatPrep2024_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.555">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Karoline Sachse">
   <meta name="dcterms.date" content="2024-11-19">
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -408,6 +408,7 @@ Karoline Sachse
 </section>
 <section id="agenda" class="slide level2 smaller">
 <h2>Agenda</h2>
+<div style="margin-top: -30px;">
 <ol type="1">
 <li><p>Das Paket eatPrep</p>
 <ol type="a">
@@ -428,8 +429,8 @@ Karoline Sachse
 <li>weitere Funktionen</li>
 </ol></li>
 <li><p>Übung</p></li>
-<li><p>Ausblick</p></li>
 </ol>
+</div>
 </section>
 <section>
 <section id="fokus-features-und-installation" class="title-slide slide level1 center">
@@ -493,11 +494,11 @@ Karoline Sachse
 <li>R-Pakete kann man von GitHub z.B. über das R-Paket “remotes” installieren. Sofern es nicht vorhanden ist, kann es mit…</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># install.packages("remotes")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>…installiert werden. eatPrep kann anschließend mit folgender Befehlszeile installiert werden:</p>
+<p>…installiert werden. eatPrep kann anschließend mit folgenden Befehlszeilen installiert und geladen werden:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># remotes::install_github("sachseka/eatPrep")</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"sachseka/eatPrep"</span>)</span>
 <span id="cb2-2"><a href=""></a><span class="fu">library</span>(eatPrep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
@@ -510,6 +511,19 @@ Karoline Sachse
 
 </section>
 <section id="subitems-items-aufgaben" class="slide level2 smaller">
+<h2>Subitems, Items, Aufgaben</h2>
+<div style="margin-top: -30px;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="pics/structure.jpg" class="quarto-figure quarto-figure-center" data-fig-width="60%"></p>
+</figure>
+</div>
+</div>
+<div class="footer">
+<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
+</div>
+</section>
+<section id="subitems-items-aufgaben-1" class="slide level2 smaller">
 <h2>Subitems, Items, Aufgaben</h2>
 
 <img data-src="pics/cyclehire4.jpg" class="quarto-figure quarto-figure-center r-stretch" data-fig-width="60%"><div class="footer">
@@ -581,19 +595,6 @@ Karoline Sachse
 <p>2a. Subitems in Items in Aufgaben</p>
 </div>
 </section>
-<section id="subitems-items-aufgaben-blöcke-und-testhefte" class="slide level2 smaller">
-<h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
-<div style="margin-top: -30px;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="pics/structure.jpg" class="quarto-figure quarto-figure-center" data-fig-width="60%"></p>
-</figure>
-</div>
-</div>
-<div class="footer">
-<p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
-</div>
-</section>
 <section id="aufgaben-in-blöcken-und-blöcke-in-testheften" class="slide level2 smaller">
 <h2>Aufgaben in Blöcken und Blöcke in Testheften</h2>
 <p><img src="pics/ainb.jpg"> <img src="pics/bint.jpg"></p>
@@ -601,7 +602,7 @@ Karoline Sachse
 <p>2a. Strukturen von Papier-Kompetenzdaten am IQB</p>
 </div>
 </section>
-<section id="subitems-items-aufgaben-blöcke-und-testhefte-1" class="slide level2 smaller">
+<section id="subitems-items-aufgaben-blöcke-und-testhefte" class="slide level2 smaller">
 <h2>Subitems, Items, Aufgaben, Blöcke und Testhefte</h2>
 <ul>
 <li><p>Testhefte (booklets): bestehen aus Blöcken</p></li>
@@ -619,8 +620,8 @@ Karoline Sachse
 <section id="repräsentation-der-datenstrukturen-in-eatprep" class="slide level2 smaller">
 <h2>Repräsentation der Datenstrukturen in eatPrep</h2>
 <ul>
-<li><p>eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen</p></li>
-<li><p>analog einfacher relationaler Meta-Daten-Datenbank</p></li>
+<li><p>wir brauchen Meta-Daten über die Items</p></li>
+<li><p>analog einfacher relationaler Meta-Daten-Datenbank: eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen</p></li>
 </ul>
 <div class="footer">
 <p>2b. Metadaten-Struktur in eatPrep</p>
@@ -629,7 +630,10 @@ Karoline Sachse
 <section id="repräsentation-der-datenstrukturen-in-eatprep-inputlisten-plätze-1-4" class="slide level2 smaller">
 <h2>Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 1-4</h2>
 <div style="margin-top: -10px; text-align: center;">
-<p><img data-src="pics/inputList3.jpg" data-fig-width="85%"></p>
+<p><img data-src="pics/inputList3.jpg" width="900"></p>
+</div>
+<div class="footer">
+<p>2b. Metadaten-Struktur in eatPrep</p>
 </div>
 </section>
 <section id="repräsentation-der-datenstrukturen-in-eatprep-inputlisten-plätze-5-7" class="slide level2 smaller">
@@ -666,11 +670,171 @@ Karoline Sachse
 <section id="meta-daten-einlesen" class="slide level2">
 <h2>(Meta-)Daten einlesen</h2>
 <p><a href="https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html"><code>readDaemonXlsx()</code></a> - Einlesen der inputListe, die mithilfe des EDV-Tools “ZKDaemon” erzeugt wurde.</p>
-<p><span style="font-size: 0.3em; line-height: 1.2;">(Dieses liegt unter “i:\EDV\IQB-Apps\ZKDaemon\ZKDaemon.application”. Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier: i:\Methoden\02_IQB-interne_eat_Workshops\eatPrep_2021\eatPrep_2021-06-18.pdf)</span></p>
 <div class="small-text-compact">
-<p>This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.This is smaller text with reduced line spacing applied via a custom class.</p>
+<p>(Dieses liegt unter <strong>i:\EDV\IQB-Apps\ZKDaemon\ZKDaemon.application</strong>. Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier:<br>
+<strong>i:\Methoden\02_IQB-interne_eat_Workshops\eatPrep_2021\eatPrep_2021-06-18.pdf</strong>)</p>
 </div>
-<p>readDaemonXlsx readMerkmalXlsx readSpss</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/readSpss.html"><code>readSpss()</code></a> - Einlesen der SPSS-Dateien</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/readMerkmalXlsx.html"><code>readMerkmalXlsx()</code></a> - Einlesen von zusätzlichen Item- und Aufgabenmerkmalen wie Bearbeitungszeiten, Formaten, inhaltlichen Kategorien, …</p>
+<div class="small-text-compact">
+<p>(Erzeugen der Merkmal-Xlsx via Klick auf “Merkmalsauszug” in <strong>i:\EDV\IQB-Apps\IQB-ItemDB\IQB-ItemDB.application</strong>)</p>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="meta-daten-einlesen-inputliste" class="slide level2">
+<h2>(Meta-)Daten einlesen: inputListe</h2>
+<p>Item Meta-Daten:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"inputList.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb3-2"><a href=""></a>inpustList <span class="ot">&lt;-</span> <span class="fu">readDaemonXlsx</span>(filename)</span>
+<span id="cb3-3"><a href=""></a><span class="fu">str</span>(inpustList)</span>
+<span id="cb3-4"><a href=""></a><span class="co">#&gt; List of 9</span></span>
+<span id="cb3-5"><a href=""></a><span class="co">#&gt;  $ units        :'data.frame':   29 obs. of  6 variables:</span></span>
+<span id="cb3-6"><a href=""></a><span class="co">#&gt;   ..$ unit             : chr [1:29] "I01" "I02" "I03" "I04" ...</span></span>
+<span id="cb3-7"><a href=""></a><span class="co">#&gt;   ..$ unitLabel        : chr [1:29] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...</span></span>
+<span id="cb3-8"><a href=""></a><span class="co">#&gt;   ..$ unitDescription  : chr [1:29] NA NA NA NA ...</span></span>
+<span id="cb3-9"><a href=""></a><span class="co">#&gt;   ..$ unitType         : chr [1:29] "TI" "TI" "TI" "TI" ...</span></span>
+<span id="cb3-10"><a href=""></a><span class="co">#&gt;   ..$ unitAggregateRule: chr [1:29] NA NA NA NA ...</span></span>
+<span id="cb3-11"><a href=""></a><span class="co">#&gt;   ..$ unitScoreRule    : chr [1:29] NA NA NA NA ...</span></span>
+<span id="cb3-12"><a href=""></a><span class="co">#&gt;  $ subunits     :'data.frame':   30 obs. of  9 variables:</span></span>
+<span id="cb3-13"><a href=""></a><span class="co">#&gt;   ..$ unit               : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
+<span id="cb3-14"><a href=""></a><span class="co">#&gt;   ..$ subunit            : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
+<span id="cb3-15"><a href=""></a><span class="co">#&gt;   ..$ subunitType        : chr [1:30] "1" "1" "1" "1" ...</span></span>
+<span id="cb3-16"><a href=""></a><span class="co">#&gt;   ..$ subunitLabel       : chr [1:30] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...</span></span>
+<span id="cb3-17"><a href=""></a><span class="co">#&gt;   ..$ subunitDescription : chr [1:30] NA NA NA NA ...</span></span>
+<span id="cb3-18"><a href=""></a><span class="co">#&gt;   ..$ subunitPosition    : chr [1:30] "a)" "b)" "c)" "d)" ...</span></span>
+<span id="cb3-19"><a href=""></a><span class="co">#&gt;   ..$ subunitTransniveau : chr [1:30] NA NA NA NA ...</span></span>
+<span id="cb3-20"><a href=""></a><span class="co">#&gt;   ..$ subunitRecoded     : chr [1:30] "I01R" "I02R" "I03R" "I04R" ...</span></span>
+<span id="cb3-21"><a href=""></a><span class="co">#&gt;   ..$ subunitLabelRecoded: chr [1:30] "Recoded Animals: Weight of a duck" "Recoded Animals: Weight of a horse" "Recoded Animals: Weight of a mouse" "Recoded Animals: Weight of a cat" ...</span></span>
+<span id="cb3-22"><a href=""></a><span class="co">#&gt;  $ values       :'data.frame':   220 obs. of  8 variables:</span></span>
+<span id="cb3-23"><a href=""></a><span class="co">#&gt;   ..$ subunit                : chr [1:220] "I01" "I01" "I01" "I01" ...</span></span>
+<span id="cb3-24"><a href=""></a><span class="co">#&gt;   ..$ value                  : chr [1:220] "1" "2" "3" "6" ...</span></span>
+<span id="cb3-25"><a href=""></a><span class="co">#&gt;   ..$ valueRecode            : chr [1:220] "0" "0" "1" "mnr" ...</span></span>
+<span id="cb3-26"><a href=""></a><span class="co">#&gt;   ..$ valueType              : chr [1:220] "vc" "vc" "vc" "mnr" ...</span></span>
+<span id="cb3-27"><a href=""></a><span class="co">#&gt;   ..$ valueLabel             : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...</span></span>
+<span id="cb3-28"><a href=""></a><span class="co">#&gt;   ..$ valueDescription       : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...</span></span>
+<span id="cb3-29"><a href=""></a><span class="co">#&gt;   ..$ valueLabelRecoded      : chr [1:220] "0" "0" "1" "mnr" ...</span></span>
+<span id="cb3-30"><a href=""></a><span class="co">#&gt;   ..$ valueDescriptionRecoded: chr [1:220] NA NA NA NA ...</span></span>
+<span id="cb3-31"><a href=""></a><span class="co">#&gt;  $ unitRecodings:'data.frame':   7 obs. of  7 variables:</span></span>
+<span id="cb3-32"><a href=""></a><span class="co">#&gt;   ..$ unit             : chr [1:7] "I12" "I12" "I12" "I12" ...</span></span>
+<span id="cb3-33"><a href=""></a><span class="co">#&gt;   ..$ value            : chr [1:7] "0" "1" "2" "3" ...</span></span>
+<span id="cb3-34"><a href=""></a><span class="co">#&gt;   ..$ valueRecode      : chr [1:7] "0" "0" "0" "1" ...</span></span>
+<span id="cb3-35"><a href=""></a><span class="co">#&gt;   ..$ valueType        : chr [1:7] "vc" "vc" "vc" "vc" ...</span></span>
+<span id="cb3-36"><a href=""></a><span class="co">#&gt;   ..$ valueLabel       : chr [1:7] NA NA NA NA ...</span></span>
+<span id="cb3-37"><a href=""></a><span class="co">#&gt;   ..$ valueDescription : chr [1:7] NA NA NA NA ...</span></span>
+<span id="cb3-38"><a href=""></a><span class="co">#&gt;   ..$ valueLabelRecoded: chr [1:7] NA NA NA NA ...</span></span>
+<span id="cb3-39"><a href=""></a><span class="co">#&gt;  $ savFiles     :'data.frame':   3 obs. of  3 variables:</span></span>
+<span id="cb3-40"><a href=""></a><span class="co">#&gt;   ..$ filename: chr [1:3] "booklet1.sav" "booklet2.sav" "booklet3.sav"</span></span>
+<span id="cb3-41"><a href=""></a><span class="co">#&gt;   ..$ case.id : chr [1:3] "ID" "ID" "ID"</span></span>
+<span id="cb3-42"><a href=""></a><span class="co">#&gt;   ..$ fullname: chr [1:3] NA NA NA</span></span>
+<span id="cb3-43"><a href=""></a><span class="co">#&gt;  $ newID        :'data.frame':   1 obs. of  2 variables:</span></span>
+<span id="cb3-44"><a href=""></a><span class="co">#&gt;   ..$ key  : chr "master-id"</span></span>
+<span id="cb3-45"><a href=""></a><span class="co">#&gt;   ..$ value: chr "ID"</span></span>
+<span id="cb3-46"><a href=""></a><span class="co">#&gt;  $ aggrMiss     :'data.frame':   7 obs. of  8 variables:</span></span>
+<span id="cb3-47"><a href=""></a><span class="co">#&gt;   ..$ nam: chr [1:7] "vc" "mvi" "mnr" "mci" ...</span></span>
+<span id="cb3-48"><a href=""></a><span class="co">#&gt;   ..$ vc : chr [1:7] "vc" "mvi" "vc" "mci" ...</span></span>
+<span id="cb3-49"><a href=""></a><span class="co">#&gt;   ..$ mvi: chr [1:7] "mvi" "mvi" "err" "mci" ...</span></span>
+<span id="cb3-50"><a href=""></a><span class="co">#&gt;   ..$ mnr: chr [1:7] "vc" "err" "mnr" "mci" ...</span></span>
+<span id="cb3-51"><a href=""></a><span class="co">#&gt;   ..$ mci: chr [1:7] "mci" "mci" "mci" "mci" ...</span></span>
+<span id="cb3-52"><a href=""></a><span class="co">#&gt;   ..$ mbd: chr [1:7] "err" "err" "err" "err" ...</span></span>
+<span id="cb3-53"><a href=""></a><span class="co">#&gt;   ..$ mir: chr [1:7] "vc" "err" "mir" "mci" ...</span></span>
+<span id="cb3-54"><a href=""></a><span class="co">#&gt;   ..$ mbi: chr [1:7] "vc" "err" "mnr" "mci" ...</span></span>
+<span id="cb3-55"><a href=""></a><span class="co">#&gt;  $ booklets     :'data.frame':   3 obs. of  4 variables:</span></span>
+<span id="cb3-56"><a href=""></a><span class="co">#&gt;   ..$ booklet: chr [1:3] "booklet1" "booklet2" "booklet3"</span></span>
+<span id="cb3-57"><a href=""></a><span class="co">#&gt;   ..$ block1 : chr [1:3] "bl1" "bl4" "bl3"</span></span>
+<span id="cb3-58"><a href=""></a><span class="co">#&gt;   ..$ block2 : chr [1:3] "bl2" "bl3" "bl1"</span></span>
+<span id="cb3-59"><a href=""></a><span class="co">#&gt;   ..$ block3 : chr [1:3] "bl3" "bl2" "bl4"</span></span>
+<span id="cb3-60"><a href=""></a><span class="co">#&gt;  $ blocks       :'data.frame':   30 obs. of  3 variables:</span></span>
+<span id="cb3-61"><a href=""></a><span class="co">#&gt;   ..$ subunit             : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
+<span id="cb3-62"><a href=""></a><span class="co">#&gt;   ..$ block               : chr [1:30] "bl1" "bl1" "bl1" "bl1" ...</span></span>
+<span id="cb3-63"><a href=""></a><span class="co">#&gt;   ..$ subunitBlockPosition: chr [1:30] "1" "2" "3" "4" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="meta-daten-einlesen-spss-daten" class="slide level2">
+<h2>(Meta-)Daten einlesen: SPSS-Daten</h2>
+<p>Exemplarisch ein Datensatz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb4-2"><a href=""></a>booklet1 <span class="ot">&lt;-</span> <span class="fu">readSpss</span>(filename)</span>
+<span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span>
+<span id="cb4-4"><a href=""></a><span class="co">#&gt;       idstud Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14</span></span>
+<span id="cb4-5"><a href=""></a><span class="co">#&gt; 1 person_002    57      1      3       2       3        4       2       6</span></span>
+<span id="cb4-6"><a href=""></a><span class="co">#&gt; 2 person_003    32      1      2       2       1        4       2       6</span></span>
+<span id="cb4-7"><a href=""></a><span class="co">#&gt; 3 person_004    59      1      4       4       3        4       2       6</span></span>
+<span id="cb4-8"><a href=""></a><span class="co">#&gt; 4 person_005    56      2      4       4       9        4       2       6</span></span>
+<span id="cb4-9"><a href=""></a><span class="co">#&gt; 5 person_006    55      1      2       2       2        4       2       6</span></span>
+<span id="cb4-10"><a href=""></a><span class="co">#&gt; 6 person_007    47      1      2       3       1        4       2       6</span></span>
+<span id="cb4-11"><a href=""></a><span class="co">#&gt;   item_15 item_16 item_17 item_18 item_19 item_20 item_21 item_1 item_2 item_3</span></span>
+<span id="cb4-12"><a href=""></a><span class="co">#&gt; 1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
+<span id="cb4-13"><a href=""></a><span class="co">#&gt; 2    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
+<span id="cb4-14"><a href=""></a><span class="co">#&gt; 3    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
+<span id="cb4-15"><a href=""></a><span class="co">#&gt; 4    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      1      2</span></span>
+<span id="cb4-16"><a href=""></a><span class="co">#&gt; 5    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
+<span id="cb4-17"><a href=""></a><span class="co">#&gt; 6    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      1      4      2</span></span>
+<span id="cb4-18"><a href=""></a><span class="co">#&gt;   item_4 item_5 item_6 item_7 item_22 item_23 item_24 item_25 item_26 item_27</span></span>
+<span id="cb4-19"><a href=""></a><span class="co">#&gt; 1      3      1      1      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb4-20"><a href=""></a><span class="co">#&gt; 2      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb4-21"><a href=""></a><span class="co">#&gt; 3      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb4-22"><a href=""></a><span class="co">#&gt; 4      2      1      1      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;       9</span></span>
+<span id="cb4-23"><a href=""></a><span class="co">#&gt; 5      2      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb4-24"><a href=""></a><span class="co">#&gt; 6      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
+<span id="cb4-25"><a href=""></a><span class="co">#&gt;   item_28 item_12a item_12b</span></span>
+<span id="cb4-26"><a href=""></a><span class="co">#&gt; 1    &lt;NA&gt;        0        1</span></span>
+<span id="cb4-27"><a href=""></a><span class="co">#&gt; 2    &lt;NA&gt;        0        0</span></span>
+<span id="cb4-28"><a href=""></a><span class="co">#&gt; 3    &lt;NA&gt;        0        0</span></span>
+<span id="cb4-29"><a href=""></a><span class="co">#&gt; 4    &lt;NA&gt;        0        1</span></span>
+<span id="cb4-30"><a href=""></a><span class="co">#&gt; 5    &lt;NA&gt;        0        1</span></span>
+<span id="cb4-31"><a href=""></a><span class="co">#&gt; 6    &lt;NA&gt;        0        0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="meta-daten-einlesen-merkmale" class="slide level2">
+<h2>(Meta-)Daten einlesen: Merkmale</h2>
+<p>Weitere Merkmale:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"itemmerkmale.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
+<span id="cb5-2"><a href=""></a>merkmale <span class="ot">&lt;-</span> <span class="fu">readMerkmalXlsx</span>(filename, <span class="at">tolcl =</span> <span class="cn">FALSE</span>, <span class="at">alleM =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href=""></a><span class="fu">head</span>(merkmale)</span>
+<span id="cb5-4"><a href=""></a><span class="co">#&gt; $Aufgabenmerkmale</span></span>
+<span id="cb5-5"><a href=""></a><span class="co">#&gt;                      Aufgabe Zeit.A                     AufgID AufgTitel</span></span>
+<span id="cb5-6"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck   0:00  Animals: Weight of a duck        NA</span></span>
+<span id="cb5-7"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse   0:00 Animals: Weight of a horse        NA</span></span>
+<span id="cb5-8"><a href=""></a><span class="co">#&gt; </span></span>
+<span id="cb5-9"><a href=""></a><span class="co">#&gt; $Itemmerkmale</span></span>
+<span id="cb5-10"><a href=""></a><span class="co">#&gt;                      Aufgabe Teilaufgabe Item Zeit.I Anforderungsbereich.MaP</span></span>
+<span id="cb5-11"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck           A   01   0:00                       I</span></span>
+<span id="cb5-12"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse           A   01   0:00                       I</span></span>
+<span id="cb5-13"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse           B   02   0:00                      II</span></span>
+<span id="cb5-14"><a href=""></a><span class="co">#&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er</span></span>
+<span id="cb5-15"><a href=""></a><span class="co">#&gt; 1                               1a GA - Geschlossen Ankreuzen</span></span>
+<span id="cb5-16"><a href=""></a><span class="co">#&gt; 2                             &lt;NA&gt; GA - Geschlossen Ankreuzen</span></span>
+<span id="cb5-17"><a href=""></a><span class="co">#&gt; 3                             &lt;NA&gt; GA - Geschlossen Ankreuzen</span></span>
+<span id="cb5-18"><a href=""></a><span class="co">#&gt;                       AufgID AufgTitel                       ItemID</span></span>
+<span id="cb5-19"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck        NA  Animals: Weight of a duck01</span></span>
+<span id="cb5-20"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse        NA Animals: Weight of a horse01</span></span>
+<span id="cb5-21"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse        NA Animals: Weight of a horse02</span></span>
+<span id="cb5-22"><a href=""></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href=""></a><span class="co">#&gt; $AlleMerkmale</span></span>
+<span id="cb5-24"><a href=""></a><span class="co">#&gt;                       AufgID                    Aufgabe Teilaufgabe Item</span></span>
+<span id="cb5-25"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck  Animals: Weight of a duck           A   01</span></span>
+<span id="cb5-26"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse Animals: Weight of a horse           A   01</span></span>
+<span id="cb5-27"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse Animals: Weight of a horse           B   02</span></span>
+<span id="cb5-28"><a href=""></a><span class="co">#&gt;                         ItemID Zeit.I Anforderungsbereich.MaP</span></span>
+<span id="cb5-29"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck01   0:00                       I</span></span>
+<span id="cb5-30"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse01   0:00                       I</span></span>
+<span id="cb5-31"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse02   0:00                      II</span></span>
+<span id="cb5-32"><a href=""></a><span class="co">#&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er Zeit.A</span></span>
+<span id="cb5-33"><a href=""></a><span class="co">#&gt; 1                               1a GA - Geschlossen Ankreuzen   0:00</span></span>
+<span id="cb5-34"><a href=""></a><span class="co">#&gt; 2                             &lt;NA&gt; GA - Geschlossen Ankreuzen   0:00</span></span>
+<span id="cb5-35"><a href=""></a><span class="co">#&gt; 3                             &lt;NA&gt; GA - Geschlossen Ankreuzen   0:00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
 </div>
@@ -999,18 +1163,7 @@ Karoline Sachse
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1042,7 +1195,29 @@ Karoline Sachse
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1050,7 +1225,7 @@ Karoline Sachse
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

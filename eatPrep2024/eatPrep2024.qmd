@@ -33,6 +33,11 @@ knitr::opts_chunk$set(
 
 ## Agenda {.smaller}
 
+```{r loadeatPrep, include=FALSE}
+library(eatPrep)
+```
+
+::: {style="margin-top: -30px;"}
 1.  Das Paket eatPrep
 
     a)  Fokus
@@ -53,8 +58,8 @@ knitr::opts_chunk$set(
     d)  weitere Funktionen
 
 4.  Übung
+::: 
 
-5.  Ausblick
 
 # 1. Fokus, Features und Installation
 
@@ -115,15 +120,15 @@ Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs m
 -   eatPrep liegt auf der Entwicklerplattform GitHub
 -   R-Pakete kann man von GitHub z.B. über das R-Paket "remotes" installieren. Sofern es nicht vorhanden ist, kann es mit...
 
-```{r remotes}
-# install.packages("remotes")
+```{r remotes, eval=FALSE}
+install.packages("remotes")
 
 ```
 
-...installiert werden. eatPrep kann anschließend mit folgender Befehlszeile installiert werden:
+...installiert werden. eatPrep kann anschließend mit folgenden Befehlszeilen installiert und geladen werden:
 
-```{r eatprep}
-# remotes::install_github("sachseka/eatPrep")
+```{r eatprep, eval=FALSE}
+remotes::install_github("sachseka/eatPrep")
 library(eatPrep)
 ```
 
@@ -135,11 +140,23 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben {.smaller}
 
+::: {style="margin-top: -30px;"}
+![](pics/structure.jpg){fig-width="60%" fig-align="center"}
+:::
+
+::: footer
+2a. Strukturen von Papier-Kompetenzdaten am IQB
+:::
+
+
+## Subitems, Items, Aufgaben {.smaller}
+
 ![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
+
 
 ## Subitems, Items, Aufgaben und Values und Scores {.smaller}
 
@@ -172,15 +189,6 @@ kable(Mtypes)
 2a. Subitems in Items in Aufgaben
 :::
 
-## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
-
-::: {style="margin-top: -30px;"}
-![](pics/structure.jpg){fig-width="60%" fig-align="center"}
-:::
-
-::: footer
-2a. Strukturen von Papier-Kompetenzdaten am IQB
-:::
 
 ## Aufgaben in Blöcken und Blöcke in Testheften {.smaller}
 
@@ -212,9 +220,9 @@ kable(Mtypes)
 
 ## Repräsentation der Datenstrukturen in eatPrep {.smaller}
 
--   eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen
+-   wir brauchen Meta-Daten über die Items
 
--   analog einfacher relationaler Meta-Daten-Datenbank
+-   analog einfacher relationaler Meta-Daten-Datenbank: eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen
 
 ::: footer
 2b. Metadaten-Struktur in eatPrep
@@ -223,7 +231,11 @@ kable(Mtypes)
 ## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 1-4 {.smaller}
 
 ::: {style="margin-top: -10px; text-align: center;"}
-![](pics/inputList3.jpg){fig-width="85%"}
+![](pics/inputList3.jpg){width="900px"}
+:::
+
+::: footer
+2b. Metadaten-Struktur in eatPrep
 :::
 
 ## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 5-7 {.smaller}
@@ -251,15 +263,74 @@ kable(Mtypes)
 ## (Meta-)Daten einlesen
 
 [`readDaemonXlsx()`](https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html) - Einlesen der inputListe, die mithilfe des EDV-Tools "ZKDaemon" erzeugt wurde.
+
 ::: {.small-text-compact}
-(Dieses liegt unter "i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application". Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier: i:\\Methoden\\02_IQB-interne_eat_Workshops\\eatPrep_2021\\eatPrep_2021-06-18.pdf)
+(Dieses liegt unter **i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application**. 
+Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier:\
+**i:\\Methoden\\02_IQB-interne_eat_Workshops\\eatPrep_2021\\eatPrep_2021-06-18.pdf**)
+:::
+
+[`readSpss()`](https://sachseka.github.io/eatPrep/reference/readSpss.html) - Einlesen der SPSS-Dateien
+
+[`readMerkmalXlsx()`](https://sachseka.github.io/eatPrep/reference/readMerkmalXlsx.html) - Einlesen von zusätzlichen Item- und Aufgabenmerkmalen wie Bearbeitungszeiten, Formaten, inhaltlichen Kategorien, ...
+
+::: {.small-text-compact}
+(Erzeugen der Merkmal-Xlsx via Klick auf "Merkmalsauszug" in **i:\\EDV\\IQB-Apps\\IQB-ItemDB\\IQB-ItemDB.application**)
 :::
 
 
-
-
-readDaemonXlsx readMerkmalXlsx readSpss
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
+
+
+
+
+## (Meta-)Daten einlesen: inputListe
+
+Item Meta-Daten:
+```{r readDeamonXlsx}
+filename <- system.file("extdata", "inputList.xlsx", package = "eatPrep")
+inpustList <- readDaemonXlsx(filename)
+str(inpustList)
+```
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+## (Meta-)Daten einlesen: SPSS-Daten
+
+Exemplarisch ein Datensatz:
+```{r readSpss}
+filename <- system.file("extdata", "booklet1.sav", package = "eatPrep")
+booklet1 <- readSpss(filename)
+head(booklet1)
+```
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+## (Meta-)Daten einlesen: Merkmale
+
+Weitere Merkmale:
+```{r readMerkmalXlsx}
+filename <- system.file("extdata", "itemmerkmale.xlsx", package = "eatPrep")
+merkmale <- readMerkmalXlsx(filename, tolcl = FALSE, alleM = TRUE)
+head(merkmale)
+```
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+
+
+
+
+
+
