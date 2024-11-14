@@ -360,7 +360,7 @@ head(merkmale)
 :::
 
 
-## Zusammenführen, Rekodieren, Aggregieren, Scoren
+## Mergen, Rekodieren, Aggregieren, Scoren
 
 [`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - Zusammenführen der Datensätze und Diagnostik zu Passung
 
