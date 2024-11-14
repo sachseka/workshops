@@ -8,7 +8,7 @@
 <link href="eatPrep2024_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.57">
+  <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Karoline Sachse">
   <meta name="dcterms.date" content="2024-11-19">
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.cf { color: #003b4f; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.kw { color: #003b4f; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -689,67 +689,68 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"inputList.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb3-2"><a href=""></a>inpustList <span class="ot">&lt;-</span> <span class="fu">readDaemonXlsx</span>(filename)</span>
-<span id="cb3-3"><a href=""></a><span class="fu">str</span>(inpustList)</span>
-<span id="cb3-4"><a href=""></a><span class="co">#&gt; List of 9</span></span>
-<span id="cb3-5"><a href=""></a><span class="co">#&gt;  $ units        :'data.frame':   29 obs. of  6 variables:</span></span>
-<span id="cb3-6"><a href=""></a><span class="co">#&gt;   ..$ unit             : chr [1:29] "I01" "I02" "I03" "I04" ...</span></span>
-<span id="cb3-7"><a href=""></a><span class="co">#&gt;   ..$ unitLabel        : chr [1:29] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...</span></span>
-<span id="cb3-8"><a href=""></a><span class="co">#&gt;   ..$ unitDescription  : chr [1:29] NA NA NA NA ...</span></span>
-<span id="cb3-9"><a href=""></a><span class="co">#&gt;   ..$ unitType         : chr [1:29] "TI" "TI" "TI" "TI" ...</span></span>
-<span id="cb3-10"><a href=""></a><span class="co">#&gt;   ..$ unitAggregateRule: chr [1:29] NA NA NA NA ...</span></span>
-<span id="cb3-11"><a href=""></a><span class="co">#&gt;   ..$ unitScoreRule    : chr [1:29] NA NA NA NA ...</span></span>
-<span id="cb3-12"><a href=""></a><span class="co">#&gt;  $ subunits     :'data.frame':   30 obs. of  9 variables:</span></span>
-<span id="cb3-13"><a href=""></a><span class="co">#&gt;   ..$ unit               : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
-<span id="cb3-14"><a href=""></a><span class="co">#&gt;   ..$ subunit            : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
-<span id="cb3-15"><a href=""></a><span class="co">#&gt;   ..$ subunitType        : chr [1:30] "1" "1" "1" "1" ...</span></span>
-<span id="cb3-16"><a href=""></a><span class="co">#&gt;   ..$ subunitLabel       : chr [1:30] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...</span></span>
-<span id="cb3-17"><a href=""></a><span class="co">#&gt;   ..$ subunitDescription : chr [1:30] NA NA NA NA ...</span></span>
-<span id="cb3-18"><a href=""></a><span class="co">#&gt;   ..$ subunitPosition    : chr [1:30] "a)" "b)" "c)" "d)" ...</span></span>
-<span id="cb3-19"><a href=""></a><span class="co">#&gt;   ..$ subunitTransniveau : chr [1:30] NA NA NA NA ...</span></span>
-<span id="cb3-20"><a href=""></a><span class="co">#&gt;   ..$ subunitRecoded     : chr [1:30] "I01R" "I02R" "I03R" "I04R" ...</span></span>
-<span id="cb3-21"><a href=""></a><span class="co">#&gt;   ..$ subunitLabelRecoded: chr [1:30] "Recoded Animals: Weight of a duck" "Recoded Animals: Weight of a horse" "Recoded Animals: Weight of a mouse" "Recoded Animals: Weight of a cat" ...</span></span>
-<span id="cb3-22"><a href=""></a><span class="co">#&gt;  $ values       :'data.frame':   220 obs. of  8 variables:</span></span>
-<span id="cb3-23"><a href=""></a><span class="co">#&gt;   ..$ subunit                : chr [1:220] "I01" "I01" "I01" "I01" ...</span></span>
-<span id="cb3-24"><a href=""></a><span class="co">#&gt;   ..$ value                  : chr [1:220] "1" "2" "3" "6" ...</span></span>
-<span id="cb3-25"><a href=""></a><span class="co">#&gt;   ..$ valueRecode            : chr [1:220] "0" "0" "1" "mnr" ...</span></span>
-<span id="cb3-26"><a href=""></a><span class="co">#&gt;   ..$ valueType              : chr [1:220] "vc" "vc" "vc" "mnr" ...</span></span>
-<span id="cb3-27"><a href=""></a><span class="co">#&gt;   ..$ valueLabel             : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...</span></span>
-<span id="cb3-28"><a href=""></a><span class="co">#&gt;   ..$ valueDescription       : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...</span></span>
-<span id="cb3-29"><a href=""></a><span class="co">#&gt;   ..$ valueLabelRecoded      : chr [1:220] "0" "0" "1" "mnr" ...</span></span>
-<span id="cb3-30"><a href=""></a><span class="co">#&gt;   ..$ valueDescriptionRecoded: chr [1:220] NA NA NA NA ...</span></span>
-<span id="cb3-31"><a href=""></a><span class="co">#&gt;  $ unitRecodings:'data.frame':   7 obs. of  7 variables:</span></span>
-<span id="cb3-32"><a href=""></a><span class="co">#&gt;   ..$ unit             : chr [1:7] "I12" "I12" "I12" "I12" ...</span></span>
-<span id="cb3-33"><a href=""></a><span class="co">#&gt;   ..$ value            : chr [1:7] "0" "1" "2" "3" ...</span></span>
-<span id="cb3-34"><a href=""></a><span class="co">#&gt;   ..$ valueRecode      : chr [1:7] "0" "0" "0" "1" ...</span></span>
-<span id="cb3-35"><a href=""></a><span class="co">#&gt;   ..$ valueType        : chr [1:7] "vc" "vc" "vc" "vc" ...</span></span>
-<span id="cb3-36"><a href=""></a><span class="co">#&gt;   ..$ valueLabel       : chr [1:7] NA NA NA NA ...</span></span>
-<span id="cb3-37"><a href=""></a><span class="co">#&gt;   ..$ valueDescription : chr [1:7] NA NA NA NA ...</span></span>
-<span id="cb3-38"><a href=""></a><span class="co">#&gt;   ..$ valueLabelRecoded: chr [1:7] NA NA NA NA ...</span></span>
-<span id="cb3-39"><a href=""></a><span class="co">#&gt;  $ savFiles     :'data.frame':   3 obs. of  3 variables:</span></span>
-<span id="cb3-40"><a href=""></a><span class="co">#&gt;   ..$ filename: chr [1:3] "booklet1.sav" "booklet2.sav" "booklet3.sav"</span></span>
-<span id="cb3-41"><a href=""></a><span class="co">#&gt;   ..$ case.id : chr [1:3] "ID" "ID" "ID"</span></span>
-<span id="cb3-42"><a href=""></a><span class="co">#&gt;   ..$ fullname: chr [1:3] NA NA NA</span></span>
-<span id="cb3-43"><a href=""></a><span class="co">#&gt;  $ newID        :'data.frame':   1 obs. of  2 variables:</span></span>
-<span id="cb3-44"><a href=""></a><span class="co">#&gt;   ..$ key  : chr "master-id"</span></span>
-<span id="cb3-45"><a href=""></a><span class="co">#&gt;   ..$ value: chr "ID"</span></span>
-<span id="cb3-46"><a href=""></a><span class="co">#&gt;  $ aggrMiss     :'data.frame':   7 obs. of  8 variables:</span></span>
-<span id="cb3-47"><a href=""></a><span class="co">#&gt;   ..$ nam: chr [1:7] "vc" "mvi" "mnr" "mci" ...</span></span>
-<span id="cb3-48"><a href=""></a><span class="co">#&gt;   ..$ vc : chr [1:7] "vc" "mvi" "vc" "mci" ...</span></span>
-<span id="cb3-49"><a href=""></a><span class="co">#&gt;   ..$ mvi: chr [1:7] "mvi" "mvi" "err" "mci" ...</span></span>
-<span id="cb3-50"><a href=""></a><span class="co">#&gt;   ..$ mnr: chr [1:7] "vc" "err" "mnr" "mci" ...</span></span>
-<span id="cb3-51"><a href=""></a><span class="co">#&gt;   ..$ mci: chr [1:7] "mci" "mci" "mci" "mci" ...</span></span>
-<span id="cb3-52"><a href=""></a><span class="co">#&gt;   ..$ mbd: chr [1:7] "err" "err" "err" "err" ...</span></span>
-<span id="cb3-53"><a href=""></a><span class="co">#&gt;   ..$ mir: chr [1:7] "vc" "err" "mir" "mci" ...</span></span>
-<span id="cb3-54"><a href=""></a><span class="co">#&gt;   ..$ mbi: chr [1:7] "vc" "err" "mnr" "mci" ...</span></span>
-<span id="cb3-55"><a href=""></a><span class="co">#&gt;  $ booklets     :'data.frame':   3 obs. of  4 variables:</span></span>
-<span id="cb3-56"><a href=""></a><span class="co">#&gt;   ..$ booklet: chr [1:3] "booklet1" "booklet2" "booklet3"</span></span>
-<span id="cb3-57"><a href=""></a><span class="co">#&gt;   ..$ block1 : chr [1:3] "bl1" "bl4" "bl3"</span></span>
-<span id="cb3-58"><a href=""></a><span class="co">#&gt;   ..$ block2 : chr [1:3] "bl2" "bl3" "bl1"</span></span>
-<span id="cb3-59"><a href=""></a><span class="co">#&gt;   ..$ block3 : chr [1:3] "bl3" "bl2" "bl4"</span></span>
-<span id="cb3-60"><a href=""></a><span class="co">#&gt;  $ blocks       :'data.frame':   30 obs. of  3 variables:</span></span>
-<span id="cb3-61"><a href=""></a><span class="co">#&gt;   ..$ subunit             : chr [1:30] "I01" "I02" "I03" "I04" ...</span></span>
-<span id="cb3-62"><a href=""></a><span class="co">#&gt;   ..$ block               : chr [1:30] "bl1" "bl1" "bl1" "bl1" ...</span></span>
-<span id="cb3-63"><a href=""></a><span class="co">#&gt;   ..$ subunitBlockPosition: chr [1:30] "1" "2" "3" "4" ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href=""></a><span class="fu">str</span>(inpustList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="r-output"><code>&gt; List of 9
+&gt;  $ units        :'data.frame':    29 obs. of  6 variables:
+&gt;   ..$ unit             : chr [1:29] "I01" "I02" "I03" "I04" ...
+&gt;   ..$ unitLabel        : chr [1:29] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...
+&gt;   ..$ unitDescription  : chr [1:29] NA NA NA NA ...
+&gt;   ..$ unitType         : chr [1:29] "TI" "TI" "TI" "TI" ...
+&gt;   ..$ unitAggregateRule: chr [1:29] NA NA NA NA ...
+&gt;   ..$ unitScoreRule    : chr [1:29] NA NA NA NA ...
+&gt;  $ subunits     :'data.frame':    30 obs. of  9 variables:
+&gt;   ..$ unit               : chr [1:30] "I01" "I02" "I03" "I04" ...
+&gt;   ..$ subunit            : chr [1:30] "I01" "I02" "I03" "I04" ...
+&gt;   ..$ subunitType        : chr [1:30] "1" "1" "1" "1" ...
+&gt;   ..$ subunitLabel       : chr [1:30] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...
+&gt;   ..$ subunitDescription : chr [1:30] NA NA NA NA ...
+&gt;   ..$ subunitPosition    : chr [1:30] "a)" "b)" "c)" "d)" ...
+&gt;   ..$ subunitTransniveau : chr [1:30] NA NA NA NA ...
+&gt;   ..$ subunitRecoded     : chr [1:30] "I01R" "I02R" "I03R" "I04R" ...
+&gt;   ..$ subunitLabelRecoded: chr [1:30] "Recoded Animals: Weight of a duck" "Recoded Animals: Weight of a horse" "Recoded Animals: Weight of a mouse" "Recoded Animals: Weight of a cat" ...
+&gt;  $ values       :'data.frame':    220 obs. of  8 variables:
+&gt;   ..$ subunit                : chr [1:220] "I01" "I01" "I01" "I01" ...
+&gt;   ..$ value                  : chr [1:220] "1" "2" "3" "6" ...
+&gt;   ..$ valueRecode            : chr [1:220] "0" "0" "1" "mnr" ...
+&gt;   ..$ valueType              : chr [1:220] "vc" "vc" "vc" "mnr" ...
+&gt;   ..$ valueLabel             : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...
+&gt;   ..$ valueDescription       : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...
+&gt;   ..$ valueLabelRecoded      : chr [1:220] "0" "0" "1" "mnr" ...
+&gt;   ..$ valueDescriptionRecoded: chr [1:220] NA NA NA NA ...
+&gt;  $ unitRecodings:'data.frame':    7 obs. of  7 variables:
+&gt;   ..$ unit             : chr [1:7] "I12" "I12" "I12" "I12" ...
+&gt;   ..$ value            : chr [1:7] "0" "1" "2" "3" ...
+&gt;   ..$ valueRecode      : chr [1:7] "0" "0" "0" "1" ...
+&gt;   ..$ valueType        : chr [1:7] "vc" "vc" "vc" "vc" ...
+&gt;   ..$ valueLabel       : chr [1:7] NA NA NA NA ...
+&gt;   ..$ valueDescription : chr [1:7] NA NA NA NA ...
+&gt;   ..$ valueLabelRecoded: chr [1:7] NA NA NA NA ...
+&gt;  $ savFiles     :'data.frame':    3 obs. of  3 variables:
+&gt;   ..$ filename: chr [1:3] "booklet1.sav" "booklet2.sav" "booklet3.sav"
+&gt;   ..$ case.id : chr [1:3] "ID" "ID" "ID"
+&gt;   ..$ fullname: chr [1:3] NA NA NA
+&gt;  $ newID        :'data.frame':    1 obs. of  2 variables:
+&gt;   ..$ key  : chr "master-id"
+&gt;   ..$ value: chr "ID"
+&gt;  $ aggrMiss     :'data.frame':    7 obs. of  8 variables:
+&gt;   ..$ nam: chr [1:7] "vc" "mvi" "mnr" "mci" ...
+&gt;   ..$ vc : chr [1:7] "vc" "mvi" "vc" "mci" ...
+&gt;   ..$ mvi: chr [1:7] "mvi" "mvi" "err" "mci" ...
+&gt;   ..$ mnr: chr [1:7] "vc" "err" "mnr" "mci" ...
+&gt;   ..$ mci: chr [1:7] "mci" "mci" "mci" "mci" ...
+&gt;   ..$ mbd: chr [1:7] "err" "err" "err" "err" ...
+&gt;   ..$ mir: chr [1:7] "vc" "err" "mir" "mci" ...
+&gt;   ..$ mbi: chr [1:7] "vc" "err" "mnr" "mci" ...
+&gt;  $ booklets     :'data.frame':    3 obs. of  4 variables:
+&gt;   ..$ booklet: chr [1:3] "booklet1" "booklet2" "booklet3"
+&gt;   ..$ block1 : chr [1:3] "bl1" "bl4" "bl3"
+&gt;   ..$ block2 : chr [1:3] "bl2" "bl3" "bl1"
+&gt;   ..$ block3 : chr [1:3] "bl3" "bl2" "bl4"
+&gt;  $ blocks       :'data.frame':    30 obs. of  3 variables:
+&gt;   ..$ subunit             : chr [1:30] "I01" "I02" "I03" "I04" ...
+&gt;   ..$ block               : chr [1:30] "bl1" "bl1" "bl1" "bl1" ...
+&gt;   ..$ subunitBlockPosition: chr [1:30] "1" "2" "3" "4" ...
+</code></pre>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -761,35 +762,36 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb4-2"><a href=""></a>booklet1 <span class="ot">&lt;-</span> <span class="fu">readSpss</span>(filename)</span>
-<span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span>
-<span id="cb4-4"><a href=""></a><span class="co">#&gt;       idstud Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14</span></span>
-<span id="cb4-5"><a href=""></a><span class="co">#&gt; 1 person_002    57      1      3       2       3        4       2       6</span></span>
-<span id="cb4-6"><a href=""></a><span class="co">#&gt; 2 person_003    32      1      2       2       1        4       2       6</span></span>
-<span id="cb4-7"><a href=""></a><span class="co">#&gt; 3 person_004    59      1      4       4       3        4       2       6</span></span>
-<span id="cb4-8"><a href=""></a><span class="co">#&gt; 4 person_005    56      2      4       4       9        4       2       6</span></span>
-<span id="cb4-9"><a href=""></a><span class="co">#&gt; 5 person_006    55      1      2       2       2        4       2       6</span></span>
-<span id="cb4-10"><a href=""></a><span class="co">#&gt; 6 person_007    47      1      2       3       1        4       2       6</span></span>
-<span id="cb4-11"><a href=""></a><span class="co">#&gt;   item_15 item_16 item_17 item_18 item_19 item_20 item_21 item_1 item_2 item_3</span></span>
-<span id="cb4-12"><a href=""></a><span class="co">#&gt; 1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
-<span id="cb4-13"><a href=""></a><span class="co">#&gt; 2    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
-<span id="cb4-14"><a href=""></a><span class="co">#&gt; 3    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
-<span id="cb4-15"><a href=""></a><span class="co">#&gt; 4    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      1      2</span></span>
-<span id="cb4-16"><a href=""></a><span class="co">#&gt; 5    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      3      4      2</span></span>
-<span id="cb4-17"><a href=""></a><span class="co">#&gt; 6    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;      1      4      2</span></span>
-<span id="cb4-18"><a href=""></a><span class="co">#&gt;   item_4 item_5 item_6 item_7 item_22 item_23 item_24 item_25 item_26 item_27</span></span>
-<span id="cb4-19"><a href=""></a><span class="co">#&gt; 1      3      1      1      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
-<span id="cb4-20"><a href=""></a><span class="co">#&gt; 2      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
-<span id="cb4-21"><a href=""></a><span class="co">#&gt; 3      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
-<span id="cb4-22"><a href=""></a><span class="co">#&gt; 4      2      1      1      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;       9</span></span>
-<span id="cb4-23"><a href=""></a><span class="co">#&gt; 5      2      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
-<span id="cb4-24"><a href=""></a><span class="co">#&gt; 6      3      0      0      1    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;</span></span>
-<span id="cb4-25"><a href=""></a><span class="co">#&gt;   item_28 item_12a item_12b</span></span>
-<span id="cb4-26"><a href=""></a><span class="co">#&gt; 1    &lt;NA&gt;        0        1</span></span>
-<span id="cb4-27"><a href=""></a><span class="co">#&gt; 2    &lt;NA&gt;        0        0</span></span>
-<span id="cb4-28"><a href=""></a><span class="co">#&gt; 3    &lt;NA&gt;        0        0</span></span>
-<span id="cb4-29"><a href=""></a><span class="co">#&gt; 4    &lt;NA&gt;        0        1</span></span>
-<span id="cb4-30"><a href=""></a><span class="co">#&gt; 5    &lt;NA&gt;        0        1</span></span>
-<span id="cb4-31"><a href=""></a><span class="co">#&gt; 6    &lt;NA&gt;        0        0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="r-output"><code>&gt;       idstud Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14
+&gt; 1 person_002    57      1      3       2       3        4       2       6
+&gt; 2 person_003    32      1      2       2       1        4       2       6
+&gt; 3 person_004    59      1      4       4       3        4       2       6
+&gt; 4 person_005    56      2      4       4       9        4       2       6
+&gt; 5 person_006    55      1      2       2       2        4       2       6
+&gt; 6 person_007    47      1      2       3       1        4       2       6
+&gt;   item_15 item_16 item_17 item_18 item_19 item_20 item_21 item_1 item_2 item_3
+&gt; 1    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
+&gt; 2    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
+&gt; 3    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
+&gt; 4    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      1      2
+&gt; 5    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
+&gt; 6    <na>    <na>    <na>    <na>    <na>    <na>    <na>      1      4      2
+&gt;   item_4 item_5 item_6 item_7 item_22 item_23 item_24 item_25 item_26 item_27
+&gt; 1      3      1      1      1    <na>    <na>    <na>    <na>    <na>    <na>
+&gt; 2      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
+&gt; 3      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
+&gt; 4      2      1      1      1    <na>    <na>    <na>    <na>    <na>       9
+&gt; 5      2      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
+&gt; 6      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
+&gt;   item_28 item_12a item_12b
+&gt; 1    <na>        0        1
+&gt; 2    <na>        0        0
+&gt; 3    <na>        0        0
+&gt; 4    <na>        0        1
+&gt; 5    <na>        0        1
+&gt; 6    <na>        0        0
+</na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></code></pre>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -801,39 +803,118 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"itemmerkmale.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb5-2"><a href=""></a>merkmale <span class="ot">&lt;-</span> <span class="fu">readMerkmalXlsx</span>(filename, <span class="at">tolcl =</span> <span class="cn">FALSE</span>, <span class="at">alleM =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-3"><a href=""></a><span class="fu">head</span>(merkmale)</span>
-<span id="cb5-4"><a href=""></a><span class="co">#&gt; $Aufgabenmerkmale</span></span>
-<span id="cb5-5"><a href=""></a><span class="co">#&gt;                      Aufgabe Zeit.A                     AufgID AufgTitel</span></span>
-<span id="cb5-6"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck   0:00  Animals: Weight of a duck        NA</span></span>
-<span id="cb5-7"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse   0:00 Animals: Weight of a horse        NA</span></span>
-<span id="cb5-8"><a href=""></a><span class="co">#&gt; </span></span>
-<span id="cb5-9"><a href=""></a><span class="co">#&gt; $Itemmerkmale</span></span>
-<span id="cb5-10"><a href=""></a><span class="co">#&gt;                      Aufgabe Teilaufgabe Item Zeit.I Anforderungsbereich.MaP</span></span>
-<span id="cb5-11"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck           A   01   0:00                       I</span></span>
-<span id="cb5-12"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse           A   01   0:00                       I</span></span>
-<span id="cb5-13"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse           B   02   0:00                      II</span></span>
-<span id="cb5-14"><a href=""></a><span class="co">#&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er</span></span>
-<span id="cb5-15"><a href=""></a><span class="co">#&gt; 1                               1a GA - Geschlossen Ankreuzen</span></span>
-<span id="cb5-16"><a href=""></a><span class="co">#&gt; 2                             &lt;NA&gt; GA - Geschlossen Ankreuzen</span></span>
-<span id="cb5-17"><a href=""></a><span class="co">#&gt; 3                             &lt;NA&gt; GA - Geschlossen Ankreuzen</span></span>
-<span id="cb5-18"><a href=""></a><span class="co">#&gt;                       AufgID AufgTitel                       ItemID</span></span>
-<span id="cb5-19"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck        NA  Animals: Weight of a duck01</span></span>
-<span id="cb5-20"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse        NA Animals: Weight of a horse01</span></span>
-<span id="cb5-21"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse        NA Animals: Weight of a horse02</span></span>
-<span id="cb5-22"><a href=""></a><span class="co">#&gt; </span></span>
-<span id="cb5-23"><a href=""></a><span class="co">#&gt; $AlleMerkmale</span></span>
-<span id="cb5-24"><a href=""></a><span class="co">#&gt;                       AufgID                    Aufgabe Teilaufgabe Item</span></span>
-<span id="cb5-25"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck  Animals: Weight of a duck           A   01</span></span>
-<span id="cb5-26"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse Animals: Weight of a horse           A   01</span></span>
-<span id="cb5-27"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse Animals: Weight of a horse           B   02</span></span>
-<span id="cb5-28"><a href=""></a><span class="co">#&gt;                         ItemID Zeit.I Anforderungsbereich.MaP</span></span>
-<span id="cb5-29"><a href=""></a><span class="co">#&gt; 1  Animals: Weight of a duck01   0:00                       I</span></span>
-<span id="cb5-30"><a href=""></a><span class="co">#&gt; 2 Animals: Weight of a horse01   0:00                       I</span></span>
-<span id="cb5-31"><a href=""></a><span class="co">#&gt; 3 Animals: Weight of a horse02   0:00                      II</span></span>
-<span id="cb5-32"><a href=""></a><span class="co">#&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er Zeit.A</span></span>
-<span id="cb5-33"><a href=""></a><span class="co">#&gt; 1                               1a GA - Geschlossen Ankreuzen   0:00</span></span>
-<span id="cb5-34"><a href=""></a><span class="co">#&gt; 2                             &lt;NA&gt; GA - Geschlossen Ankreuzen   0:00</span></span>
-<span id="cb5-35"><a href=""></a><span class="co">#&gt; 3                             &lt;NA&gt; GA - Geschlossen Ankreuzen   0:00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href=""></a><span class="fu">head</span>(merkmale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="r-output"><code>&gt; $Aufgabenmerkmale
+&gt;                      Aufgabe Zeit.A                     AufgID AufgTitel
+&gt; 1  Animals: Weight of a duck   0:00  Animals: Weight of a duck        NA
+&gt; 2 Animals: Weight of a horse   0:00 Animals: Weight of a horse        NA
+&gt; 
+&gt; $Itemmerkmale
+&gt;                      Aufgabe Teilaufgabe Item Zeit.I Anforderungsbereich.MaP
+&gt; 1  Animals: Weight of a duck           A   01   0:00                       I
+&gt; 2 Animals: Weight of a horse           A   01   0:00                       I
+&gt; 3 Animals: Weight of a horse           B   02   0:00                      II
+&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er
+&gt; 1                               1a GA - Geschlossen Ankreuzen
+&gt; 2                             <na> GA - Geschlossen Ankreuzen
+&gt; 3                             <na> GA - Geschlossen Ankreuzen
+&gt;                       AufgID AufgTitel                       ItemID
+&gt; 1  Animals: Weight of a duck        NA  Animals: Weight of a duck01
+&gt; 2 Animals: Weight of a horse        NA Animals: Weight of a horse01
+&gt; 3 Animals: Weight of a horse        NA Animals: Weight of a horse02
+&gt; 
+&gt; $AlleMerkmale
+&gt;                       AufgID                    Aufgabe Teilaufgabe Item
+&gt; 1  Animals: Weight of a duck  Animals: Weight of a duck           A   01
+&gt; 2 Animals: Weight of a horse Animals: Weight of a horse           A   01
+&gt; 3 Animals: Weight of a horse Animals: Weight of a horse           B   02
+&gt;                         ItemID Zeit.I Anforderungsbereich.MaP
+&gt; 1  Animals: Weight of a duck01   0:00                       I
+&gt; 2 Animals: Weight of a horse01   0:00                       I
+&gt; 3 Animals: Weight of a horse02   0:00                      II
+&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er Zeit.A
+&gt; 1                               1a GA - Geschlossen Ankreuzen   0:00
+&gt; 2                             <na> GA - Geschlossen Ankreuzen   0:00
+&gt; 3                             <na> GA - Geschlossen Ankreuzen   0:00
+</na></na></na></na></code></pre>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="checken" class="slide level2">
+<h2>Checken</h2>
+<p><a href="https://sachseka.github.io/eatPrep/reference/checkInputList.html"><code>checkInputList()</code></a> - Eingelesene inputListe auf interne Konsistenz prüfen</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/checkData.html"><code>checkData()</code></a> - Datensätze gemäß Item-Meta-Informationen überprüfen und sonstige Plausibilitätsprüfungen der Daten</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/checkDesign.html"><code>checkDesign()</code></a> - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen</p>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="zusammenführen-rekodieren-aggregieren-scoren" class="slide level2">
+<h2>Zusammenführen, Rekodieren, Aggregieren, Scoren</h2>
+<p><a href="https://sachseka.github.io/eatPrep/reference/mergeData.html"><code>mergeData()</code></a> - Zusammenführen der Datensätze und Diagnostik zu Passung</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/recodeData.html"><code>recodeData()</code></a> - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/checkDesign.html"><code>checkDesign()</code></a> - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen</p>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="checken-rekodieren-aggregieren-scoren" class="slide level2">
+<h2>Checken, Rekodieren, Aggregieren, Scoren</h2>
+<p>inputListe checken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">checkInputList</span>(inputList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Checking sheets
+</code></pre>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Check: Value Recoding
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> Missing types `mir` and `mbi` are defined for all items in <span style="color: #00BB00;">valueRecode</span>.
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #BB0000;">✖</span> Missing type `mnr` is not defined as <span style="color: #00BB00;">valueRecode</span> for items: `I14`.
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #BB0000;">✖</span> Missing type `mbd` is not defined as <span style="color: #00BB00;">valueRecode</span> for items: `I14`.
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> <span style="color: #00BB00;">value</span> contains the following values over all items: `0`, `1`, `2`, `3`, `4`,
+&gt; `5`, `6`, `7`, `8`, and `9`
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> <span style="color: #00BB00;">valueRecode</span> contains only 0, 1, and the mistypes: `0`, `1`, `mbd`, `mbi`,
+&gt; `mir`, and `mnr`
+</code></pre>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Check: Value Types
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> No other values than `vc` and the mistypes in <span style="color: #00BB00;">valueType</span>.
+</code></pre>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Check: Unit Equivalence
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All 28 units in <span style="color: #00BB00;">units</span> sheet are also defined in <span style="color: #00BB00;">subunits</span>.
+</code></pre>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Check: Subunit Equivalence
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All 30 subunits in <span style="color: #00BB00;">subunits</span> sheet are also defined in <span style="color: #00BB00;">values</span>.
+</code></pre>
+<pre class="r-output"><code>&gt; 
+</code></pre>
+<pre class="r-output"><code>&gt; ── Check: Unit Recoding
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> Units with only one subunit: 27
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> Units with more than one subunit: 1 (`I12`)
+</code></pre>
+<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All units with more than one subunit are defined in <span style="color: #00BB00;">unitRecodings</span> sheet.
+</code></pre>
+<pre class="r-output"><code>&gt; [1] FALSE
+</code></pre>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -1163,7 +1244,18 @@ Karoline Sachse
         }
         return false;
       }
-      const onCopySuccess = function(e) {
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1195,29 +1287,7 @@ Karoline Sachse
         }, 1000);
         // clear code selection
         e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
       });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1225,7 +1295,7 @@ Karoline Sachse
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

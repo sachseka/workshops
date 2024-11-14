@@ -3,9 +3,9 @@ h2 {
     font-size: 1.5em !important;
     font-weight: bold !important;
     text-align: center !important;
-    width: 100% !important;
+    width: 104% !important;
     display: block;
-    padding: 0 2rem; /* optional: add side padding for a cleaner look */
+    padding: 0 4rem; /* optional: add side padding for a cleaner look */
     margin: 2rem auto;  /* centers the element */
     border-radius: 5px; /* Optional: rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, .5);

@@ -27,14 +27,32 @@ execute:
 library(knitr)
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = ">"
+)
+
+options(crayon.enabled = TRUE)
+ansi_aware_handler <- function(x, options) {
+    paste0(
+        "<pre class=\"r-output\"><code>",
+        fansi::sgr_to_html(x = x, warn = FALSE, term.cap = "256"),
+        "</code></pre>"
+    )
+}
+
+knitr::knit_hooks$set(
+    output = ansi_aware_handler,
+    message = ansi_aware_handler,
+    warning = ansi_aware_handler,
+    error = ansi_aware_handler
 )
 ```
+
 
 ## Agenda {.smaller}
 
 ```{r loadeatPrep, include=FALSE}
 library(eatPrep)
+library(asciicast)
 ```
 
 ::: {style="margin-top: -30px;"}
@@ -328,6 +346,48 @@ head(merkmale)
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
 
+## Checken
+
+[`checkInputList()`](https://sachseka.github.io/eatPrep/reference/checkInputList.html) - Eingelesene inputListe auf interne Konsistenz prüfen
+
+[`checkData()`](https://sachseka.github.io/eatPrep/reference/checkData.html) - Datensätze gemäß Item-Meta-Informationen überprüfen und sonstige Plausibilitätsprüfungen der Daten
+
+[`checkDesign()`](https://sachseka.github.io/eatPrep/reference/checkDesign.html) - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+
+## Zusammenführen, Rekodieren, Aggregieren, Scoren
+
+[`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - Zusammenführen der Datensätze und Diagnostik zu Passung
+
+[`recodeData()`](https://sachseka.github.io/eatPrep/reference/recodeData.html) - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe
+
+[`checkDesign()`](https://sachseka.github.io/eatPrep/reference/checkDesign.html) - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen
+
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
+
+
+
+
+
+## Checken, Rekodieren, Aggregieren, Scoren
+
+inputListe checken:
+```{r checkInputList}
+#| message: true
+checkInputList(inputList)
+```
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
 
 
 
