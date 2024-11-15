@@ -30,23 +30,22 @@ knitr::opts_chunk$set(
   comment = ">"
 )
 
-options(crayon.enabled = TRUE)
-ansi_aware_handler <- function(x, options) {
-    paste0(
-        "<pre class=\"r-output\"><code>",
-        fansi::sgr_to_html(x = x, warn = FALSE, term.cap = "256"),
-        "</code></pre>"
-    )
-}
-
-knitr::knit_hooks$set(
-    output = ansi_aware_handler,
-    message = ansi_aware_handler,
-    warning = ansi_aware_handler,
-    error = ansi_aware_handler
-)
+# options(crayon.enabled = TRUE)
+# ansi_aware_handler <- function(x, options) {
+#     paste0(
+#         "<pre class=\"r-output\"><code>",
+#         fansi::sgr_to_html(x = x, warn = FALSE, term.cap = "256"),
+#         "</code></pre>"
+#     )
+# }
+# 
+# knitr::knit_hooks$set(
+#     output = ansi_aware_handler,
+#     message = ansi_aware_handler,
+#     warning = ansi_aware_handler,
+#     error = ansi_aware_handler
+# )
 ```
-
 
 ## Agenda {.smaller}
 
@@ -71,13 +70,15 @@ library(asciicast)
 3.  Praktisch angewendet
 
     a)  Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung
-    b)  Meta-Daten aus der Datenbank (IQB-ItemDB) holen
-    c)  Rater-Funktionen und der KA3-Datensatz
-    d)  weitere Funktionen
 
-4.  Übung
-::: 
+    \[Übung 1\]
 
+    b)  Kategorientrennschärfen
+    c)  Testsitzungsprotokolle
+    d)  Beurteilerübereinstimmung (Rater-Funktionen)
+
+    \[Übung 2\]
+:::
 
 # 1. Fokus, Features und Installation
 
@@ -166,7 +167,6 @@ library(eatPrep)
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
 
-
 ## Subitems, Items, Aufgaben {.smaller}
 
 ![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
@@ -174,7 +174,6 @@ library(eatPrep)
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
-
 
 ## Subitems, Items, Aufgaben und Values und Scores {.smaller}
 
@@ -206,7 +205,6 @@ kable(Mtypes)
 ::: footer
 2a. Subitems in Items in Aufgaben
 :::
-
 
 ## Aufgaben in Blöcken und Blöcke in Testheften {.smaller}
 
@@ -282,9 +280,8 @@ kable(Mtypes)
 
 [`readDaemonXlsx()`](https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html) - Einlesen der inputListe, die mithilfe des EDV-Tools "ZKDaemon" erzeugt wurde.
 
-::: {.small-text-compact}
-(Dieses liegt unter **i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application**. 
-Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier:\
+::: small-text-compact
+(Dieses liegt unter **i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application**. Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier:\
 **i:\\Methoden\\02_IQB-interne_eat_Workshops\\eatPrep_2021\\eatPrep_2021-06-18.pdf**)
 :::
 
@@ -292,28 +289,23 @@ Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDa
 
 [`readMerkmalXlsx()`](https://sachseka.github.io/eatPrep/reference/readMerkmalXlsx.html) - Einlesen von zusätzlichen Item- und Aufgabenmerkmalen wie Bearbeitungszeiten, Formaten, inhaltlichen Kategorien, ...
 
-::: {.small-text-compact}
+::: small-text-compact
 (Erzeugen der Merkmal-Xlsx via Klick auf "Merkmalsauszug" in **i:\\EDV\\IQB-Apps\\IQB-ItemDB\\IQB-ItemDB.application**)
 :::
-
-
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
 
-
-
-
 ## (Meta-)Daten einlesen: inputListe
 
 Item Meta-Daten:
+
 ```{r readDeamonXlsx}
 filename <- system.file("extdata", "inputList.xlsx", package = "eatPrep")
 inpustList <- readDaemonXlsx(filename)
 str(inpustList)
 ```
-
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
@@ -322,12 +314,12 @@ str(inpustList)
 ## (Meta-)Daten einlesen: SPSS-Daten
 
 Exemplarisch ein Datensatz:
+
 ```{r readSpss}
 filename <- system.file("extdata", "booklet1.sav", package = "eatPrep")
 booklet1 <- readSpss(filename)
 head(booklet1)
 ```
-
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
@@ -336,6 +328,7 @@ head(booklet1)
 ## (Meta-)Daten einlesen: Merkmale
 
 Weitere Merkmale:
+
 ```{r readMerkmalXlsx}
 filename <- system.file("extdata", "itemmerkmale.xlsx", package = "eatPrep")
 merkmale <- readMerkmalXlsx(filename, tolcl = FALSE, alleM = TRUE)
@@ -354,25 +347,24 @@ head(merkmale)
 
 [`checkDesign()`](https://sachseka.github.io/eatPrep/reference/checkDesign.html) - Datensätze gemäß Meta-Informationen zum Testdesign überprüfen
 
-
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
 
-
-
 ## Checken, Rekodieren, Aggregieren, Scoren
 
 inputListe checken:
+
 ```{r checkInputList}
 #| message: true
+#| warning: true
+#| error: true
 checkInputList(inputList)
 ```
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
-
 
 ## Mergen, Rekodieren, Aggregieren, Scoren
 
@@ -384,39 +376,100 @@ checkInputList(inputList)
 
 [`scoreData()`](https://sachseka.github.io/eatPrep/reference/scoreData.html) - ehemals aus Subitems bestehende Items rekodieren
 
+[`mnrCoding()`](https://sachseka.github.io/eatPrep/reference/mnrCoding.html) - Rekodieren der letzten Items (falls leer) in jedem Block (siehe Testdesign) als "missing not reached"
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
 
-
-
 ## Wrapper [`automateDataPreparation()`](https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html)
 
 ```{r prepDat}
-# Vorbereitung falls die Pfade für die SPSS-Dateien nicht in der InputListe eingetragen sind
+#| message: true
+#| warning: true
+#| error: true
+# Vorbereitung, da die Pfade für die SPSS-Dateien hier noch nicht in der InputListe eingetragen sind
 inputList$savFiles$fullname[1] <- system.file("extdata", "booklet1.sav", package = "eatPrep")
 inputList$savFiles$fullname[2] <- system.file("extdata", "booklet2.sav", package = "eatPrep")
 inputList$savFiles$fullname[3] <- system.file("extdata", "booklet3.sav", package = "eatPrep")
 
 preparedData <- automateDataPreparation(inputList = inputList,
     readSpss = TRUE, checkData = TRUE,  mergeData = TRUE,
-    recodeData = TRUE, aggregateData = FALSE, scoreData = FALSE,
-    writeSpss = FALSE, verbose = TRUE)
+    recodeData = TRUE, aggregateData = TRUE, scoreData = TRUE,
+    recodeMnr = TRUE, breaks=c(1,2,3), writeSpss = FALSE, verbose = TRUE)
 ```
 
+::: small-text-compact
+([`automateDataPreparation()`](https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html) arbeitetet alternativ auch mit Daten, die als einzelner (ggf. bereits zusammengeführter) R-data.frame übergeben werden (via Argument "datList"))
+:::
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
 :::
 
+## Wrapper [`automateDataPreparation()`](https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html)
 
+::: small-text-compact
+...arbeitetet auch mit Daten, die als Liste von R-data.frames übergeben werden (Argument datList):
+:::
 
+```{r prepDat2}
+#| message: true
+#| warning: true
+#| error: true
+preparedData <- automateDataPreparation(datList = inputDat, inputList = inputList, 
+    readSpss = FALSE, checkData = TRUE,  mergeData = TRUE,
+    recodeData = TRUE, aggregateData = TRUE, scoreData = TRUE,
+    recodeMnr = TRUE, breaks=c(1,2,3), writeSpss = FALSE, verbose = TRUE)
+```
 
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
 
+## Vollständigkeit der Daten überprüfen
 
+```{r prepDat3}
+#| message: false
+#| warning: false
+#| error: false
+prepDat <- automateDataPreparation(datList = inputDat, inputList = inputList, 
+    readSpss = FALSE, checkData = TRUE,  mergeData = TRUE,
+    recodeData = TRUE, aggregateData = FALSE, scoreData = FALSE,
+    writeSpss = FALSE, verbose = TRUE)
+```
 
+```{r checkDes}
+#| message: true
+#| warning: true
+#| error: true
+checkDesign(dat = prepDat, booklets = inputList$booklets, blocks = inputList$blocks,
+    rotation = inputList$rotation, subunits = inputList$subunits, 
+    sysMis = "mbd", id="ID", verbose = TRUE)
+```
 
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep
+:::
 
+## Export
 
+[`collapseMissings()`](https://sachseka.github.io/eatPrep/reference/collapseMissings.html) - Rekodiert die Missingtypen in prädefinierte Scores (i.d.R. 0,1,NA). Ein solcher "collapster" R-data.frame kann direkt nach [`eatModel`](https://github.com/weirichs/eatModel) zur Skalierung übergeben werden.
 
+[`writeSpss()`](https://sachseka.github.io/eatPrep/reference/writeSpss.html) - Produziert eine SPSS-Syntax und einen .txt-Datensatz, der mit der Syntax in SPSS inklusive aller Meta-Daten eingelesen werden kann.
+
+[`prep2GADS()`](https://sachseka.github.io/eatPrep/reference/prep2gads.html) - Sowohl die Roh-Datensätze als auch die fertigen, gescorten Datensätze können inklusive aller ihrer Meta-Daten in ein GADSdat-Objekt exportiert werden, zur Datenaufbewahrung oder Weiterverarbeitung in [`eatGADS`](https://cran.r-project.org/web/packages/eatGADS/index.html)
+
+# Übung 1
+
+## Übung 1
+
+1.  Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf (entweder ein einzelnen Schritten oder gebündelt).
+
+2.  Exportiert die aufbereiteten (aber "uncollapsten") Daten ins eatGADS-Format.
+
+3.  Überprüft, ob die Daten zum Testdesign passen oder ob es Dateneinträge gibt, wo per Design fehlende Werte sein müssten oder per Design fehlende Werte, wo es valide Codes oder andere Missingtypen geben müsste.
+
+::: footer
+3a. Praxis: Haupt-Funktionen in eatPrep -- Übung 1
+:::

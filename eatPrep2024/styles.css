@@ -12,7 +12,7 @@ h2 {
     background-color: #F2F2F2; /* Optional: background color */
     position: absolute;  !important;
     top: -20px; !important;
-    left: -50px;  !important;
+    left: -75px;  !important;
     right: 0; !important;
     z-index: 100px; /* Ensures it stays above other elements */
 }

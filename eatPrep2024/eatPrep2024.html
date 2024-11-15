@@ -8,7 +8,7 @@
 <link href="eatPrep2024_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="eatPrep2024_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.555">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Karoline Sachse">
   <meta name="dcterms.date" content="2024-11-19">
@@ -43,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -71,7 +71,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -85,7 +85,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -424,11 +424,14 @@ Karoline Sachse
 <li><p>Praktisch angewendet</p>
 <ol type="a">
 <li>Haupt-Funktionen und -Schritte der Papier-Kompetenzdatenaufbereitung</li>
-<li>Meta-Daten aus der Datenbank (IQB-ItemDB) holen</li>
-<li>Rater-Funktionen und der KA3-Datensatz</li>
-<li>weitere Funktionen</li>
-</ol></li>
-<li><p>Übung</p></li>
+</ol>
+<p>[Übung 1]</p>
+<ol start="2" type="a">
+<li>Kategorientrennschärfen</li>
+<li>Testsitzungsprotokolle</li>
+<li>Beurteilerübereinstimmung (Rater-Funktionen)</li>
+</ol>
+<p>[Übung 2]</p></li>
 </ol>
 </div>
 </section>
@@ -689,68 +692,67 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"inputList.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb3-2"><a href=""></a>inpustList <span class="ot">&lt;-</span> <span class="fu">readDaemonXlsx</span>(filename)</span>
-<span id="cb3-3"><a href=""></a><span class="fu">str</span>(inpustList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="r-output"><code>&gt; List of 9
-&gt;  $ units        :'data.frame':    29 obs. of  6 variables:
-&gt;   ..$ unit             : chr [1:29] "I01" "I02" "I03" "I04" ...
-&gt;   ..$ unitLabel        : chr [1:29] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...
-&gt;   ..$ unitDescription  : chr [1:29] NA NA NA NA ...
-&gt;   ..$ unitType         : chr [1:29] "TI" "TI" "TI" "TI" ...
-&gt;   ..$ unitAggregateRule: chr [1:29] NA NA NA NA ...
-&gt;   ..$ unitScoreRule    : chr [1:29] NA NA NA NA ...
-&gt;  $ subunits     :'data.frame':    30 obs. of  9 variables:
-&gt;   ..$ unit               : chr [1:30] "I01" "I02" "I03" "I04" ...
-&gt;   ..$ subunit            : chr [1:30] "I01" "I02" "I03" "I04" ...
-&gt;   ..$ subunitType        : chr [1:30] "1" "1" "1" "1" ...
-&gt;   ..$ subunitLabel       : chr [1:30] "Animals: Weight of a duck" "Animals: Weight of a horse" "Animals: Weight of a mouse" "Animals: Weight of a cat" ...
-&gt;   ..$ subunitDescription : chr [1:30] NA NA NA NA ...
-&gt;   ..$ subunitPosition    : chr [1:30] "a)" "b)" "c)" "d)" ...
-&gt;   ..$ subunitTransniveau : chr [1:30] NA NA NA NA ...
-&gt;   ..$ subunitRecoded     : chr [1:30] "I01R" "I02R" "I03R" "I04R" ...
-&gt;   ..$ subunitLabelRecoded: chr [1:30] "Recoded Animals: Weight of a duck" "Recoded Animals: Weight of a horse" "Recoded Animals: Weight of a mouse" "Recoded Animals: Weight of a cat" ...
-&gt;  $ values       :'data.frame':    220 obs. of  8 variables:
-&gt;   ..$ subunit                : chr [1:220] "I01" "I01" "I01" "I01" ...
-&gt;   ..$ value                  : chr [1:220] "1" "2" "3" "6" ...
-&gt;   ..$ valueRecode            : chr [1:220] "0" "0" "1" "mnr" ...
-&gt;   ..$ valueType              : chr [1:220] "vc" "vc" "vc" "mnr" ...
-&gt;   ..$ valueLabel             : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...
-&gt;   ..$ valueDescription       : chr [1:220] "Response option 1 marked" "Response option 2 marked" "Response option 3 marked" "missing not reached" ...
-&gt;   ..$ valueLabelRecoded      : chr [1:220] "0" "0" "1" "mnr" ...
-&gt;   ..$ valueDescriptionRecoded: chr [1:220] NA NA NA NA ...
-&gt;  $ unitRecodings:'data.frame':    7 obs. of  7 variables:
-&gt;   ..$ unit             : chr [1:7] "I12" "I12" "I12" "I12" ...
-&gt;   ..$ value            : chr [1:7] "0" "1" "2" "3" ...
-&gt;   ..$ valueRecode      : chr [1:7] "0" "0" "0" "1" ...
-&gt;   ..$ valueType        : chr [1:7] "vc" "vc" "vc" "vc" ...
-&gt;   ..$ valueLabel       : chr [1:7] NA NA NA NA ...
-&gt;   ..$ valueDescription : chr [1:7] NA NA NA NA ...
-&gt;   ..$ valueLabelRecoded: chr [1:7] NA NA NA NA ...
-&gt;  $ savFiles     :'data.frame':    3 obs. of  3 variables:
-&gt;   ..$ filename: chr [1:3] "booklet1.sav" "booklet2.sav" "booklet3.sav"
-&gt;   ..$ case.id : chr [1:3] "ID" "ID" "ID"
-&gt;   ..$ fullname: chr [1:3] NA NA NA
-&gt;  $ newID        :'data.frame':    1 obs. of  2 variables:
-&gt;   ..$ key  : chr "master-id"
-&gt;   ..$ value: chr "ID"
-&gt;  $ aggrMiss     :'data.frame':    7 obs. of  8 variables:
-&gt;   ..$ nam: chr [1:7] "vc" "mvi" "mnr" "mci" ...
-&gt;   ..$ vc : chr [1:7] "vc" "mvi" "vc" "mci" ...
-&gt;   ..$ mvi: chr [1:7] "mvi" "mvi" "err" "mci" ...
-&gt;   ..$ mnr: chr [1:7] "vc" "err" "mnr" "mci" ...
-&gt;   ..$ mci: chr [1:7] "mci" "mci" "mci" "mci" ...
-&gt;   ..$ mbd: chr [1:7] "err" "err" "err" "err" ...
-&gt;   ..$ mir: chr [1:7] "vc" "err" "mir" "mci" ...
-&gt;   ..$ mbi: chr [1:7] "vc" "err" "mnr" "mci" ...
-&gt;  $ booklets     :'data.frame':    3 obs. of  4 variables:
-&gt;   ..$ booklet: chr [1:3] "booklet1" "booklet2" "booklet3"
-&gt;   ..$ block1 : chr [1:3] "bl1" "bl4" "bl3"
-&gt;   ..$ block2 : chr [1:3] "bl2" "bl3" "bl1"
-&gt;   ..$ block3 : chr [1:3] "bl3" "bl2" "bl4"
-&gt;  $ blocks       :'data.frame':    30 obs. of  3 variables:
-&gt;   ..$ subunit             : chr [1:30] "I01" "I02" "I03" "I04" ...
-&gt;   ..$ block               : chr [1:30] "bl1" "bl1" "bl1" "bl1" ...
-&gt;   ..$ subunitBlockPosition: chr [1:30] "1" "2" "3" "4" ...
-</code></pre>
+<span id="cb3-3"><a href=""></a><span class="fu">str</span>(inpustList)</span>
+<span id="cb3-4"><a href=""></a><span class="sc">&gt;</span> List of <span class="dv">9</span></span>
+<span id="cb3-5"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> units        <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">29</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb3-6"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> unit             <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="st">"I01"</span> <span class="st">"I02"</span> <span class="st">"I03"</span> <span class="st">"I04"</span> ...</span>
+<span id="cb3-7"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> unitLabel        <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="st">"Animals: Weight of a duck"</span> <span class="st">"Animals: Weight of a horse"</span> <span class="st">"Animals: Weight of a mouse"</span> <span class="st">"Animals: Weight of a cat"</span> ...</span>
+<span id="cb3-8"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> unitDescription  <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-9"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> unitType         <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="st">"TI"</span> <span class="st">"TI"</span> <span class="st">"TI"</span> <span class="st">"TI"</span> ...</span>
+<span id="cb3-10"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> unitAggregateRule<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-11"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> unitScoreRule    <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">29</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-12"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> subunits     <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">30</span> obs. of  <span class="dv">9</span> variables<span class="sc">:</span></span>
+<span id="cb3-13"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> unit               <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"I01"</span> <span class="st">"I02"</span> <span class="st">"I03"</span> <span class="st">"I04"</span> ...</span>
+<span id="cb3-14"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunit            <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"I01"</span> <span class="st">"I02"</span> <span class="st">"I03"</span> <span class="st">"I04"</span> ...</span>
+<span id="cb3-15"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitType        <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"1"</span> <span class="st">"1"</span> <span class="st">"1"</span> <span class="st">"1"</span> ...</span>
+<span id="cb3-16"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitLabel       <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"Animals: Weight of a duck"</span> <span class="st">"Animals: Weight of a horse"</span> <span class="st">"Animals: Weight of a mouse"</span> <span class="st">"Animals: Weight of a cat"</span> ...</span>
+<span id="cb3-17"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitDescription <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-18"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitPosition    <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"a)"</span> <span class="st">"b)"</span> <span class="st">"c)"</span> <span class="st">"d)"</span> ...</span>
+<span id="cb3-19"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitTransniveau <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-20"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitRecoded     <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"I01R"</span> <span class="st">"I02R"</span> <span class="st">"I03R"</span> <span class="st">"I04R"</span> ...</span>
+<span id="cb3-21"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitLabelRecoded<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"Recoded Animals: Weight of a duck"</span> <span class="st">"Recoded Animals: Weight of a horse"</span> <span class="st">"Recoded Animals: Weight of a mouse"</span> <span class="st">"Recoded Animals: Weight of a cat"</span> ...</span>
+<span id="cb3-22"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> values       <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">220</span> obs. of  <span class="dv">8</span> variables<span class="sc">:</span></span>
+<span id="cb3-23"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> subunit                <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"I01"</span> <span class="st">"I01"</span> <span class="st">"I01"</span> <span class="st">"I01"</span> ...</span>
+<span id="cb3-24"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> value                  <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="st">"3"</span> <span class="st">"6"</span> ...</span>
+<span id="cb3-25"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueRecode            <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"0"</span> <span class="st">"0"</span> <span class="st">"1"</span> <span class="st">"mnr"</span> ...</span>
+<span id="cb3-26"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueType              <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"vc"</span> <span class="st">"vc"</span> <span class="st">"vc"</span> <span class="st">"mnr"</span> ...</span>
+<span id="cb3-27"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueLabel             <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"Response option 1 marked"</span> <span class="st">"Response option 2 marked"</span> <span class="st">"Response option 3 marked"</span> <span class="st">"missing not reached"</span> ...</span>
+<span id="cb3-28"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueDescription       <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"Response option 1 marked"</span> <span class="st">"Response option 2 marked"</span> <span class="st">"Response option 3 marked"</span> <span class="st">"missing not reached"</span> ...</span>
+<span id="cb3-29"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueLabelRecoded      <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="st">"0"</span> <span class="st">"0"</span> <span class="st">"1"</span> <span class="st">"mnr"</span> ...</span>
+<span id="cb3-30"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueDescriptionRecoded<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">220</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-31"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> unitRecodings<span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">7</span> obs. of  <span class="dv">7</span> variables<span class="sc">:</span></span>
+<span id="cb3-32"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> unit             <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"I12"</span> <span class="st">"I12"</span> <span class="st">"I12"</span> <span class="st">"I12"</span> ...</span>
+<span id="cb3-33"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> value            <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"0"</span> <span class="st">"1"</span> <span class="st">"2"</span> <span class="st">"3"</span> ...</span>
+<span id="cb3-34"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueRecode      <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"0"</span> <span class="st">"0"</span> <span class="st">"0"</span> <span class="st">"1"</span> ...</span>
+<span id="cb3-35"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueType        <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"vc"</span> <span class="st">"vc"</span> <span class="st">"vc"</span> ...</span>
+<span id="cb3-36"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueLabel       <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-37"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueDescription <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-38"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> valueLabelRecoded<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
+<span id="cb3-39"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> savFiles     <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb3-40"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> filename<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"booklet1.sav"</span> <span class="st">"booklet2.sav"</span> <span class="st">"booklet3.sav"</span></span>
+<span id="cb3-41"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> case.id <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"ID"</span> <span class="st">"ID"</span> <span class="st">"ID"</span></span>
+<span id="cb3-42"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> fullname<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span></span>
+<span id="cb3-43"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> newID        <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
+<span id="cb3-44"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> key  <span class="sc">:</span> chr <span class="st">"master-id"</span></span>
+<span id="cb3-45"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> value<span class="sc">:</span> chr <span class="st">"ID"</span></span>
+<span id="cb3-46"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> aggrMiss     <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">7</span> obs. of  <span class="dv">8</span> variables<span class="sc">:</span></span>
+<span id="cb3-47"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> nam<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"mvi"</span> <span class="st">"mnr"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-48"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> vc <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"mvi"</span> <span class="st">"vc"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-49"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mvi<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"mvi"</span> <span class="st">"mvi"</span> <span class="st">"err"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-50"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mnr<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"err"</span> <span class="st">"mnr"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-51"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mci<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"mci"</span> <span class="st">"mci"</span> <span class="st">"mci"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-52"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mbd<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"err"</span> <span class="st">"err"</span> <span class="st">"err"</span> <span class="st">"err"</span> ...</span>
+<span id="cb3-53"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mir<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"err"</span> <span class="st">"mir"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-54"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> mbi<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>] <span class="st">"vc"</span> <span class="st">"err"</span> <span class="st">"mnr"</span> <span class="st">"mci"</span> ...</span>
+<span id="cb3-55"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> booklets     <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">3</span> obs. of  <span class="dv">4</span> variables<span class="sc">:</span></span>
+<span id="cb3-56"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> booklet<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"booklet1"</span> <span class="st">"booklet2"</span> <span class="st">"booklet3"</span></span>
+<span id="cb3-57"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> block1 <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"bl1"</span> <span class="st">"bl4"</span> <span class="st">"bl3"</span></span>
+<span id="cb3-58"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> block2 <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"bl2"</span> <span class="st">"bl3"</span> <span class="st">"bl1"</span></span>
+<span id="cb3-59"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> block3 <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">"bl3"</span> <span class="st">"bl2"</span> <span class="st">"bl4"</span></span>
+<span id="cb3-60"><a href=""></a><span class="sc">&gt;</span>  <span class="er">$</span> blocks       <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">30</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb3-61"><a href=""></a><span class="er">&gt;</span>   ..<span class="sc">$</span> subunit             <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"I01"</span> <span class="st">"I02"</span> <span class="st">"I03"</span> <span class="st">"I04"</span> ...</span>
+<span id="cb3-62"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> block               <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"bl1"</span> <span class="st">"bl1"</span> <span class="st">"bl1"</span> <span class="st">"bl1"</span> ...</span>
+<span id="cb3-63"><a href=""></a><span class="sc">&gt;</span>   ..<span class="sc">$</span> subunitBlockPosition<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>] <span class="st">"1"</span> <span class="st">"2"</span> <span class="st">"3"</span> <span class="st">"4"</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -762,36 +764,21 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb4-2"><a href=""></a>booklet1 <span class="ot">&lt;-</span> <span class="fu">readSpss</span>(filename)</span>
-<span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="r-output"><code>&gt;           ID Hisei item_8 item_9 item_10 item_11 item_12c item_13 item_14
-&gt; 1 person_002    57      1      3       2       3        4       2       6
-&gt; 2 person_003    32      1      2       2       1        4       2       6
-&gt; 3 person_004    59      1      4       4       3        4       2       6
-&gt; 4 person_005    56      2      4       4       9        4       2       6
-&gt; 5 person_006    55      1      2       2       2        4       2       6
-&gt; 6 person_007    47      1      2       3       1        4       2       6
-&gt;   item_15 item_16 item_17 item_18 item_19 item_20 item_21 item_1 item_2 item_3
-&gt; 1    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
-&gt; 2    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
-&gt; 3    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
-&gt; 4    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      1      2
-&gt; 5    <na>    <na>    <na>    <na>    <na>    <na>    <na>      3      4      2
-&gt; 6    <na>    <na>    <na>    <na>    <na>    <na>    <na>      1      4      2
-&gt;   item_4 item_5 item_6 item_7 item_22 item_23 item_24 item_25 item_26 item_27
-&gt; 1      3      1      1      1    <na>    <na>    <na>    <na>    <na>    <na>
-&gt; 2      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
-&gt; 3      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
-&gt; 4      2      1      1      1    <na>    <na>    <na>    <na>    <na>       9
-&gt; 5      2      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
-&gt; 6      3      0      0      1    <na>    <na>    <na>    <na>    <na>    <na>
-&gt;   item_28 item_12a item_12b
-&gt; 1    <na>        0        1
-&gt; 2    <na>        0        0
-&gt; 3    <na>        0        0
-&gt; 4    <na>        0        1
-&gt; 5    <na>        0        1
-&gt; 6    <na>        0        0
-</na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></na></code></pre>
+<span id="cb4-3"><a href=""></a><span class="fu">head</span>(booklet1)</span>
+<span id="cb4-4"><a href=""></a><span class="sc">&gt;</span>          ID hisei I01 I02 I03 I04 I05 I06 I07 I08 I09 I10 I11 I12a I12b I12c</span>
+<span id="cb4-5"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span> person002    <span class="dv">57</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">3</span>   <span class="dv">2</span>   <span class="dv">3</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">4</span></span>
+<span id="cb4-6"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> person003    <span class="dv">32</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">0</span>   <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">2</span>   <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">4</span></span>
+<span id="cb4-7"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> person004    <span class="dv">59</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">0</span>   <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">4</span>   <span class="dv">4</span>   <span class="dv">3</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">4</span></span>
+<span id="cb4-8"><a href=""></a><span class="sc">&gt;</span> <span class="dv">4</span> person005    <span class="dv">56</span>   <span class="dv">3</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">2</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">4</span>   <span class="dv">4</span>   <span class="dv">9</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">4</span></span>
+<span id="cb4-9"><a href=""></a><span class="sc">&gt;</span> <span class="dv">5</span> person006    <span class="dv">55</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">2</span>   <span class="dv">0</span>   <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">2</span>   <span class="dv">2</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">4</span></span>
+<span id="cb4-10"><a href=""></a><span class="sc">&gt;</span> <span class="dv">6</span> person007    <span class="dv">47</span>   <span class="dv">1</span>   <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">0</span>   <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">4</span></span>
+<span id="cb4-11"><a href=""></a><span class="sc">&gt;</span>   I13 I14  I15  I16  I17  I18  I19  I20  I21  I22  I23  I24  I25  I26  I27  I28</span>
+<span id="cb4-12"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb4-13"><a href=""></a><span class="er">&gt;</span> <span class="dv">2</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb4-14"><a href=""></a><span class="er">&gt;</span> <span class="dv">3</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb4-15"><a href=""></a><span class="er">&gt;</span> <span class="dv">4</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb4-16"><a href=""></a><span class="er">&gt;</span> <span class="dv">5</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb4-17"><a href=""></a><span class="er">&gt;</span> <span class="dv">6</span>   <span class="dv">2</span>   <span class="dv">6</span> <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -803,40 +790,39 @@ Karoline Sachse
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>filename <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"itemmerkmale.xlsx"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb5-2"><a href=""></a>merkmale <span class="ot">&lt;-</span> <span class="fu">readMerkmalXlsx</span>(filename, <span class="at">tolcl =</span> <span class="cn">FALSE</span>, <span class="at">alleM =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-3"><a href=""></a><span class="fu">head</span>(merkmale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="r-output"><code>&gt; $Aufgabenmerkmale
-&gt;                      Aufgabe Zeit.A                     AufgID AufgTitel
-&gt; 1  Animals: Weight of a duck   0:00  Animals: Weight of a duck        NA
-&gt; 2 Animals: Weight of a horse   0:00 Animals: Weight of a horse        NA
-&gt; 
-&gt; $Itemmerkmale
-&gt;                      Aufgabe Teilaufgabe Item Zeit.I Anforderungsbereich.MaP
-&gt; 1  Animals: Weight of a duck           A   01   0:00                       I
-&gt; 2 Animals: Weight of a horse           A   01   0:00                       I
-&gt; 3 Animals: Weight of a horse           B   02   0:00                      II
-&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er
-&gt; 1                               1a GA - Geschlossen Ankreuzen
-&gt; 2                             <na> GA - Geschlossen Ankreuzen
-&gt; 3                             <na> GA - Geschlossen Ankreuzen
-&gt;                       AufgID AufgTitel                       ItemID
-&gt; 1  Animals: Weight of a duck        NA  Animals: Weight of a duck01
-&gt; 2 Animals: Weight of a horse        NA Animals: Weight of a horse01
-&gt; 3 Animals: Weight of a horse        NA Animals: Weight of a horse02
-&gt; 
-&gt; $AlleMerkmale
-&gt;                       AufgID                    Aufgabe Teilaufgabe Item
-&gt; 1  Animals: Weight of a duck  Animals: Weight of a duck           A   01
-&gt; 2 Animals: Weight of a horse Animals: Weight of a horse           A   01
-&gt; 3 Animals: Weight of a horse Animals: Weight of a horse           B   02
-&gt;                         ItemID Zeit.I Anforderungsbereich.MaP
-&gt; 1  Animals: Weight of a duck01   0:00                       I
-&gt; 2 Animals: Weight of a horse01   0:00                       I
-&gt; 3 Animals: Weight of a horse02   0:00                      II
-&gt;   Bildungsstandards.MaP.allgemeine                Itemtyp.5er Zeit.A
-&gt; 1                               1a GA - Geschlossen Ankreuzen   0:00
-&gt; 2                             <na> GA - Geschlossen Ankreuzen   0:00
-&gt; 3                             <na> GA - Geschlossen Ankreuzen   0:00
-</na></na></na></na></code></pre>
+<span id="cb5-3"><a href=""></a><span class="fu">head</span>(merkmale)</span>
+<span id="cb5-4"><a href=""></a><span class="sc">&gt;</span> <span class="er">$</span>Aufgabenmerkmale</span>
+<span id="cb5-5"><a href=""></a><span class="sc">&gt;</span>                      Aufgabe Zeit.A                     AufgID AufgTitel</span>
+<span id="cb5-6"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>  Animals<span class="sc">:</span> Weight of a duck   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>  Animals<span class="sc">:</span> Weight of a duck        <span class="cn">NA</span></span>
+<span id="cb5-7"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> Animals<span class="sc">:</span> Weight of a horse   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span> Animals<span class="sc">:</span> Weight of a horse        <span class="cn">NA</span></span>
+<span id="cb5-8"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb5-9"><a href=""></a><span class="er">&gt;</span> <span class="er">$</span>Itemmerkmale</span>
+<span id="cb5-10"><a href=""></a><span class="sc">&gt;</span>                      Aufgabe Teilaufgabe Item Zeit.I Anforderungsbereich.MaP</span>
+<span id="cb5-11"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>  Animals<span class="sc">:</span> Weight of a duck           A   <span class="dv">01</span>   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                       I</span>
+<span id="cb5-12"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> Animals<span class="sc">:</span> Weight of a horse           A   <span class="dv">01</span>   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                       I</span>
+<span id="cb5-13"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> Animals<span class="sc">:</span> Weight of a horse           B   <span class="dv">02</span>   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                      II</span>
+<span id="cb5-14"><a href=""></a><span class="sc">&gt;</span>   Bildungsstandards.MaP.allgemeine                Itemtyp<span class="fl">.5</span>er</span>
+<span id="cb5-15"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>                               <span class="dv">1</span>a GA <span class="sc">-</span> Geschlossen Ankreuzen</span>
+<span id="cb5-16"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span>                             <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> GA <span class="sc">-</span> Geschlossen Ankreuzen</span>
+<span id="cb5-17"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span>                             <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> GA <span class="sc">-</span> Geschlossen Ankreuzen</span>
+<span id="cb5-18"><a href=""></a><span class="sc">&gt;</span>                       AufgID AufgTitel                       ItemID</span>
+<span id="cb5-19"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>  Animals<span class="sc">:</span> Weight of a duck        <span class="cn">NA</span>  Animals<span class="sc">:</span> Weight of a duck01</span>
+<span id="cb5-20"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> Animals<span class="sc">:</span> Weight of a horse        <span class="cn">NA</span> Animals<span class="sc">:</span> Weight of a horse01</span>
+<span id="cb5-21"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> Animals<span class="sc">:</span> Weight of a horse        <span class="cn">NA</span> Animals<span class="sc">:</span> Weight of a horse02</span>
+<span id="cb5-22"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb5-23"><a href=""></a><span class="er">&gt;</span> <span class="er">$</span>AlleMerkmale</span>
+<span id="cb5-24"><a href=""></a><span class="sc">&gt;</span>                       AufgID                    Aufgabe Teilaufgabe Item</span>
+<span id="cb5-25"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>  Animals<span class="sc">:</span> Weight of a duck  Animals<span class="sc">:</span> Weight of a duck           A   <span class="dv">01</span></span>
+<span id="cb5-26"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> Animals<span class="sc">:</span> Weight of a horse Animals<span class="sc">:</span> Weight of a horse           A   <span class="dv">01</span></span>
+<span id="cb5-27"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> Animals<span class="sc">:</span> Weight of a horse Animals<span class="sc">:</span> Weight of a horse           B   <span class="dv">02</span></span>
+<span id="cb5-28"><a href=""></a><span class="sc">&gt;</span>                         ItemID Zeit.I Anforderungsbereich.MaP</span>
+<span id="cb5-29"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>  Animals<span class="sc">:</span> Weight of a duck01   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                       I</span>
+<span id="cb5-30"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> Animals<span class="sc">:</span> Weight of a horse01   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                       I</span>
+<span id="cb5-31"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> Animals<span class="sc">:</span> Weight of a horse02   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span>                      II</span>
+<span id="cb5-32"><a href=""></a><span class="sc">&gt;</span>   Bildungsstandards.MaP.allgemeine                Itemtyp<span class="fl">.5</span>er Zeit.A</span>
+<span id="cb5-33"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span>                               <span class="dv">1</span>a GA <span class="sc">-</span> Geschlossen Ankreuzen   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span></span>
+<span id="cb5-34"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span>                             <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> GA <span class="sc">-</span> Geschlossen Ankreuzen   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span></span>
+<span id="cb5-35"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span>                             <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> GA <span class="sc">-</span> Geschlossen Ankreuzen   <span class="dv">0</span><span class="sc">:</span><span class="dv">00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -855,57 +841,33 @@ Karoline Sachse
 <h2>Checken, Rekodieren, Aggregieren, Scoren</h2>
 <p>inputListe checken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">checkInputList</span>(inputList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Checking sheets
-</code></pre>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Check: Value Recoding
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> Missing types `mir` and `mbi` are defined for all items in <span style="color: #00BB00;">valueRecode</span>.
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #BB0000;">✖</span> Missing type `mnr` is not defined as <span style="color: #00BB00;">valueRecode</span> for items: `I14`.
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #BB0000;">✖</span> Missing type `mbd` is not defined as <span style="color: #00BB00;">valueRecode</span> for items: `I14`.
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> <span style="color: #00BB00;">value</span> contains the following values over all items: `0`, `1`, `2`, `3`, `4`,
-&gt; `5`, `6`, `7`, `8`, and `9`
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> <span style="color: #00BB00;">valueRecode</span> contains only 0, 1, and the mistypes: `0`, `1`, `mbd`, `mbi`,
-&gt; `mir`, and `mnr`
-</code></pre>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Check: Value Types
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> No other values than `vc` and the mistypes in <span style="color: #00BB00;">valueType</span>.
-</code></pre>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Check: Unit Equivalence
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All 28 units in <span style="color: #00BB00;">units</span> sheet are also defined in <span style="color: #00BB00;">subunits</span>.
-</code></pre>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Check: Subunit Equivalence
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All 30 subunits in <span style="color: #00BB00;">subunits</span> sheet are also defined in <span style="color: #00BB00;">values</span>.
-</code></pre>
-<pre class="r-output"><code>&gt; 
-</code></pre>
-<pre class="r-output"><code>&gt; ── Check: Unit Recoding
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> Units with only one subunit: 27
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BBBB;">ℹ</span> Units with more than one subunit: 1 (`I12`)
-</code></pre>
-<pre class="r-output"><code>&gt; <span style="color: #00BB00;">✔</span> All units with more than one subunit are defined in <span style="color: #00BB00;">unitRecodings</span> sheet.
-</code></pre>
-<pre class="r-output"><code>&gt; [1] FALSE
-</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">checkInputList</span>(inputList)</span>
+<span id="cb6-2"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-3"><a href=""></a><span class="er">&gt;</span> ── Checking sheets</span>
+<span id="cb6-4"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-5"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Value Recoding</span>
+<span id="cb6-6"><a href=""></a><span class="sc">&gt;</span> ✔ Missing types <span class="st">`</span><span class="at">mir</span><span class="st">`</span> and <span class="st">`</span><span class="at">mbi</span><span class="st">`</span> are defined <span class="cf">for</span> all items <span class="cf">in</span> valueRecode.</span>
+<span id="cb6-7"><a href=""></a><span class="sc">&gt;</span> ✖ Missing type <span class="st">`</span><span class="at">mnr</span><span class="st">`</span> is not defined as valueRecode <span class="cf">for</span> items<span class="sc">:</span> <span class="st">`</span><span class="at">I14</span><span class="st">`</span>.</span>
+<span id="cb6-8"><a href=""></a><span class="sc">&gt;</span> ✖ Missing type <span class="st">`</span><span class="at">mbd</span><span class="st">`</span> is not defined as valueRecode <span class="cf">for</span> items<span class="sc">:</span> <span class="st">`</span><span class="at">I14</span><span class="st">`</span>.</span>
+<span id="cb6-9"><a href=""></a><span class="sc">&gt;</span> ℹ value contains the following values over all items<span class="sc">:</span> <span class="st">`</span><span class="at">0</span><span class="st">`</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="st">`</span><span class="at">2</span><span class="st">`</span>, <span class="st">`</span><span class="at">3</span><span class="st">`</span>, <span class="st">`</span><span class="at">4</span><span class="st">`</span>,</span>
+<span id="cb6-10"><a href=""></a><span class="sc">&gt;</span> <span class="st">`</span><span class="at">5</span><span class="st">`</span>, <span class="st">`</span><span class="at">6</span><span class="st">`</span>, <span class="st">`</span><span class="at">7</span><span class="st">`</span>, <span class="st">`</span><span class="at">8</span><span class="st">`</span>, and <span class="st">`</span><span class="at">9</span><span class="st">`</span></span>
+<span id="cb6-11"><a href=""></a><span class="sc">&gt;</span> ✔ valueRecode contains only <span class="dv">0</span>, <span class="dv">1</span>, and the mistypes<span class="sc">:</span> <span class="st">`</span><span class="at">0</span><span class="st">`</span>, <span class="st">`</span><span class="at">1</span><span class="st">`</span>, <span class="st">`</span><span class="at">mbd</span><span class="st">`</span>, <span class="st">`</span><span class="at">mbi</span><span class="st">`</span>,</span>
+<span id="cb6-12"><a href=""></a><span class="sc">&gt;</span> <span class="st">`</span><span class="at">mir</span><span class="st">`</span>, and <span class="st">`</span><span class="at">mnr</span><span class="st">`</span></span>
+<span id="cb6-13"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-14"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Value Types</span>
+<span id="cb6-15"><a href=""></a><span class="sc">&gt;</span> ✔ No other values than <span class="st">`</span><span class="at">vc</span><span class="st">`</span> and the mistypes <span class="cf">in</span> valueType.</span>
+<span id="cb6-16"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-17"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Unit Equivalence</span>
+<span id="cb6-18"><a href=""></a><span class="sc">&gt;</span> ✔ All <span class="dv">28</span> units <span class="cf">in</span> units sheet are also defined <span class="cf">in</span> subunits.</span>
+<span id="cb6-19"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-20"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Subunit Equivalence</span>
+<span id="cb6-21"><a href=""></a><span class="sc">&gt;</span> ✔ All <span class="dv">30</span> subunits <span class="cf">in</span> subunits sheet are also defined <span class="cf">in</span> values.</span>
+<span id="cb6-22"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb6-23"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Unit Recoding</span>
+<span id="cb6-24"><a href=""></a><span class="sc">&gt;</span> ℹ Units with only one subunit<span class="sc">:</span> <span class="dv">27</span></span>
+<span id="cb6-25"><a href=""></a><span class="sc">&gt;</span> ℹ Units with more than one subunit<span class="sc">:</span> <span class="dv">1</span> (<span class="st">`</span><span class="at">I12</span><span class="st">`</span>)</span>
+<span id="cb6-26"><a href=""></a><span class="sc">&gt;</span> ✔ All units with more than one subunit are defined <span class="cf">in</span> unitRecodings sheet.</span>
+<span id="cb6-27"><a href=""></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
@@ -917,6 +879,7 @@ Karoline Sachse
 <p><a href="https://sachseka.github.io/eatPrep/reference/recodeData.html"><code>recodeData()</code></a> - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe</p>
 <p><a href="https://sachseka.github.io/eatPrep/reference/aggregateData.html"><code>aggregateData()</code></a> - Subitems zu Items aggregieren</p>
 <p><a href="https://sachseka.github.io/eatPrep/reference/scoreData.html"><code>scoreData()</code></a> - ehemals aus Subitems bestehende Items rekodieren</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/mnrCoding.html"><code>mnrCoding()</code></a> - Rekodieren der letzten Items (falls leer) in jedem Block (siehe Testdesign) als “missing not reached”</p>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
 </div>
@@ -924,18 +887,290 @@ Karoline Sachse
 <section id="wrapper-automatedatapreparation" class="slide level2">
 <h2>Wrapper <a href="https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html"><code>automateDataPreparation()</code></a></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Vorbereitung falls die Pfade für die SPSS-Dateien nicht in der InputListe eingetragen sind</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Vorbereitung, da die Pfade für die SPSS-Dateien hier noch nicht in der InputListe eingetragen sind</span></span>
 <span id="cb7-2"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet1.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb7-3"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet2.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb7-4"><a href=""></a>inputList<span class="sc">$</span>savFiles<span class="sc">$</span>fullname[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"booklet3.sav"</span>, <span class="at">package =</span> <span class="st">"eatPrep"</span>)</span>
 <span id="cb7-5"><a href=""></a></span>
 <span id="cb7-6"><a href=""></a>preparedData <span class="ot">&lt;-</span> <span class="fu">automateDataPreparation</span>(<span class="at">inputList =</span> inputList,</span>
 <span id="cb7-7"><a href=""></a>    <span class="at">readSpss =</span> <span class="cn">TRUE</span>, <span class="at">checkData =</span> <span class="cn">TRUE</span>,  <span class="at">mergeData =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb7-8"><a href=""></a>    <span class="at">recodeData =</span> <span class="cn">TRUE</span>, <span class="at">aggregateData =</span> <span class="cn">FALSE</span>, <span class="at">scoreData =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb7-9"><a href=""></a>    <span class="at">writeSpss =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-8"><a href=""></a>    <span class="at">recodeData =</span> <span class="cn">TRUE</span>, <span class="at">aggregateData =</span> <span class="cn">TRUE</span>, <span class="at">scoreData =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-9"><a href=""></a>    <span class="at">recodeMnr =</span> <span class="cn">TRUE</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">writeSpss =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-10"><a href=""></a><span class="sc">&gt;</span> Starting automateDataPreparation <span class="dv">2024-11-15</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="fl">07.15884</span></span>
+<span id="cb7-11"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-12"><a href=""></a><span class="er">&gt;</span> Load .sav<span class="sc">-</span>files.</span>
+<span id="cb7-13"><a href=""></a><span class="sc">&gt;</span> Successfully read <span class="cf">in</span><span class="sc">:</span> booklet1.sav, booklet2.sav, booklet3.sav</span>
+<span id="cb7-14"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-15"><a href=""></a><span class="er">&gt;</span> Check data...</span>
+<span id="cb7-16"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-17"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet1.sav</span>
+<span id="cb7-18"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb7-19"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb7-20"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb7-21"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb7-22"><a href=""></a><span class="sc">&gt;</span> <span class="fu">Variable</span>(s) I24, I25 <span class="fu">contain</span>(s) only missing values.</span>
+<span id="cb7-23"><a href=""></a><span class="sc">&gt;</span> Found invalid codes <span class="cf">in</span> variable I07<span class="sc">:</span> <span class="dv">22</span> cases invalid <span class="dv">0</span><span class="sc">--</span> valid Codes<span class="sc">:</span>  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span></span>
+<span id="cb7-24"><a href=""></a><span class="sc">&gt;</span> Found invalid codes <span class="cf">in</span> variable I08<span class="sc">:</span> <span class="dv">6</span> cases invalid <span class="dv">2</span>, <span class="dv">9</span> cases invalid <span class="dv">3</span>, <span class="dv">1</span> cases invalid <span class="dv">4</span><span class="sc">--</span> valid Codes<span class="sc">:</span>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span></span>
+<span id="cb7-25"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-26"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet2.sav</span>
+<span id="cb7-27"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb7-28"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb7-29"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb7-30"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb7-31"><a href=""></a><span class="sc">&gt;</span> Found invalid codes <span class="cf">in</span> variable I07<span class="sc">:</span> <span class="dv">8</span> cases invalid <span class="dv">0</span><span class="sc">--</span> valid Codes<span class="sc">:</span>  <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span></span>
+<span id="cb7-32"><a href=""></a><span class="sc">&gt;</span> Found invalid codes <span class="cf">in</span> variable I08<span class="sc">:</span> <span class="dv">5</span> cases invalid <span class="dv">2</span>, <span class="dv">52</span> cases invalid <span class="dv">3</span><span class="sc">--</span> valid Codes<span class="sc">:</span>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span></span>
+<span id="cb7-33"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-34"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet3.sav</span>
+<span id="cb7-35"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb7-36"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb7-37"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb7-38"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb7-39"><a href=""></a><span class="sc">&gt;</span> Found invalid codes <span class="cf">in</span> variable I08<span class="sc">:</span> <span class="dv">1</span> cases invalid <span class="dv">2</span>, <span class="dv">45</span> cases invalid <span class="dv">3</span><span class="sc">--</span> valid Codes<span class="sc">:</span>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span></span>
+<span id="cb7-40"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-41"><a href=""></a><span class="er">&gt;</span> Start merging.</span>
+<span id="cb7-42"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">1.</span></span>
+<span id="cb7-43"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">2.</span></span>
+<span id="cb7-44"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I09'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-45"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-46"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-47"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-48"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I10'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-49"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-50"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-51"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-52"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I12a'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-53"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-54"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-55"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-56"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I12b'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-57"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-58"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-59"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-60"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I12c'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-61"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-62"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-63"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span></span>
+<span id="cb7-64"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I13'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-65"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-66"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071</span>
+<span id="cb7-67"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span></span>
+<span id="cb7-68"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I14'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-69"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-70"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person092</span>
+<span id="cb7-71"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">6</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">6</span></span>
+<span id="cb7-72"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I15'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-73"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-74"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person092</span>
+<span id="cb7-75"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-76"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I16'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-77"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-78"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person092</span>
+<span id="cb7-79"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span></span>
+<span id="cb7-80"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I17'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-81"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-82"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person092</span>
+<span id="cb7-83"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span></span>
+<span id="cb7-84"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I18'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-85"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-86"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person090, person092</span>
+<span id="cb7-87"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">1</span></span>
+<span id="cb7-88"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I19'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-89"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-90"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person090, person092, person094, person097</span>
+<span id="cb7-91"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">4</span></span>
+<span id="cb7-92"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I20'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-93"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-94"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person090, person092, person094, person097</span>
+<span id="cb7-95"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">2</span></span>
+<span id="cb7-96"><a href=""></a><span class="sc">&gt;</span> Multiple different valid codes <span class="cf">in</span> variable<span class="sc">:</span> <span class="st">'I21'</span> <span class="cf">in</span> <span class="st">'dataset 2'</span><span class="sc">:</span> </span>
+<span id="cb7-97"><a href=""></a><span class="er">&gt;</span>  The first value has been kept. </span>
+<span id="cb7-98"><a href=""></a><span class="sc">&gt;</span>  IDs<span class="sc">:</span> person071, person090, person092, person094, person097</span>
+<span id="cb7-99"><a href=""></a><span class="sc">&gt;</span>  Values<span class="sc">:</span> <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">3</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">3</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">3</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">3</span>, <span class="dv">9</span><span class="sc">&amp;</span><span class="dv">3</span></span>
+<span id="cb7-100"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">3.</span></span>
+<span id="cb7-101"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-102"><a href=""></a><span class="er">&gt;</span> Start recoding.</span>
+<span id="cb7-103"><a href=""></a><span class="sc">&gt;</span> Incomplete recode information <span class="cf">for</span> <span class="fu">variable</span>(s)<span class="sc">:</span> </span>
+<span id="cb7-104"><a href=""></a><span class="er">&gt;</span> <span class="fu">I07</span> (Value<span class="sc">/</span>s<span class="sc">:</span> <span class="dv">0</span>),</span>
+<span id="cb7-105"><a href=""></a><span class="sc">&gt;</span> <span class="fu">I08</span> (Value<span class="sc">/</span>s<span class="sc">:</span> <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>).</span>
+<span id="cb7-106"><a href=""></a><span class="sc">&gt;</span> <span class="sc">--</span> This<span class="sc">/</span>These <span class="fu">value</span>(s) occuring <span class="cf">in</span> data but WITHOUT recode info will not be recoded.</span>
+<span id="cb7-107"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-108"><a href=""></a><span class="er">&gt;</span> Found no recode information <span class="cf">for</span> <span class="fu">variable</span>(s)<span class="sc">:</span> </span>
+<span id="cb7-109"><a href=""></a><span class="er">&gt;</span> ID, hisei. </span>
+<span id="cb7-110"><a href=""></a><span class="sc">&gt;</span> This<span class="sc">/</span>These <span class="fu">variable</span>(s) will not be recoded.</span>
+<span id="cb7-111"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-112"><a href=""></a><span class="er">&gt;</span> Variables... I01, I02, I03, I04, I05, I06, I07, I08, I09, I10, I11, I12a, I12b, I12c, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22, I23, I24, I25, I26, I27, I28</span>
+<span id="cb7-113"><a href=""></a><span class="sc">&gt;</span> ...have been recoded.</span>
+<span id="cb7-114"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-115"><a href=""></a><span class="er">&gt;</span> Start recoding Mbi to Mnr.</span>
+<span id="cb7-116"><a href=""></a><span class="sc">&gt;</span> ...identifying items <span class="cf">in</span> <span class="fu">data</span> (reference is blocks<span class="sc">$</span>subunit)</span>
+<span id="cb7-117"><a href=""></a><span class="sc">&gt;</span> Variables <span class="cf">in</span> data not recognized as items<span class="sc">:</span></span>
+<span id="cb7-118"><a href=""></a><span class="er">&gt;</span> ID, booklet, hisei</span>
+<span id="cb7-119"><a href=""></a><span class="sc">&gt;</span> If some of these excluded variables should have been identified as <span class="fu">items</span> (and thus be used <span class="cf">for</span> mnr coding) check <span class="st">'blocks'</span>, <span class="st">'subunits'</span>, <span class="st">'dat'</span>.</span>
+<span id="cb7-120"><a href=""></a><span class="sc">&gt;</span> ...identifying items with no mbi<span class="sc">-</span><span class="fu">codes</span> (<span class="st">'mbi'</span>)<span class="sc">:</span></span>
+<span id="cb7-121"><a href=""></a><span class="er">&gt;</span> I04R, I08R</span>
+<span id="cb7-122"><a href=""></a><span class="sc">&gt;</span> If you expect mbi<span class="sc">-</span>codes on these variables check your data and option <span class="st">'mbiCode'</span></span>
+<span id="cb7-123"><a href=""></a><span class="sc">&gt;</span> no mnr identified <span class="cf">for</span> any case. nothing recoded.</span>
+<span id="cb7-124"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-125"><a href=""></a><span class="er">&gt;</span> Start aggregating</span>
+<span id="cb7-126"><a href=""></a><span class="sc">&gt;</span> Since inputList<span class="sc">$</span>aggrMiss exists, this will be used instead of default.</span>
+<span id="cb7-127"><a href=""></a><span class="sc">&gt;</span> All aggregation rules will be defaulted to <span class="st">'SUM'</span>, because no other type is currently supported.</span>
+<span id="cb7-128"><a href=""></a><span class="sc">&gt;</span> Found <span class="dv">27</span> <span class="fu">unit</span>(s) with only one subunit <span class="cf">in</span> <span class="st">'dat'</span>. This<span class="sc">/</span>these <span class="fu">subunit</span>(s) will not be aggregated and renamed to their respective unit <span class="fu">name</span>(s).</span>
+<span id="cb7-129"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span> units were aggregated<span class="sc">:</span> I12.</span>
+<span id="cb7-130"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-131"><a href=""></a><span class="er">&gt;</span> Start scoring.</span>
+<span id="cb7-132"><a href=""></a><span class="sc">&gt;</span> ✔ <span class="dv">1</span> unit was scored<span class="sc">:</span> <span class="st">`</span><span class="at">I12</span><span class="st">`</span>.</span>
+<span id="cb7-133"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-134"><a href=""></a><span class="er">&gt;</span> No SPSS<span class="sc">-</span>File has been written.</span>
+<span id="cb7-135"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb7-136"><a href=""></a><span class="er">&gt;</span> Missings are UNcollapsed.</span>
+<span id="cb7-137"><a href=""></a><span class="sc">&gt;</span> automateDataPreparation terminated successfully<span class="sc">!</span> <span class="dv">2024-11-15</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="fl">07.639281</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small-text-compact">
+<p>(<a href="https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html"><code>automateDataPreparation()</code></a> arbeitetet alternativ auch mit Daten, die als einzelner (ggf. bereits zusammengeführter) R-data.frame übergeben werden (via Argument “datList”))</p>
 </div>
 <div class="footer">
 <p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="wrapper-automatedatapreparation-1" class="slide level2">
+<h2>Wrapper <a href="https://sachseka.github.io/eatPrep/reference/automateDataPreparation.html"><code>automateDataPreparation()</code></a></h2>
+<div class="small-text-compact">
+<p>…arbeitetet auch mit Daten, die als Liste von R-data.frames übergeben werden (Argument datList):</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>preparedData <span class="ot">&lt;-</span> <span class="fu">automateDataPreparation</span>(<span class="at">datList =</span> inputDat, <span class="at">inputList =</span> inputList, </span>
+<span id="cb8-2"><a href=""></a>    <span class="at">readSpss =</span> <span class="cn">FALSE</span>, <span class="at">checkData =</span> <span class="cn">TRUE</span>,  <span class="at">mergeData =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-3"><a href=""></a>    <span class="at">recodeData =</span> <span class="cn">TRUE</span>, <span class="at">aggregateData =</span> <span class="cn">TRUE</span>, <span class="at">scoreData =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-4"><a href=""></a>    <span class="at">recodeMnr =</span> <span class="cn">TRUE</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">writeSpss =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-5"><a href=""></a><span class="sc">&gt;</span> Starting automateDataPreparation <span class="dv">2024-11-15</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="fl">07.694142</span></span>
+<span id="cb8-6"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-7"><a href=""></a><span class="er">&gt;</span> Check data...</span>
+<span id="cb8-8"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-9"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet1</span>
+<span id="cb8-10"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb8-11"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb8-12"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb8-13"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb8-14"><a href=""></a><span class="sc">&gt;</span> Found no invalid codes.</span>
+<span id="cb8-15"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-16"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet2</span>
+<span id="cb8-17"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb8-18"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb8-19"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb8-20"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb8-21"><a href=""></a><span class="sc">&gt;</span> Found no invalid codes.</span>
+<span id="cb8-22"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-23"><a href=""></a><span class="er">&gt;</span> Checking dataset booklet3</span>
+<span id="cb8-24"><a href=""></a><span class="sc">&gt;</span> Only valid codes <span class="cf">in</span> ID variable.</span>
+<span id="cb8-25"><a href=""></a><span class="sc">&gt;</span> No duplicated entries <span class="cf">in</span> ID variable.</span>
+<span id="cb8-26"><a href=""></a><span class="sc">&gt;</span> No duplicated variable names.</span>
+<span id="cb8-27"><a href=""></a><span class="sc">&gt;</span> Found no variable information about <span class="fu">variable</span>(s) hisei. This<span class="sc">/</span>These variables will not be checked <span class="cf">for</span> missings and invalid codes.</span>
+<span id="cb8-28"><a href=""></a><span class="sc">&gt;</span> Found no invalid codes.</span>
+<span id="cb8-29"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-30"><a href=""></a><span class="er">&gt;</span> Start merging.</span>
+<span id="cb8-31"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">1.</span></span>
+<span id="cb8-32"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">2.</span></span>
+<span id="cb8-33"><a href=""></a><span class="sc">&gt;</span> Start merging of dataset <span class="fl">3.</span></span>
+<span id="cb8-34"><a href=""></a><span class="sc">&gt;</span> Start adding mbd according to data pattern.</span>
+<span id="cb8-35"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-36"><a href=""></a><span class="er">&gt;</span> Start recoding.</span>
+<span id="cb8-37"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-38"><a href=""></a><span class="er">&gt;</span> Found no recode information <span class="cf">for</span> <span class="fu">variable</span>(s)<span class="sc">:</span> </span>
+<span id="cb8-39"><a href=""></a><span class="er">&gt;</span> ID, hisei. </span>
+<span id="cb8-40"><a href=""></a><span class="sc">&gt;</span> This<span class="sc">/</span>These <span class="fu">variable</span>(s) will not be recoded.</span>
+<span id="cb8-41"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-42"><a href=""></a><span class="er">&gt;</span> Variables... I01, I02, I03, I04, I05, I06, I07, I08, I09, I10, I11, I12a, I12b, I12c, I13, I14, I15, I16, I17, I18, I19, I20, I21, I22, I23, I24, I25, I26, I27, I28</span>
+<span id="cb8-43"><a href=""></a><span class="sc">&gt;</span> ...have been recoded.</span>
+<span id="cb8-44"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-45"><a href=""></a><span class="er">&gt;</span> Start recoding Mbi to Mnr.</span>
+<span id="cb8-46"><a href=""></a><span class="sc">&gt;</span> ...identifying items <span class="cf">in</span> <span class="fu">data</span> (reference is blocks<span class="sc">$</span>subunit)</span>
+<span id="cb8-47"><a href=""></a><span class="sc">&gt;</span> Variables <span class="cf">in</span> data not recognized as items<span class="sc">:</span></span>
+<span id="cb8-48"><a href=""></a><span class="er">&gt;</span> ID, booklet, hisei</span>
+<span id="cb8-49"><a href=""></a><span class="sc">&gt;</span> If some of these excluded variables should have been identified as <span class="fu">items</span> (and thus be used <span class="cf">for</span> mnr coding) check <span class="st">'blocks'</span>, <span class="st">'subunits'</span>, <span class="st">'dat'</span>.</span>
+<span id="cb8-50"><a href=""></a><span class="sc">&gt;</span> ...identifying items with no mbi<span class="sc">-</span><span class="fu">codes</span> (<span class="st">'mbi'</span>)<span class="sc">:</span></span>
+<span id="cb8-51"><a href=""></a><span class="er">&gt;</span> I04R, I08R</span>
+<span id="cb8-52"><a href=""></a><span class="sc">&gt;</span> If you expect mbi<span class="sc">-</span>codes on these variables check your data and option <span class="st">'mbiCode'</span></span>
+<span id="cb8-53"><a href=""></a><span class="sc">&gt;</span> mnr statistics<span class="sc">:</span></span>
+<span id="cb8-54"><a href=""></a><span class="er">&gt;</span>      mnr cells<span class="sc">:</span> <span class="dv">553</span></span>
+<span id="cb8-55"><a href=""></a><span class="sc">&gt;</span>      unique cases with at least one mnr code<span class="sc">:</span> <span class="dv">89</span></span>
+<span id="cb8-56"><a href=""></a><span class="sc">&gt;</span>      unique items with at least one mnr code<span class="sc">:</span> <span class="dv">16</span></span>
+<span id="cb8-57"><a href=""></a><span class="sc">&gt;</span> unique <span class="fu">cases</span> (<span class="st">'ID'</span>) per booklet and booklet <span class="fu">section</span> (<span class="dv">0</span>s omitted)<span class="sc">:</span></span>
+<span id="cb8-58"><a href=""></a><span class="er">&gt;</span>    booklet booklet.section N.ID</span>
+<span id="cb8-59"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span> booklet1               <span class="dv">2</span>   <span class="dv">11</span></span>
+<span id="cb8-60"><a href=""></a><span class="sc">&gt;</span> <span class="dv">2</span> booklet1               <span class="dv">3</span>   <span class="dv">28</span></span>
+<span id="cb8-61"><a href=""></a><span class="sc">&gt;</span> <span class="dv">3</span> booklet2               <span class="dv">1</span>   <span class="dv">28</span></span>
+<span id="cb8-62"><a href=""></a><span class="sc">&gt;</span> <span class="dv">4</span> booklet2               <span class="dv">2</span>   <span class="dv">11</span></span>
+<span id="cb8-63"><a href=""></a><span class="sc">&gt;</span> <span class="dv">5</span> booklet2               <span class="dv">3</span>    <span class="dv">1</span></span>
+<span id="cb8-64"><a href=""></a><span class="sc">&gt;</span> <span class="dv">6</span> booklet3               <span class="dv">3</span>   <span class="dv">31</span></span>
+<span id="cb8-65"><a href=""></a><span class="sc">&gt;</span> start <span class="fu">recoding</span> (item<span class="sc">-</span>wise)</span>
+<span id="cb8-66"><a href=""></a><span class="sc">&gt;</span> done</span>
+<span id="cb8-67"><a href=""></a><span class="sc">&gt;</span> elapsed time<span class="sc">:</span> <span class="fl">0.1</span> secs</span>
+<span id="cb8-68"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-69"><a href=""></a><span class="er">&gt;</span> Start aggregating</span>
+<span id="cb8-70"><a href=""></a><span class="sc">&gt;</span> Since inputList<span class="sc">$</span>aggrMiss exists, this will be used instead of default.</span>
+<span id="cb8-71"><a href=""></a><span class="sc">&gt;</span> All aggregation rules will be defaulted to <span class="st">'SUM'</span>, because no other type is currently supported.</span>
+<span id="cb8-72"><a href=""></a><span class="sc">&gt;</span> Found <span class="dv">27</span> <span class="fu">unit</span>(s) with only one subunit <span class="cf">in</span> <span class="st">'dat'</span>. This<span class="sc">/</span>these <span class="fu">subunit</span>(s) will not be aggregated and renamed to their respective unit <span class="fu">name</span>(s).</span>
+<span id="cb8-73"><a href=""></a><span class="sc">&gt;</span> <span class="dv">1</span> units were aggregated<span class="sc">:</span> I12.</span>
+<span id="cb8-74"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-75"><a href=""></a><span class="er">&gt;</span> Start scoring.</span>
+<span id="cb8-76"><a href=""></a><span class="sc">&gt;</span> ✔ <span class="dv">1</span> unit was scored<span class="sc">:</span> <span class="st">`</span><span class="at">I12</span><span class="st">`</span>.</span>
+<span id="cb8-77"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-78"><a href=""></a><span class="er">&gt;</span> No SPSS<span class="sc">-</span>File has been written.</span>
+<span id="cb8-79"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb8-80"><a href=""></a><span class="er">&gt;</span> Missings are UNcollapsed.</span>
+<span id="cb8-81"><a href=""></a><span class="sc">&gt;</span> automateDataPreparation terminated successfully<span class="sc">!</span> <span class="dv">2024-11-15</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">50</span><span class="sc">:</span><span class="fl">07.943211</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="vollständigkeit-der-daten-überprüfen" class="slide level2">
+<h2>Vollständigkeit der Daten überprüfen</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>prepDat <span class="ot">&lt;-</span> <span class="fu">automateDataPreparation</span>(<span class="at">datList =</span> inputDat, <span class="at">inputList =</span> inputList, </span>
+<span id="cb9-2"><a href=""></a>    <span class="at">readSpss =</span> <span class="cn">FALSE</span>, <span class="at">checkData =</span> <span class="cn">TRUE</span>,  <span class="at">mergeData =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-3"><a href=""></a>    <span class="at">recodeData =</span> <span class="cn">TRUE</span>, <span class="at">aggregateData =</span> <span class="cn">FALSE</span>, <span class="at">scoreData =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-4"><a href=""></a>    <span class="at">writeSpss =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">checkDesign</span>(<span class="at">dat =</span> prepDat, <span class="at">booklets =</span> inputList<span class="sc">$</span>booklets, <span class="at">blocks =</span> inputList<span class="sc">$</span>blocks,</span>
+<span id="cb10-2"><a href=""></a>    <span class="at">rotation =</span> inputList<span class="sc">$</span>rotation, <span class="at">subunits =</span> inputList<span class="sc">$</span>subunits, </span>
+<span id="cb10-3"><a href=""></a>    <span class="at">sysMis =</span> <span class="st">"mbd"</span>, <span class="at">id=</span><span class="st">"ID"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-4"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb10-5"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Subunit recoding</span>
+<span id="cb10-6"><a href=""></a><span class="sc">&gt;</span> ℹ Use names <span class="cf">for</span> recoded subunits.</span>
+<span id="cb10-7"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb10-8"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Variables <span class="cf">in</span> the dataset</span>
+<span id="cb10-9"><a href=""></a><span class="sc">&gt;</span> ℹ The following <span class="dv">1</span> variable is not <span class="cf">in</span> <span class="fu">info</span> (<span class="st">`</span><span class="at">subunit</span><span class="st">`</span> <span class="cf">in</span> blocks) but <span class="cf">in</span> dataset.</span>
+<span id="cb10-10"><a href=""></a><span class="sc">&gt;</span> It will be ignored during check<span class="sc">:</span> <span class="st">`</span><span class="at">hisei</span><span class="st">`</span></span>
+<span id="cb10-11"><a href=""></a><span class="sc">&gt;</span> </span>
+<span id="cb10-12"><a href=""></a><span class="er">&gt;</span> ── Check<span class="sc">:</span> Valid and missing codes</span>
+<span id="cb10-13"><a href=""></a><span class="sc">&gt;</span> ✔ No deviations from design detected<span class="sc">!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep</p>
+</div>
+</section>
+<section id="export" class="slide level2">
+<h2>Export</h2>
+<p><a href="https://sachseka.github.io/eatPrep/reference/collapseMissings.html"><code>collapseMissings()</code></a> - Rekodiert die Missingtypen in prädefinierte Scores (i.d.R. 0,1,NA). Ein solcher “collapster” R-data.frame kann direkt nach <a href="https://github.com/weirichs/eatModel"><code>eatModel</code></a> zur Skalierung übergeben werden.</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/writeSpss.html"><code>writeSpss()</code></a> - Produziert eine SPSS-Syntax und einen .txt-Datensatz, der mit der Syntax in SPSS inklusive aller Meta-Daten eingelesen werden kann.</p>
+<p><a href="https://sachseka.github.io/eatPrep/reference/prep2gads.html"><code>prep2GADS()</code></a> - Sowohl die Roh-Datensätze als auch die fertigen, gescorten Datensätze können inklusive aller ihrer Meta-Daten in ein GADSdat-Objekt exportiert werden, zur Datenaufbewahrung oder Weiterverarbeitung in <a href="https://cran.r-project.org/web/packages/eatGADS/index.html"><code>eatGADS</code></a></p>
+</section></section>
+<section>
+<section id="übung-1" class="title-slide slide level1 center">
+<h1>Übung 1</h1>
+
+</section>
+<section id="übung-1-1" class="slide level2">
+<h2>Übung 1</h2>
+<ol type="1">
+<li><p>Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf (entweder ein einzelnen Schritten oder gebündelt).</p></li>
+<li><p>Exportiert die aufbereiteten (aber “uncollapsten”) Daten ins eatGADS-Format.</p></li>
+<li><p>Überprüft, ob die Daten zum Testdesign passen oder ob es Dateneinträge gibt, wo per Design fehlende Werte sein müssten oder per Design fehlende Werte, wo es valide Codes oder andere Missingtypen geben müsste.</p></li>
+</ol>
+<div class="footer">
+<p>3a. Praxis: Haupt-Funktionen in eatPrep – Übung 1</p>
 </div>
 <div class="quarto-auto-generated-content">
 <p><img src="eatPrep.png" class="slide-logo"></p>
@@ -1262,18 +1497,7 @@ Karoline Sachse
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1305,7 +1529,29 @@ Karoline Sachse
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1313,7 +1559,7 @@ Karoline Sachse
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
