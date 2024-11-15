@@ -464,12 +464,22 @@ checkDesign(dat = prepDat, booklets = inputList$booklets, blocks = inputList$blo
 
 ## Übung 1
 
-1.  Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf (entweder ein einzelnen Schritten oder gebündelt).
+1.  Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf (entweder in einzelnen Schritten oder gebündelt).
 
-2.  Exportiert die aufbereiteten (aber "uncollapsten") Daten ins eatGADS-Format.
+2.  Überprüft, ob die Daten zum Testdesign passen oder ob es Dateneinträge gibt, wo per Design fehlende Werte sein müssten oder per Design fehlende Werte, wo es valide Codes oder andere Missingtypen geben müsste.
 
-3.  Überprüft, ob die Daten zum Testdesign passen oder ob es Dateneinträge gibt, wo per Design fehlende Werte sein müssten oder per Design fehlende Werte, wo es valide Codes oder andere Missingtypen geben müsste.
+3.  Exportiert die aufbereiteten (aber "uncollapsten") Daten ins eatGADS-Format.
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep -- Übung 1
 :::
+
+## Kategorientrennschärfen
+
+catPbc
+evalPbc
+
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+

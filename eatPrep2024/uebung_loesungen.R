@@ -22,6 +22,8 @@ library(eatPrep)
 ###############################################################################
 ###############################################################################
 
+# 1.1 Aufbereitung
+
 ###############################################################################
 ###############################################################################
 
@@ -102,8 +104,35 @@ identical(prepDat1, prepDat2) #TRUE
 ###############################################################################
 ###############################################################################
 
-# Überprüfen, ob Daten zum Testdesign passen:
+# 1.2 Überprüfen, ob Daten zum Testdesign passen
+
+###############################################################################
+###############################################################################
+
+# (entweder das datRec von oben nehmend, bei dem die Items gemä subunits$subunitRecoded benannt sind)
+checkDesign(dat = datRec, booklets = inputList$booklets, blocks = inputList$blocks, 
+            rotation = inputList$rotation, subunits = inputList$subunits, 
+            sysMis = "NA", id="ID", verbose = TRUE)
+
+# oder die Daten so rekodieren, dass Items nicht umbenannt werden und dann muss bei checkDesign
+# inputList$subunits nicht mehr mitübergeben werden
 datRec2 <- recodeData(dat, values = inputList$values, verbose = TRUE)
 
 checkDesign(dat = datRec2, booklets = inputList$booklets, blocks = inputList$blocks, 
     rotation = inputList$rotation, sysMis = "NA", id="ID", verbose = TRUE)
+
+# Nein, sehr viele Abweichungen!
+
+###############################################################################
+###############################################################################
+
+# 1.3 Export als GADSdat-Objekt
+
+###############################################################################
+###############################################################################
+
+# raw
+prepGADS <- prep2GADS(dat = dat, inputList = inputList, trafoType="raw")
+
+# scored
+prepGADS <- prep2GADS(dat = prepDat1, inputList = inputList, trafoType="scored")
