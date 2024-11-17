@@ -73,9 +73,7 @@ library(asciicast)
 
     \[Übung 1\]
 
-    b)  Kategorientrennschärfen
-    c)  Testsitzungsprotokolle
-    d)  Beurteilerübereinstimmung (Rater-Funktionen)
+    b)  Zusatzfunktionen: Kategorientrennschärfen, Testsitzungsprotokolle,  Beurteilerübereinstimmung (Rater-Funktionen)
 
     \[Übung 2\]
 :::
@@ -464,7 +462,7 @@ checkDesign(dat = prepDat, booklets = inputList$booklets, blocks = inputList$blo
 
 ## Übung 1
 
-1.  Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf (entweder in einzelnen Schritten oder gebündelt).
+1.  Lest die Meta-Daten (inputListe) und Daten (booklet1.sav, booklet2.sav, booklet3.sav) ein und lasst diese automatisiert prüfen. Bereitet die Daten bis zum gescorten Zustand weiter auf.
 
 2.  Überprüft, ob die Daten zum Testdesign passen oder ob es Dateneinträge gibt, wo per Design fehlende Werte sein müssten oder per Design fehlende Werte, wo es valide Codes oder andere Missingtypen geben müsste.
 
@@ -474,12 +472,110 @@ checkDesign(dat = prepDat, booklets = inputList$booklets, blocks = inputList$blo
 3a. Praxis: Haupt-Funktionen in eatPrep -- Übung 1
 :::
 
-## Kategorientrennschärfen
+## Kategorientrennschärfen - Funktionen
 
-catPbc
-evalPbc
+Ein essenzielles diagnostisches Tool sind die Kategorientrennschärfen. Diese geben wichtige Hinweise auf falsch zugewiesene Scores, fälschlicherweise richtige Distraktoren und falsche Attraktoren.
+
+[`catPbc()`](https://sachseka.github.io/eatPrep/reference/cat.pbc.html) - berechnet die Kategorientrennschärfen. 
+
+[`evalPbc()`](https://sachseka.github.io/eatPrep/reference/evalPbc.html) - findet und markiert Auffälligkeiten in Lösungshäufigkeiten und Kategorientrennschärfen (nach anpassbaren Kriterien) und berichtet diese.
 
 ::: footer
 3b. Praxis: Zusatz-Funktionen in eatPrep 
 :::
 
+
+## Kategorientrennschärfen - Berechnen
+
+
+```{r pbc1}
+#| message: true
+#| warning: true
+#| error: true
+datRaw <- automateDataPreparation(datList = inputDat, inputList = inputList, 
+    readSpss = FALSE, checkData = FALSE,  mergeData = TRUE,
+    recodeData = FALSE, aggregateData = FALSE, scoreData = FALSE,
+    writeSpss = FALSE, verbose = FALSE)
+datRec <- automateDataPreparation(datList = inputDat, inputList = inputList, 
+    readSpss = FALSE, checkData = FALSE,  mergeData = TRUE,
+    recodeData = TRUE, aggregateData = FALSE, scoreData = FALSE,
+    writeSpss = FALSE, verbose = FALSE)
+
+pbcs   <- catPbc(datRaw, datRec, idRaw = "ID", idRec = "ID",
+                 context.vars = "hisei", values = inputList$values,
+                 subunits = inputList$subunits)
+pbcs
+```
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+
+## Kategorientrennschärfen - Evaluieren
+
+
+```{r pbc2}
+#| message: true
+#| warning: true
+#| error: true
+epbcs   <- evalPbc(pbcs)
+
+```
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+
+## Testsitzungsprotokolle 
+
+...werden oft außerhalb von eatPrep behandelt und Änderungen am Datensatz projektintern dokumentiert. Manchmal besteht jedoch das Bedürfnis, die von den Testleiter:innen geflaggten Teildaten visuell zu inspizieren, ggf. zu rekodieren und dieses zu dokumentieren.
+
+[`visualSubsetRecode()`](https://sachseka.github.io/eatPrep/reference/visualSubsetRecode.html) - erlaubt dokumentiertes Ansehen (+ggf. Rekodieren) von einzelnen Testteilen für einzelne Personen oder ganze Testgruppen. 
+
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+
+## Testsitzungsprotokolle -- Beispiel
+
+```{r tsp}
+#| message: true
+#| warning: true
+#| error: true
+subsetInfoMax <- data.frame(
+                  ID=c("person100", "person101", "person102", "person103",
+                        "person104", "person105", "person106", "person107",
+                        "person108", "person109", "person110"),
+                   IDgroup=c(1,1,1,1,1,2,2,2,2,2,2),
+                   datCols=c("I01", "I02", "I03", "I01", "I02", "I03",
+                                   "I04", "I05", "I02", "I03", "I04"),
+                   comment=c(rep("Es gab Feueralarm",5), 
+                             rep("Der klassenraum musste gewechselt werden, 
+                                 wir hatten keine Zeit mehr.",6)))
+
+datVisRec <- visualSubsetRecode(dat=preparedData, subsetInfo=subsetInfoMax, ID="ID",
+                                 toRecodeVal="mci", useGroups="IDgroup") 
+
+```
+
+
+## Beurteilerübereinstimmung 
+
+ab hier werden die Rater-Funktionen erklärt 
+
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+
+
+# Übung 2
+
+## Übung 2
+
+1.  Berechnet und evaluiert die Kategorientrennschärfen auf Basis der in Übung 1 eingelesenen und aufbereiteten Daten (booklet1.sav, booklet2.sav, booklet3.sav).
+
+2.  Geht manuell das erste Beispiel der Testsitzungsprotokoll-Funktion [`visualSubsetRecode()`](https://sachseka.github.io/eatPrep/reference/visualSubsetRecode.html) manuell durch.
+
+3.  Berechnet die Beurteilerübereinstimmung.
+
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::

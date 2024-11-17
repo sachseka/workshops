@@ -78,12 +78,12 @@ checkData(dat = dat_b3, datnam = "b3",
 
 ### Zusammenführen der drei Datensätze
 
-dat <- mergeData("ID", list(dat_b1, dat_b2, dat_b3))
+datRaw <- mergeData("ID", list(dat_b1, dat_b2, dat_b3))
 
 
 ### Rekodieren des zusammengeführten Datensatzes
 
-datRec <- recodeData(dat, values = inputList$values, subunits = inputList$subunits, verbose = TRUE)
+datRec <- recodeData(datRaw, values = inputList$values, subunits = inputList$subunits, verbose = TRUE)
 
 ### Aggregieren der rekodierten Daten
 
@@ -109,7 +109,7 @@ identical(prepDat1, prepDat2) #TRUE
 ###############################################################################
 ###############################################################################
 
-# (entweder das datRec von oben nehmend, bei dem die Items gemä subunits$subunitRecoded benannt sind)
+# (entweder das datRec von oben nehmend, bei dem die Items gemäß subunits$subunitRecoded benannt sind)
 checkDesign(dat = datRec, booklets = inputList$booklets, blocks = inputList$blocks, 
             rotation = inputList$rotation, subunits = inputList$subunits, 
             sysMis = "NA", id="ID", verbose = TRUE)
@@ -132,7 +132,59 @@ checkDesign(dat = datRec2, booklets = inputList$booklets, blocks = inputList$blo
 ###############################################################################
 
 # raw
-prepGADS <- prep2GADS(dat = dat, inputList = inputList, trafoType="raw")
+prepGADSraw <- prep2GADS(dat = dat, inputList = inputList, trafoType="raw")
 
 # scored
-prepGADS <- prep2GADS(dat = prepDat1, inputList = inputList, trafoType="scored")
+prepGADSsco <- prep2GADS(dat = prepDat1, inputList = inputList, trafoType="scored")
+
+
+
+
+
+###############################################################################
+###############################################################################	
+
+### Übung 2: Zusatzfunktionen
+
+###############################################################################
+###############################################################################
+
+# 2.1 Kategorientrennschärfen
+
+###############################################################################
+###############################################################################
+
+pbcs   <- catPbc(datRaw, datRec, idRaw = "ID", idRec = "ID",
+                 context.vars = "hisei", values = inputList$values,
+                 subunits = inputList$subunits)
+evalPbc(pbcs)
+
+
+###############################################################################
+###############################################################################
+
+# 2.2 Testsitzungsprotokolle - visualSubsetRecode()
+
+###############################################################################
+###############################################################################
+
+subsetInfoMin <- data.frame(ID=c("person100", "person101", "person102", "person103", "person101",
+                                 "person100", "person101", "person102", "person103", "person101",
+                                 "person101"),
+                            datCols=c("I01", "I02", "I03", "I01", "I02", "I03",
+                                      "I04", NA, "I02", "I03", "I04"))
+
+
+datVisRec <- visualSubsetRecode(dat=prepDat1, subsetInfo=subsetInfoMin, ID="ID",
+                                           toRecodeVal="mci", useGroups=NULL)
+
+###############################################################################
+###############################################################################
+
+# 2.3 Beurteilerübereinstimmung - "Rater-Funktionen"
+
+###############################################################################
+###############################################################################
+
+
+
