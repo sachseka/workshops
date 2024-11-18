@@ -158,7 +158,7 @@ library(eatPrep)
 ## Subitems, Items, Aufgaben {.smaller}
 
 ::: {style="margin-top: -30px;"}
-![](pics/structure.jpg){fig-width="60%" fig-align="center"}
+![](eatPrep2024_files/pics/structure.jpg){fig-width="60%" fig-align="center"}
 :::
 
 ::: footer
@@ -167,7 +167,7 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben {.smaller}
 
-![](pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
+![](eatPrep2024_files/pics/cyclehire4.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
@@ -175,7 +175,7 @@ library(eatPrep)
 
 ## Subitems, Items, Aufgaben und Values und Scores {.smaller}
 
-![](pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
+![](eatPrep2024_files/pics/cyclehire1.jpg){fig-width="60%" fig-align="center"}
 
 ::: footer
 2a. Subitems in Items in Aufgaben
@@ -206,7 +206,7 @@ kable(Mtypes)
 
 ## Aufgaben in Blöcken und Blöcke in Testheften {.smaller}
 
-<img src="pics/ainb.jpg"/> <img src="pics/bint.jpg"/>
+<img src="eatPrep2024_files/pics/ainb.jpg"/> <img src="eatPrep2024_files/pics/bint.jpg"/>
 
 ::: footer
 2a. Strukturen von Papier-Kompetenzdaten am IQB
@@ -245,7 +245,7 @@ kable(Mtypes)
 ## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 1-4 {.smaller}
 
 ::: {style="margin-top: -10px; text-align: center;"}
-![](pics/inputList3.jpg){width="900px"}
+![](eatPrep2024_files/pics/inputList3.jpg){width="900px"}
 :::
 
 ::: footer
@@ -255,7 +255,7 @@ kable(Mtypes)
 ## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 5-7 {.smaller}
 
 ::: {style="margin-top: 50px; text-align: center;"}
-![](pics/il567.jpg){fig-align="center" width="500"}
+![](eatPrep2024_files/pics/il567.jpg){fig-align="center" width="500"}
 :::
 
 ::: footer
@@ -265,7 +265,7 @@ kable(Mtypes)
 ## Repräsentation der Datenstrukturen in eatPrep: inputListen-Plätze 8-10 {.smaller}
 
 ::: {style="margin-top: 20px; text-align: center;"}
-![](pics/il8910.jpg){fig-align="center" width="800"}
+![](eatPrep2024_files/pics/il8910.jpg){fig-align="center" width="800"}
 :::
 
 ::: footer
