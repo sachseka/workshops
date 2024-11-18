@@ -168,9 +168,10 @@ evalPbc(pbcs)
 ###############################################################################
 ###############################################################################
 
-subsetInfoMin <- data.frame(ID=c("person100", "person101", "person102", "person103", "person101",
-                                 "person100", "person101", "person102", "person103", "person101",
-                                 "person101"),
+subsetInfoMin <- data.frame(ID=c("person100", "person101", "person102", 
+                                 "person103", "person101", "person100", 
+                                 "person101", "person102", "person103", 
+                                 "person101", "person101"),
                             datCols=c("I01", "I02", "I03", "I01", "I02", "I03",
                                       "I04", NA, "I02", "I03", "I04"))
 
@@ -185,6 +186,34 @@ datVisRec <- visualSubsetRecode(dat=prepDat1, subsetInfo=subsetInfoMin, ID="ID",
 
 ###############################################################################
 ###############################################################################
+
+data(rater)
+
+dat <- reshape2::dcast(subset(rater, variable == "V02"), id~rater, value.var = "value")
+meanAgree(dat[,-1])
+meanKappa(dat[,-1])
+
+dat <- reshape2::dcast(subset(rater, variable == "V03"), id~rater, value.var = "value")
+meanAgree(dat[,-1])
+meanKappa(dat[,-1])
+
+### ODER Schleife über alle Variablen:
+
+library(tidyr)
+library(dplyr)
+
+results <- rater %>%
+  pivot_wider(names_from = rater, values_from = value) %>%
+  group_by(variable) %>%
+  group_modify(~ {
+    dat <- as.data.frame(select(.x, -id))
+    tibble(
+      MeanAgree = meanAgree(dat)$meanagree,
+      MeanKappa = meanKappa(dat)$meankappa
+    )
+  }) %>%
+  ungroup() %>%
+  rename(Variable = variable)
 
 
 

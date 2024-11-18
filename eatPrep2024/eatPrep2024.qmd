@@ -212,7 +212,7 @@ kable(Mtypes)
 2a. Strukturen von Papier-Kompetenzdaten am IQB
 :::
 
-## Subitems, Items, Aufgaben, Blöcke und Testhefte {.smaller}
+## nützliches Vokabular {.smaller}
 
 -   Testhefte (booklets): bestehen aus Blöcken
 
@@ -559,11 +559,39 @@ datVisRec <- visualSubsetRecode(dat=preparedData, subsetInfo=subsetInfoMax, ID="
 
 ## Beurteilerübereinstimmung 
 
-ab hier werden die Rater-Funktionen erklärt 
+In Koderschulung und für Technischen Bericht benötigt:
+
+-   Wie gut stimmen Bewertende bei der Beurteilung der offenen Items überein?
+
+[`meanAgree()`](https://sachseka.github.io/eatPrep/reference/meanAgree.html) - prozentuale Übereinstimmung 
+
+[`meanKappa()`](https://sachseka.github.io/eatPrep/reference/meanKappa.html) - Cohen's Kappa für alle Beurteilerpaare eines Items, und Mittelung der Werte (gewichtet!)
+
+-   Beide Funktionen operieren itemweise. Möchte man mehrere Items behandeln, braucht es Schleifen.
 
 ::: footer
 3b. Praxis: Zusatz-Funktionen in eatPrep 
 :::
+
+
+
+## Beurteilerübereinstimmung 
+
+```{r bu}
+#| message: true
+#| warning: true
+#| error: true
+data(rater)
+dat <- reshape2::dcast(subset(rater, variable == "V01"), id~rater, value.var = "value")
+meanAgree(dat[,-1])
+meanKappa(dat[,-1])
+```
+
+::: footer
+3b. Praxis: Zusatz-Funktionen in eatPrep 
+:::
+
+
 
 
 # Übung 2
@@ -572,10 +600,26 @@ ab hier werden die Rater-Funktionen erklärt
 
 1.  Berechnet und evaluiert die Kategorientrennschärfen auf Basis der in Übung 1 eingelesenen und aufbereiteten Daten (booklet1.sav, booklet2.sav, booklet3.sav).
 
-2.  Geht manuell das erste Beispiel der Testsitzungsprotokoll-Funktion [`visualSubsetRecode()`](https://sachseka.github.io/eatPrep/reference/visualSubsetRecode.html) manuell durch.
+2.  Geht manuell das erste Beispiel der Testsitzungsprotokoll-Funktion [`visualSubsetRecode()`](https://sachseka.github.io/eatPrep/reference/visualSubsetRecode.html) durch.
 
-3.  Berechnet die Beurteilerübereinstimmung.
+3.  Berechnet die Beurteilerübereinstimmung für die Variablen v02 und v03 aus dem Datensatz "rater".
 
 ::: footer
 3b. Praxis: Zusatz-Funktionen in eatPrep 
 :::
+
+## Ende
+
+Bitte berichtet alle
+
+-   Bugs
+-   Feature Requests
+-   sonstige Fragen/Probleme 
+
+eatPrep betreffend an karoline.sachse@iqb.hu-berlin.de
+
+::: footer
+4. Ausblick
+:::
+
+# Herzlichen Dank für Eure Aufmerksamkeit!
