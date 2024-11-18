@@ -104,7 +104,7 @@ Die ausgefüllten Bögen werden
 
 -   **eingescannt** (idR durch Datenpartner)
 -   bei Multiple-Choice-Fragen oder Ankreuzaufgaben wird häufig ein optisches Scannersystem verwendet, das die markierten **automatisch** Felder erkennt und direkt in eine digitale Datenbank überträgt (idR durch Datenpartner)
--   (teil-) offene Antworten werden durch geschulte **Kodierer:innen** bewertet (teils am Haus, teils durch Datenpartner)
+-   (teil-) offene Antworten werden durch geschulte **Kodierer:innen** bewertet (teils im Haus, teils durch Datenpartner)
 
 Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs mit solchen Daten, die vom Subkontraktor zumeist im SPSS- (.sav) Format übergeben werden.
 
@@ -114,8 +114,8 @@ Ansatzpunkt für **eatPrep**: Standardisierung und Automatisierung des Umgangs m
 
 ## Primäres Ziel von eatPrep {.smaller}
 
--   Aufbereitung von Kompetenztestdaten für IRT-Analysen unter Verwendung von Meta-Informationen (z.B. aus der IQB-ItemDB)
--   Optimiert für die Aufbereitung von IQB-Kompetenzdaten, aber nicht nur für diese verwendbar
+-   **Prüfung und Aufbereitung von Kompetenztestdaten für IRT-Analysen** unter Verwendung von Meta-Informationen (z.B. aus der IQB-ItemDB)
+-   optimiert für die Aufbereitung von IQB-Kompetenzdaten, aber nicht nur für diese verwendbar
 
 ::: footer
 1a. eatPrep: Fokus
@@ -153,7 +153,7 @@ library(eatPrep)
 1c. eatPrep: Installation
 :::
 
-# 2. Daten-Strukturen von Kompetenzdaten am IQB
+# 2. Daten-Strukturen von Papier-Kompetenzdaten am IQB
 
 ## Subitems, Items, Aufgaben {.smaller}
 
@@ -218,9 +218,9 @@ kable(Mtypes)
 
 -   Blöcke (blocks/cluster): bestehen aus Aufgaben
 
--   Aufgaben (tasks): beinhalten Items (i.d.R. zu einem gemeinsamen Stimulus/Testlet)
+-   Aufgaben (tasks): beinhalten Items (i.d.R. zu einem gemeinsamen Stimulus/testlet)
 
--   **Item**s (units): (meist) die am Ende interessierende Analyseeinheit
+-   **Item**s (units): oft die am Ende interessierende Analyseeinheit
 
 -   Subitems (subunits): werden zu Items aggregiert
 
@@ -234,9 +234,13 @@ kable(Mtypes)
 
 ## Repräsentation der Datenstrukturen in eatPrep {.smaller}
 
--   wir brauchen Meta-Daten über die Items
+Wie werden Testhefte, Blöcke, Aufgaben, Items, Subitems, Werte und Scores in eatPrep hinterlegt?
 
 -   analog einfacher relationaler Meta-Daten-Datenbank: eine Liste aus mehreren data.frames mit prädefinierter Struktur und festen Namen
+
+-   wir brauchen Meta-Daten über die Items
+
+
 
 ::: footer
 2b. Metadaten-Struktur in eatPrep
@@ -276,16 +280,16 @@ kable(Mtypes)
 
 ## (Meta-)Daten einlesen
 
-[`readDaemonXlsx()`](https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html) - Einlesen der inputListe, die mithilfe des EDV-Tools "ZKDaemon" erzeugt wurde.
+[`readDaemonXlsx()`](https://sachseka.github.io/eatPrep/reference/readDaemonXlsx.html) - einlesen der inputListe, die mithilfe des EDV-Tools "ZKDaemon" erzeugt wurde.
 
 ::: small-text-compact
 (Dieses liegt unter **i:\\EDV\\IQB-Apps\\ZKDaemon\\ZKDaemon.application**. Eine ausführlichere, via Screenshots geführte Anleitung zur Bedienung des ZKDaemon findet sich hier:\
 **i:\\Methoden\\02_IQB-interne_eat_Workshops\\eatPrep_2021\\eatPrep_2021-06-18.pdf**)
 :::
 
-[`readSpss()`](https://sachseka.github.io/eatPrep/reference/readSpss.html) - Einlesen der SPSS-Dateien
+[`readSpss()`](https://sachseka.github.io/eatPrep/reference/readSpss.html) - einlesen von SPSS-Dateien.
 
-[`readMerkmalXlsx()`](https://sachseka.github.io/eatPrep/reference/readMerkmalXlsx.html) - Einlesen von zusätzlichen Item- und Aufgabenmerkmalen wie Bearbeitungszeiten, Formaten, inhaltlichen Kategorien, ...
+[`readMerkmalXlsx()`](https://sachseka.github.io/eatPrep/reference/readMerkmalXlsx.html) - einlesen von zusätzlichen Item- und Aufgabenmerkmalen wie Bearbeitungszeiten, Formaten, inhaltlichen Kategorien, ...
 
 ::: small-text-compact
 (Erzeugen der Merkmal-Xlsx via Klick auf "Merkmalsauszug" in **i:\\EDV\\IQB-Apps\\IQB-ItemDB\\IQB-ItemDB.application**)
@@ -339,7 +343,7 @@ head(merkmale)
 
 ## Checken
 
-[`checkInputList()`](https://sachseka.github.io/eatPrep/reference/checkInputList.html) - Eingelesene inputListe auf interne Konsistenz prüfen
+[`checkInputList()`](https://sachseka.github.io/eatPrep/reference/checkInputList.html) - eingelesene inputListe auf interne Konsistenz prüfen
 
 [`checkData()`](https://sachseka.github.io/eatPrep/reference/checkData.html) - Datensätze gemäß Item-Meta-Informationen überprüfen und sonstige Plausibilitätsprüfungen der Daten
 
@@ -366,15 +370,15 @@ checkInputList(inputList)
 
 ## Mergen, Rekodieren, Aggregieren, Scoren
 
-[`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - Zusammenführen der Datensätze und Diagnostik zu Passung
+[`mergeData()`](https://sachseka.github.io/eatPrep/reference/mergeData.html) - zusammenführen der Datensätze und Diagnostik zu Passung
 
-[`recodeData()`](https://sachseka.github.io/eatPrep/reference/recodeData.html) - Rekodieren der Subitems gemäß Meta-Informationen aus der inputListe
+[`recodeData()`](https://sachseka.github.io/eatPrep/reference/recodeData.html) - rekodieren der Subitems gemäß Meta-Informationen aus der inputListe
 
 [`aggregateData()`](https://sachseka.github.io/eatPrep/reference/aggregateData.html) - Subitems zu Items aggregieren
 
 [`scoreData()`](https://sachseka.github.io/eatPrep/reference/scoreData.html) - ehemals aus Subitems bestehende Items rekodieren
 
-[`mnrCoding()`](https://sachseka.github.io/eatPrep/reference/mnrCoding.html) - Rekodieren der letzten Items (falls leer) in jedem Block (siehe Testdesign) als "missing not reached"
+[`mnrCoding()`](https://sachseka.github.io/eatPrep/reference/mnrCoding.html) - rekodieren der letzten Items (falls leer) in jedem Block (siehe Testdesign) als "missing not reached"
 
 ::: footer
 3a. Praxis: Haupt-Funktionen in eatPrep
@@ -415,6 +419,9 @@ preparedData <- automateDataPreparation(inputList = inputList,
 #| message: true
 #| warning: true
 #| error: true
+# Einbauen von Problem in Daten zur Illustration der Diagnostik von mergeData()
+inputDat[[3]]$ID[1] <- inputDat[[2]]$ID[1]
+
 preparedData <- automateDataPreparation(datList = inputDat, inputList = inputList, 
     readSpss = FALSE, checkData = TRUE,  mergeData = TRUE,
     recodeData = TRUE, aggregateData = TRUE, scoreData = TRUE,
@@ -452,11 +459,11 @@ checkDesign(dat = prepDat, booklets = inputList$booklets, blocks = inputList$blo
 
 ## Export
 
-[`collapseMissings()`](https://sachseka.github.io/eatPrep/reference/collapseMissings.html) - Rekodiert die Missingtypen in prädefinierte Scores (i.d.R. 0,1,NA). Ein solcher "collapster" R-data.frame kann direkt nach [`eatModel`](https://github.com/weirichs/eatModel) zur Skalierung übergeben werden.
+[`collapseMissings()`](https://sachseka.github.io/eatPrep/reference/collapseMissings.html) - rekodiert die Missingtypen in prädefinierte Scores (i.d.R. 0,1,NA). Ein solcher "collapster" R-data.frame kann direkt nach [`eatModel`](https://github.com/weirichs/eatModel) zur Skalierung übergeben werden.
 
-[`writeSpss()`](https://sachseka.github.io/eatPrep/reference/writeSpss.html) - Produziert eine SPSS-Syntax und einen .txt-Datensatz, der mit der Syntax in SPSS inklusive aller Meta-Daten eingelesen werden kann.
+[`writeSpss()`](https://sachseka.github.io/eatPrep/reference/writeSpss.html) - produziert eine SPSS-Syntax und einen .txt-Datensatz, der mit der Syntax in SPSS inklusive aller Meta-Daten eingelesen werden kann.
 
-[`prep2GADS()`](https://sachseka.github.io/eatPrep/reference/prep2gads.html) - Sowohl die Roh-Datensätze als auch die fertigen, gescorten Datensätze können inklusive aller ihrer Meta-Daten in ein GADSdat-Objekt exportiert werden, zur Datenaufbewahrung oder Weiterverarbeitung in [`eatGADS`](https://cran.r-project.org/web/packages/eatGADS/index.html)
+[`prep2GADS()`](https://sachseka.github.io/eatPrep/reference/prep2gads.html) - sowohl die Roh-Datensätze als auch die fertigen, gescorten Datensätze können inklusive aller ihrer Meta-Daten in ein GADSdat-Objekt exportiert werden, zur Datenaufbewahrung oder Weiterverarbeitung in [`eatGADS`](https://cran.r-project.org/web/packages/eatGADS/index.html).
 
 # Übung 1
 
@@ -565,7 +572,7 @@ In Koderschulung und für Technischen Bericht benötigt:
 
 [`meanAgree()`](https://sachseka.github.io/eatPrep/reference/meanAgree.html) - prozentuale Übereinstimmung 
 
-[`meanKappa()`](https://sachseka.github.io/eatPrep/reference/meanKappa.html) - Cohen's Kappa für alle Beurteilerpaare eines Items, und Mittelung der Werte (gewichtet!)
+[`meanKappa()`](https://sachseka.github.io/eatPrep/reference/meanKappa.html) - Cohen's Kappa für alle Beurteilerpaare eines Items, und Mittelung der Werte (gewichtet)
 
 -   Beide Funktionen operieren itemweise. Möchte man mehrere Items behandeln, braucht es Schleifen.
 
@@ -598,7 +605,7 @@ meanKappa(dat[,-1])
 
 ## Übung 2
 
-1.  Berechnet und evaluiert die Kategorientrennschärfen auf Basis der in Übung 1 eingelesenen und aufbereiteten Daten (booklet1.sav, booklet2.sav, booklet3.sav).
+1.  Berechnet und evaluiert die Kategorientrennschärfen auf Basis der in Übung 1 eingelesenen und aufbereiteten SPSS-Daten (booklet1.sav, booklet2.sav, booklet3.sav).
 
 2.  Geht manuell das erste Beispiel der Testsitzungsprotokoll-Funktion [`visualSubsetRecode()`](https://sachseka.github.io/eatPrep/reference/visualSubsetRecode.html) durch.
 
