@@ -32,6 +32,7 @@ filename <- system.file("extdata", "inputList.xlsx", package = "eatPrep")
 inpustList <- readDaemonXlsx(filename)
 
 ### Ergänzen der InputListe um lokale Pfade zu den .sav-Dateien (im realen Anwendungsfall i.d.R. nicht nötig, da die Pfade im ZKDaemon gesetzt werden)
+data(inputList)
 inputList$savFiles$fullname[1] <- system.file("extdata", "booklet1.sav", package = "eatPrep")
 inputList$savFiles$fullname[2] <- system.file("extdata", "booklet2.sav", package = "eatPrep")
 inputList$savFiles$fullname[3] <- system.file("extdata", "booklet3.sav", package = "eatPrep")
@@ -116,7 +117,7 @@ checkDesign(dat = datRec, booklets = inputList$booklets, blocks = inputList$bloc
 
 # oder die Daten so rekodieren, dass Items nicht umbenannt werden und dann muss bei checkDesign
 # inputList$subunits nicht mehr mitübergeben werden
-datRec2 <- recodeData(dat, values = inputList$values, verbose = TRUE)
+datRec2 <- recodeData(datRaw, values = inputList$values, verbose = TRUE)
 
 checkDesign(dat = datRec2, booklets = inputList$booklets, blocks = inputList$blocks, 
     rotation = inputList$rotation, sysMis = "NA", id="ID", verbose = TRUE)
