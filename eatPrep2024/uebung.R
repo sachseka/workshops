@@ -28,8 +28,8 @@ library(eatPrep)
 ###############################################################################
 
 ### Einlesen der im Paket enthaltenen .xslx-Datei "inputListe" mit readDaemonXlsx()
-filename <- system.file("extdata", "inputList.xlsx", package = "eatPrep")
-
+# filename <- system.file("extdata", "inputList.xlsx", package = "eatPrep")
+data(inputList)
 
 ### Ergänzen der InputListe um lokale Pfade zu den .sav-Dateien (im realen Anwendungsfall i.d.R. nicht nötig, da die Pfade im ZKDaemon gesetzt werden)
 inputList$savFiles$fullname[1] <- system.file("extdata", "booklet1.sav", package = "eatPrep")
